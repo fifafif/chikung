@@ -8,8 +8,8 @@ require_once dirname(__FILE__) . '/app/core/FController.php';
 
 session_start();
 
-//FDebug::setEnabled(isset($_REQUEST['debug']));
-FDebug::setEnabled(false);
+FDebug::setEnabled(isset($_REQUEST['debug']));
+//FDebug::setEnabled(true);
 
 $controller = FController::getInstance();
 $controller->handleRequest();

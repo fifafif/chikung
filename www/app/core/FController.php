@@ -141,6 +141,8 @@ class FController {
         
         if (!file_exists(dirname(__FILE__) . '/../mvc/controller/' . $this->getControllerFilename())) 
         {
+            FDebug::log("Controller: " . $this->getControllerFilename() . " does not exist!", FDebugChannel::SYSTEM);
+            
             return;
         }
 

@@ -44,7 +44,7 @@ class FDatabase
             $this->_username = $username;
             $this->_password = $password;
             $this->_database = $database;
-
+            
             $this->_db = mysqli_connect($server, $username, $password, $database);
 
             if (!$this->_db)

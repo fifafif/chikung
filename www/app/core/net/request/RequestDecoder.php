@@ -25,17 +25,12 @@ class RequestDecoder
     
     public function decodeRequest($data)
     {
-        //print_r($data);
-        
         $type = (isset($data[self::PARAM_TYPE])) ? $data[self::PARAM_TYPE] : self::TYPE_DEFAULT;
         
         switch ($type)
         {
             case self::TYPE_JSON:
-                
-               // echo "kuku";
-                //echo $data[self::PARAM_DATA_JSON];
-                
+
                 if (!isset($data[self::PARAM_DATA_JSON]))
                 {
                     return null;

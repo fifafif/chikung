@@ -17,6 +17,13 @@ db_username = root
 db_password = 
 root = /
 
+[dev:domain=dev.chikung.cz]
+db_host = wm112.wedos.net
+db_name = d126808_dev
+db_username = w126808_dev
+db_password = Polydocdec1.
+root = /
+
 ; production configuration
 [prod:domain=live.cz]
 db_host = 
