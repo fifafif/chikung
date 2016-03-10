@@ -1,0 +1,39 @@
+#PHP_FLAG output_buffering on
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^localhost/
+RewriteRule (.*) localhost/$1 [R=301,QSA,L]
+
+# =============== FRONT-END ==================
+
+RewriteRule ^uvodni-stranka/*$ /index.php?p=home [R=301,L,QSA]
+RewriteRule ^kontakt/*$ /index.php?p=home&sp=kontakt [L,QSA]
+RewriteRule ^onas/*$ /index.php?p=article&a=onas [L,QSA]
+RewriteRule ^onas/opravneni/*$ /index.php?p=article&a=opravneni [L,QSA]
+RewriteRule ^nase-sluzby/*$ /index.php?p=article&a=nase-sluzby [L,QSA]
+RewriteRule ^nase-sluzby/prevoz-kolejnic/*$ /index.php?p=article&a=prevoz-kolejnic [L,QSA]
+RewriteRule ^nase-sluzby/svarovani-kolejnic/*$ /index.php?p=article&a=svarovani-kolejnic [L,QSA]
+RewriteRule ^nase-sluzby/regenerovani-kolejnic/*$ /index.php?p=article&a=regenerovani-kolejnic [L,QSA]
+RewriteRule ^nase-sluzby/vozovy-park/*$ /index.php?p=article&a=vozovy-park [L,QSA]
+RewriteRule ^nase-sluzby/vymena-kolejnic/*$ /index.php?p=article&a=vymena-kolejnic [L,QSA]
+RewriteRule ^reference/*(.*)$ /index.php?p=reference$1 [L,QSA]
+RewriteRule ^reference-([0-9]*)/*$ /index.php?p=reference&pf=$1 [L,QSA]
+
+RewriteRule ^divka-([0-9]*)/$ /index.php?p=girl&id=$1 [L,QSA]
+RewriteRule ^divka-([0-9]*)-foto-([0-9]*)/$ /index.php?p=girl&id=$1&foto=$2 [L,QSA]
+
+# =============== ADMIN ==================
+
+RewriteRule ^admin/*$ /index.php?vg=admin&p=home [L,QSA]
+RewriteRule ^admin/stranky/*$ /index.php?vg=admin&p=articleEdit [L,QSA]
+RewriteRule ^admin/stranka-([0-9]*)/*$ /index.php?vg=admin&p=articleEdit&sp=show&id=$1 [L,QSA]
+RewriteRule ^admin/stranka-editace-([0-9]*)/*$ /index.php?vg=admin&p=articleEdit&sp=edit&id=$1 [L,QSA]
+
+RewriteRule ^admin/web-editace/*$ /index.php?vg=admin&p=websiteEdit [L,QSA]
+
+RewriteRule ^admin/reference/*$ /index.php?vg=admin&p=referenceEdit [L,QSA]
+RewriteRule ^admin/reference-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=show&id=$1 [L,QSA]
+RewriteRule ^admin/reference-editace-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=edit&id=$1 [L,QSA]
+RewriteRule ^admin/reference-smazat-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=delete&id=$1 [L,QSA]
+RewriteRule ^admin/reference-obnovit-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=undelete&id=$1 [L,QSA]
+RewriteRule ^admin/reference-pridani/*$ /index.php?vg=admin&p=referenceEdit&sp=add [L,QSA]

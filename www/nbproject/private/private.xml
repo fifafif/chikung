@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Projects/90days/www/app/core/FModel.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/net/response/ResponseDataJson.php</file>
+            <file>file:/D:/Projects/90days/www/app/config/Settings.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/FModelObject.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/database/FEntityGen.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/net/response/ResponseResultJson.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/database/FDatabase.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/net/response/ResponseOK.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/net/response/ResponseOKJson.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/net/response/NotAuthorizedResponse.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/FConfigBase.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/FController.php</file>
+            <file>file:/D:/Projects/90days/www/app/config/config.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/net/response/ResponseErrorJson.php</file>
+            <file>file:/D:/Projects/90days/www/app/mvc/model/DayModel.php</file>
+            <file>file:/D:/Projects/90days/www/app/config/Params.php</file>
+            <file>file:/D:/Projects/90days/www/app/core/net/response/ResponseStatusJson.php</file>
+        </group>
+    </open-files>
+</project-private>

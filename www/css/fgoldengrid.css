@@ -1,0 +1,48 @@
+/* 
+    Document   : fgoldengrid
+    Created on : 20.6.2012, 17:18:36
+    Author     : Filip Vesely
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.w1 {width:48px;margin:0 30px 30px 0;float:left;}
+.w2 {width:126px;margin:0 30px 30px 0;float:left;}
+.w3 {width:204px;margin:0 30px 30px 0;float:left;}
+.w4 {width:282px;margin:0 30px 30px 0;float:left;}
+.w5 {width:360px;margin:0 30px 30px 0;float:left;}
+.w6 {width:438px;margin:0 30px 30px 0;float:left;}
+.w7 {width:516px;margin:0 30px 30px 0;float:left;}
+.w8 {width:594px;margin:0 30px 30px 0;float:left;}
+.w9 {width:672px;margin:0 30px 30px 0;float:left;}
+.w10 {width:750px;margin:0 30px 30px 0;float:left;}
+.w11 {width:828px;margin:0 30px 30px 0;float:left;}
+.w12 {width:906px;margin:0 30px 30px 0;float:left;}
+
+.no-margin-r {margin-right:0;}
+
+.row {width:966px;margin:0px 30px 30px;}
+.row-center-nopad {width:966px;margin:0 auto 30px;clear:both;}
+.row-center {width:906px;margin:0 auto 30px;padding:0px 30px;clear:both;}
+.row-inner {width:936px;margin:0;padding:0;clear:both;}
+
+.clear {clear:both;}
+.float-left {float:left;}
+.float-right {float:right;}
+
+.overflow-hidden { overflow: hidden; }
+
+.align-center {text-align:center;}
+.align-left {text-align:left;}
+.align-right {text-align:right;}
+
+i, .italic {font-style:italic;}
+b, .bold {font-weight: bold;}
+
+.smaller {font-size:0.9em;}
+.bigger {font-size:1.1em;}
+
+.margin-b-10 {margin-bottom:10px;}
+.margin-l-24 {margin-left:24px;}
+.margin-t-24 {margin-top:24px;}
+.padding-l-24 {padding-left:24px;}
