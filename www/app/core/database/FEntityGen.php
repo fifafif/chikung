@@ -31,12 +31,24 @@ class FEntityGen
             
             $resTable = $this->db->execute("describe " . $row[0]);
             
+            $body = "<?php\n\nclass " . ucfirst($row[0]) . "Entity extends FModelObject\n{\n";
+            $body .= "    protected \$tableName = '$row[0]';\n";
+            $body .= "    protected \$dataTypes = array(";
+            
             while ($rowTable = mysqli_fetch_assoc($resTable))
             {
-                print_r($rowTable);
+                //print_r($rowTable);
                 //echo "" . $rowTable->Field . "-" .  $rowTable->Type ."\n<br>";
-                $this->generateTableEntity($rowTable);
+                $body .= $this->generateTableEntity($rowTable) . ", ";
             }
+            
+            $body[strlen($body) - 2] = ")";
+            $body[strlen($body) - 1] = ";";
+            $body .= "\n}\n?>";
+            
+            file_put_contents(dirname(__FILE__) . "/../../mvc/model/entities/" . ucfirst($row[0]) . "Entity.php", $body);
+            
+            echo $body . "<br>";
         }
     }
     
@@ -48,9 +60,19 @@ class FEntityGen
             $type = 0;
             
             $bracketPos = strpos($row["Type"], "(");
-            $fieldType = substr($row["Type"], 0, ($bracketPos ? $bracketPos : null));
+            $fieldTypeName = substr($row["Type"], 0, ($bracketPos ? $bracketPos : -1));
+            $fieldType = $this->getColumnType($fieldTypeName);
             
-            echo " :: ".$fieldType . " ::  ";
+            $size = 0;
+            
+            if ($bracketPos > 0)
+            {
+                $size = substr($row["Type"], $bracketPos + 1, strlen($row["Type"]) - ($bracketPos + 2));
+            }
+            
+            return "'" . $row["Field"] . "' => " . $fieldType;
+            
+            //echo " :: $fieldType($size) :: <br> ";
             
             //$field = sprintf("\'%\'"$row);
         }
@@ -64,6 +86,32 @@ class FEntityGen
     {
         $this->connectDB();
         $this->loadSchema();
+    }
+    
+    private function getColumnType($columnType)
+    {
+        switch($columnType)
+        {
+            case 'int':
+            case 'tinyint':
+            case 'bigint':
+                return FQueryParam::INT;
+            
+            case 'varchar':
+            case 'string':
+                return FQueryParam::STRING;
+                
+            case 'datetime':
+            case 'timestamp':
+                return FQueryParam::DATETIME;
+                
+            case 'float':
+            case 'double':
+                return FQueryParam::FLOAT;
+                
+            default:
+                return FQueryParam::INT;
+        }
     }
 }
 

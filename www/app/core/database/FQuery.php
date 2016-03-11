@@ -5,6 +5,7 @@ class FQueryParam
     const INT = 0;
     const FLOAT = 1;
     const STRING = 2;
+    const DATETIME = 3;
 }
 
 /**
