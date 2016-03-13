@@ -57,6 +57,8 @@ class FQuery
     private $type;
     private $isBuilt;
     
+    private $updateColumnCount = 0;
+    
     const TYPE_INSERT = 1;
     
     private function __constructor()
@@ -82,6 +84,7 @@ class FQuery
         
         $this->isBuilt = false;
         $this->type = 0;
+        $this->updateColumnCount = 0;
         
         return $this;
     }
@@ -167,14 +170,15 @@ class FQuery
     
     public function update($tableName)
     {
-        $this->query .= 'UPDATE ' . $tableName . ' ';
+        $this->query .= 'UPDATE ' . $tableName . ' SET ';
         
         return $this;
     }
     
     public function set($arg, $value, $type = 0)
     {
-        $query = 'SET ' . $arg . ' = ' . $this->escapeParam($value, $type) . ' ';
+        $query = ($this->updateColumnCount > 0 ? ', ' : '') . $arg . ' = ' . $this->escapeParam($value, $type) . ' ';
+        ++$this->updateColumnCount;
         
         $this->query .= $query;
         
@@ -252,6 +256,7 @@ class FQuery
                 return (float) $param;
                 
             case FQueryParam::STRING:
+            case FQueryParam::DATETIME:
                 
                 return self::DOUBLE_QUOTE . $this->escapeString($param) . self::DOUBLE_QUOTE;
             

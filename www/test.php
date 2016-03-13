@@ -1,7 +1,47 @@
 <?php
 
+
+class Data
+{
+    public static $schema = array ( 'id' => 1);
+    public static $schema2 = array ( 'id' => array ( 'type' => 1 ));
+    
+    public $values = array();
+    
+    public $id = 5;
+    
+    public function getId()
+    {
+        
+    }
+    
+    public function getValue($name)
+    {
+        
+    }
+    
+    public function getType($key)
+    {
+        return self::$schema[$key];
+    }
+    
+    public function __construct()
+    {
+    }
+    
+    
+}
+
+
+$data = new Data();
+
+$data['id'] = 55;
+
+echo $data->getType($data->id);
+
+
 //phpinfo();
-//exit();
+exit();
 $a = null;
 $b;
 $c = array();

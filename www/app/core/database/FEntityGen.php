@@ -4,6 +4,7 @@
 require_once dirname(__FILE__) . '/FDatabase.php';
 require_once dirname(__FILE__) . '/FQuery.php';
 require_once dirname(__FILE__) . '/../FConfigBase.php';
+require_once dirname(__FILE__) . '/../utils/FDebug.php';
 
 class FEntityGen
 {
@@ -32,14 +33,13 @@ class FEntityGen
             $resTable = $this->db->execute("describe " . $row[0]);
             
             $body = "<?php\n\nclass " . ucfirst($row[0]) . "Entity extends FModelObject\n{\n";
-            $body .= "    protected \$tableName = '$row[0]';\n";
-            $body .= "    protected \$dataTypes = array(";
+            //$body .= "    protected static \$tableName = '$row[0]';\n";
+            $body .= "    public function getTableName() { return '$row[0]'; }\n";
+            $body .= "    protected static \$dataTypes = array(";
             
             while ($rowTable = mysqli_fetch_assoc($resTable))
             {
-                //print_r($rowTable);
-                //echo "" . $rowTable->Field . "-" .  $rowTable->Type ."\n<br>";
-                $body .= $this->generateTableEntity($rowTable) . ", ";
+                $body .= "\n        " . $this->generateTableEntity($rowTable) . ", ";
             }
             
             $body[strlen($body) - 2] = ")";
@@ -54,32 +54,38 @@ class FEntityGen
     
     private function generateTableEntity($row)
     {
-        //foreach ($table as $row)
+        $size = 0;
+
+        $bracketPos = strpos($row["Type"], "(");
+
+
+        if ($bracketPos)
         {
-            $size = 0;
-            $type = 0;
-            
-            $bracketPos = strpos($row["Type"], "(");
             $fieldTypeName = substr($row["Type"], 0, ($bracketPos ? $bracketPos : -1));
-            $fieldType = $this->getColumnType($fieldTypeName);
-            
-            $size = 0;
-            
-            if ($bracketPos > 0)
-            {
-                $size = substr($row["Type"], $bracketPos + 1, strlen($row["Type"]) - ($bracketPos + 2));
-            }
-            
-            return "'" . $row["Field"] . "' => " . $fieldType;
-            
-            //echo " :: $fieldType($size) :: <br> ";
-            
-            //$field = sprintf("\'%\'"$row);
+            $size = substr($row["Type"], $bracketPos + 1, strlen($row["Type"]) - ($bracketPos + 2));
         }
-   
-        
+        else
+        {
+            $fieldTypeName = $row["Type"];
+        }
+
+        $type = $this->getColumnType($fieldTypeName);
+
+//            echo "$fieldTypeName = $type\n<br>";
+
+        $isAutoincrement = $row['Extra'] == "auto_increment" ? 'true' : 'false';
+        $key = (!isset($row["Key"])) ? 0 : ($row["Key"] == 'PRI') ? 2 : 1;
+        $default = 'NULL'; //$row['Default']; // TODO
+        $isNull = $row['Null'] == 'YES' ? 'true' : 'false';
+
+        return "'" . $row["Field"] . "' => array ($type, $isNull, $key, $default, $isAutoincrement)";
+
+        //echo " :: $fieldType($size) :: <br> ";
+
+        //$field = sprintf("\'%\'"$row);
     }
-        // "protected $dataTypes = array('id' => 0, 'name' => 2, 'theme' => 2);
+        
+    protected $dataTypes = array('id' => array(0, 1, 0, 1), 'name' => 2, 'theme' => 2);
     
     
     public function createEntities()

@@ -1,11 +1,13 @@
 <?php
 
+require_once dirname(__FILE__) . '/UserEntity.php';
+
 /**
  * Description of FUser
  *
  * @author XiXao
  */
-class FUserModel extends FModelObject 
+class FUserModel extends UserEntity
 {
     protected $id;
     protected $_isLogged = false;
@@ -65,30 +67,6 @@ class FUserModel extends FModelObject
         }
     }
     
-    public function update()
-    {
-        $query = FQuery::getInstance()->create()
-                ->update('user')
-                ->set('accessToken', $this->data['accessToken'], FQueryParam::STRING)
-                ->where('id =', $this->data['id'], FQueryParam::INT);
-        
-        $result = $this->db->execute($query->getQuery());
-        return $result;
-    }
-    
-    public function save()
-    {
-        $query = FQuery::getInstance()->create()
-                ->insert('user')
-                ->insertValue('username', $this->data['username'], FQueryParam::STRING)
-                ->insertValue('email', $this->data['email'], FQueryParam::STRING)
-                ->insertValue('password', $this->data['password'], FQueryParam::STRING)
-                ->insertValue('accessToken', $this->data['accessToken'], FQueryParam::STRING);
-        
-        $result = $this->db->execute($query->getQuery());
-        return $result;
-    }
-    
     public function loadByUsername($username)
     {
         $query = FQuery::getInstance()->create()
@@ -98,7 +76,7 @@ class FUserModel extends FModelObject
         
         $result = $this->db->execute($query->getQuery());
         
-        $this->parseWithCheckResult($result, 1);
+        $this->parseData($result);
     }
     
     public function loadByEmail($email)
@@ -110,7 +88,7 @@ class FUserModel extends FModelObject
         
         $result = $this->db->execute($query->getQuery());
         
-        $this->parseWithCheckResult($result, 1);
+        $this->parseData($result);
     }
     
     public function logout() 

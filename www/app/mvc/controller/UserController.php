@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/BaseController.php';
-require_once dirname(__FILE__) . '/../model/UserDataModel.php';
+//require_once dirname(__FILE__) . '/../model/UserDataModel.php';
 require_once dirname(__FILE__) . '/../../core/forms/FFormValidation.php';
 /*require_once dirname(__FILE__) . '/../model/DayModel.php';
 require_once dirname(__FILE__) . '/../model/UserDayModel.php';
@@ -73,7 +73,7 @@ class UserController extends BaseController
         $newAccessToken = bin2hex(openssl_random_pseudo_bytes(24));
         $user->updateValue('accessToken', $newAccessToken);
         
-        $resultSave = $user->save();
+        $resultSave = $user->insert();
         if ($resultSave)
         {
             $this->controller->addMessage("User created!");

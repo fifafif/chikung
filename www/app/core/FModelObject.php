@@ -5,20 +5,23 @@
  *
  * @author XiXao
  */
-class FModelObject implements Serializable
+abstract class FModelObject implements Serializable
 {
-
-    protected $db;
-    protected $tableName;
     public $data;
-    protected $model;
+    
+    protected $db;
     protected $resultRowCount = 0;
-    protected $dataTypes;
+    
+    const DESC_TYPE = 0;
+    const DESC_INDEX = 2;
+    const DESC_AUTOINCREMENT = 4;
+    
+    protected static $dataTypes;
+    
 
     public function __construct(FDatabase $database)
     {
         $this->db = $database;
-        $this->model = FModel::getInstance();
     }
 
     public function setDatabase(FDatabase $database)
@@ -31,15 +34,7 @@ class FModelObject implements Serializable
         $this->db = NULL;
     }
 
-    public function setTableName($tableName)
-    {
-        $this->tableName = $tableName;
-    }
-
-    public function getTableName()
-    {
-        return $this->tableName;
-    }
+    public abstract function getTableName();
 
     public function getData()
     {
@@ -57,21 +52,29 @@ class FModelObject implements Serializable
         {
             $this->data = array();
         }
-
-        $this->data[$dataName] = $dataValue;
-    }
-
-    protected function dataLoaded()
-    {
-
-        if (!isset($this->tableName))
+        
+        if (!isset($this->data[0]))
         {
-            return;
+            $this->data[0] = array();
         }
 
-        $this->model->addDataByRef($this->tableName, $this->data);
+        $this->data[0][$dataName] = $dataValue;
     }
-
+    
+    protected function loadFromDB($query)
+    {
+        $res = $this->db->execute($query);
+        
+        if ($res == false)
+        {
+            return false;
+        }
+        
+        $this->parseData($res);
+        
+        return true;
+    }
+    
     public function serialize()
     {
         return serialize(array(
@@ -83,7 +86,6 @@ class FModelObject implements Serializable
     {
         $data = unserialize($data);
         $this->data = $data['data'];
-        $this->model = FModel::getInstance();
         $this->db = FDatabase::getInstance();
     }
 
@@ -100,7 +102,8 @@ class FModelObject implements Serializable
         if ($this->resultRowCount == 0)
         {
             $this->data = null;
-        } else if ($this->resultRowCount > 1 || $forceArray)
+        } 
+        else if ($this->resultRowCount > 1 || $forceArray)
         {
             $this->data = array();
 
@@ -117,31 +120,82 @@ class FModelObject implements Serializable
 
         return $expectedRowCount == -1 || $expectedRowCount == $this->resultRowCount;
     }
+    
+    protected function parseData($res)
+    {
+        $this->data = array();
 
+        $this->resultRowCount = mysqli_num_rows($res);
+
+        while ($row = mysqli_fetch_assoc($res))
+        {
+            $this->data[] = $this->setTypes($row);
+        }
+    }
+    
+    protected function getColumnDescription($column)
+    {
+        if (!isset(static::$dataTypes[$column]))
+        {
+            return false;
+        }
+        
+        return static::$dataTypes[$column];
+    }
+    
     protected function getColumnType($column)
     {
-        return -1;
+        if (!isset(static::$dataTypes[$column]))
+        {
+            return false;
+        }
+        
+        return static::$dataTypes[$column][self::DESC_TYPE];
+    }
+    
+    protected function isAutoincrement($column)
+    {
+        if (!isset(static::$dataTypes[$column]))
+        {
+            return false;
+        }
+        
+        return static::$dataTypes[$column][self::DESC_AUTOINCREMENT];
+    }
+    
+    protected function getPrimaryKeyFieldName()
+    {
+        foreach (static::$dataTypes as $key => $value)
+        {
+            if ($value[self::DESC_INDEX] == 2)
+            {
+                return $key;
+            }
+        }
+        
+        return null;
     }
 
     private function setTypes(&$row)
     {
-        if (!isset($this->dataTypes))
+        if (!isset(static::$dataTypes))
         {
             return $row;
         }
 
         foreach ($row as $key => $value)
         {
-            if (isset($this->dataTypes[$key]))
+            $type = $this->getColumnType($key);
+            if ($type !== false)
             {
-                switch ($this->dataTypes[$key])
+                switch ($type)
                 {
-                    case 0:
+                    case FQueryParam::INT:
 
                         settype($row[$key], 'integer');
                         break;
 
-                    case 1:
+                    case FQueryParam::FLOAT:
 
                         settype($row[$key], 'float');
                         break;
@@ -163,7 +217,97 @@ class FModelObject implements Serializable
     {
         return $this->resultRowCount;
     }
+    
+    public function insert()
+    {
+        foreach ($this->data as $row)
+        {
+            $query = $this->buildInsertQuery($row);
+            $singleRes = $this->db->execute($query);
+            if (!$singleRes)
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public function update()
+    {
+        foreach ($this->data as $row)
+        {
+            $query = $this->buildUpdateQuery($row);
+            $singleRes = $this->db->execute($query);
+            if (!$singleRes)
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public function loadAll()
+    {
+        $query = FQuery::getInstance()->create()
+                ->select('*')
+                ->from($this->getTableName());
+        
+        return $this->loadFromDB($query->getQuery());
+    }
+    
+    private function buildInsertQuery($data)
+    {
+        $query = FQuery::getInstance()->create()
+                ->insert($this->getTableName());
+        
+        foreach ($data as $key => $value)
+        {
+            if ($this->isAutoincrement($key))
+            {
+                continue;
+            }
+            
+            $query->insertValue($key, $value, $this->getColumnType($key));
+        }
+        
+        return $query->getQuery();
+    }
+    
+    private function buildUpdateQuery($data)
+    {
+        print_r($data);
+        
+        $query = FQuery::getInstance()->create()
+                ->update($this->getTableName());
+        
+        foreach ($data as $key => $value)
+        {
+            if ($this->isAutoincrement($key))
+            {
+                continue;
+            }
+            
+            $query->set($key, $value, $this->getColumnType($key));
+        }
+        
+        $primaryKey = $this->getPrimaryKeyFieldName();
+        $query->where("$primaryKey =", $data[$primaryKey], $this->getColumnType($primaryKey));
+        
+        return $query->getQuery();
+    }
 
+    
+    public function single()
+    {
+        if (isset($this->data[0]))
+        {
+            return $this->data[0];
+        }
+        
+        return null;
+    }
 }
 
 ?>
