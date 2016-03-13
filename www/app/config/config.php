@@ -5,7 +5,7 @@
 ; development configuration
 [dev:domain=localhost]
 db_host = localhost
-db_name = 90days
+db_name = chikung
 db_username = root
 db_password = 
 root = /

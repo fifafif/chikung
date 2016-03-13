@@ -2,43 +2,13 @@
 
 require_once dirname(__FILE__) . '/BaseController.php';
 require_once dirname(__FILE__) . '/../model/UserDataModel.php';
-require_once dirname(__FILE__) . '/../model/DayModel.php';
+require_once dirname(__FILE__) . '/../../core/forms/FFormValidation.php';
+/*require_once dirname(__FILE__) . '/../model/DayModel.php';
 require_once dirname(__FILE__) . '/../model/UserDayModel.php';
 require_once dirname(__FILE__) . '/../model/ExerciseModel.php';
-require_once dirname(__FILE__) . '/../model/ExerciseVariationModel.php';
+require_once dirname(__FILE__) . '/../model/ExerciseVariationModel.php';*/
 
-class UserDTO
-{
-    public $id;
-    public $username;
-    public $accessToken;
-}
 
-class NDUserDTO
-{
-    public $progress;
-    public $hasStarted;
-    public $alarmTimes;
-}
-
-class UserDataResponse
-{
-    public $user;
-    public $ndUser;
-    public $progress;
-}
-
-class CreateUserResponse
-{
-    public $user;
-    public $result;
-}
-
-class UpdateUserDataResponse
-{
-    public $progress;
-    public $result;
-}
 
 class UserController extends BaseController
 {
@@ -49,56 +19,129 @@ class UserController extends BaseController
     
     public function createHandler($data = null)
     {
-        $user = FController::getInstance()->getUser();
+        if (!isset($_POST['submit']))
+        {
+            FMessages::getInstance()->addMessage(new FMessage("no data", FMessage::TYPE_ERROR));
+            
+            return new FResponse("nmoway");
+        }
+        
+        $email = filter_input(INPUT_POST, 'email');
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
+        
+        $validation = new FFormValidation();
+        $validation->validate($email, FFormValidation::EMAIL);
+        $validation->validate($username, FFormValidation::REQUIRED);
+        $validation->validate($password, FFormValidation::PASSWORD);
+        
+        if (!$validation->isValid())
+        {
+            $this->controller->addMessage("wrong data", FMessage::TYPE_ERROR);
+            
+            return new FRedirect("");
+        }
+        
+        
+        $user = $this->controller->getUser();
         
         // Check if user with the same email or username exists
         $userCheck = new FUserModel(FDatabase::getInstance());
-        $userCheck->loadByEmail($data['email']);
+        $userCheck->loadByEmail($email);
         
         if ($userCheck->getResultRowCount() > 0)
         {
-            return new ResponseResultJson(2, "email already exists");
+            $this->controller->addMessage("email already exists", FMessage::TYPE_ERROR);
+            
+            return new FRedirect("");
         }
         
-        $userCheck->loadByUsername($data['username']);
+        $userCheck->loadByUsername($username);
         
         if ($userCheck->getResultRowCount() > 0)
         {
-            return new ResponseResultJson(3, "username already exists");
+            $this->controller->addMessage("username already exists", FMessage::TYPE_ERROR);
+            
+            return new FRedirect("");
         }
-        
-        // TODO: Validate email
         
         // Create new user
-        $user->updateValue('username', $data['username']);
-        $passwordHash = sha1($data['password']);
+        $user->updateValue('username', $username);
+        $passwordHash = sha1($password);
         $user->updateValue('password', $passwordHash);
-        $user->updateValue('email', $data['email']);
-        
+        $user->updateValue('email', $email);
         $newAccessToken = bin2hex(openssl_random_pseudo_bytes(24));
-            
         $user->updateValue('accessToken', $newAccessToken);
-        $user->save();
         
+        $resultSave = $user->save();
+        if ($resultSave)
+        {
+            $this->controller->addMessage("User created!");
+        }
         
         // Login user (to get his new Id)
-        $user->login($data['username'], $passwordHash);
+        $resultLogin = $user->login($username, $passwordHash);
+        if ($resultLogin)
+        {
+            $this->controller->addMessage("Logged in!");
+            $this->controller->saveUserToSession();
+        }
         
-        //$userData = new UserDataModel(FDatabase::getInstance());
-        //$userData->updateValue('user_id', $user->data['id']);
-        //$userData->save();
+        $this->assignBase();
         
-        $createUserResponse = new CreateUserResponse();
-        $createUserResponse->user = $this->streamUser($user);
-        $createUserResponse->result = 0;
-        
-    
-        $response = new ResponseDataJson(0, (json_encode($createUserResponse, JSON_FORCE_OBJECT)));
-
-        return $response;
+        return new FRedirect();
     }
     
     public function loginHandler($data)
+    {
+        if (!isset($_POST['submit-login']))
+        {
+            FMessages::getInstance()->addMessage(new FMessage("no data", FMessage::TYPE_ERROR));
+            
+            return new FResponse("nmoway");
+        }
+        
+        $username = filter_input(INPUT_POST, 'username-login');
+        $password = filter_input(INPUT_POST, 'password-login');
+        
+        $validation = new FFormValidation();
+        $validation->validate($username, FFormValidation::REQUIRED);
+        $validation->validate($password, FFormValidation::PASSWORD);
+        
+        if (!$validation->isValid())
+        {
+            $this->controller->addMessage("wrong data", FMessage::TYPE_ERROR);
+            
+            return new FRedirect("");
+        }
+        
+        $user = $this->controller->getUser();
+        $passwordHash = sha1($password);
+        
+        $resultLogin = $user->login($username, $passwordHash);
+        if ($resultLogin)
+        {
+            $this->controller->addMessage("Logged out!");
+            $this->controller->saveUserToSession();
+        }
+        else
+        {
+            $this->controller->addMessage("Wrong login!");
+        }
+        
+        return new FRedirect();
+    }
+    
+    public function logoutHandler($data = null)
+    {
+        $this->controller->deleteUserFromSession();
+        
+        $this->controller->addMessage("Logged in!");
+        
+        return new FRedirect();
+    }
+        
+    function loginToken($data = null)
     {
         FDebug::log("login handler", FDebugChannel::SERVICE);
         
@@ -256,6 +299,39 @@ class UserController extends BaseController
         
         return $userDTO;
     }
+}
+
+class UserDTO
+{
+    public $id;
+    public $username;
+    public $accessToken;
+}
+
+class NDUserDTO
+{
+    public $progress;
+    public $hasStarted;
+    public $alarmTimes;
+}
+
+class UserDataResponse
+{
+    public $user;
+    public $ndUser;
+    public $progress;
+}
+
+class CreateUserResponse
+{
+    public $user;
+    public $result;
+}
+
+class UpdateUserDataResponse
+{
+    public $progress;
+    public $result;
 }
 
 ?>

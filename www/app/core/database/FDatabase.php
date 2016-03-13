@@ -7,7 +7,6 @@
  */
 class FDatabase
 {
-
     private static $_instance;
     private $_server;
     private $_username;
@@ -18,7 +17,7 @@ class FDatabase
 
     private function __construct()
     {
-        $this->_debug = isset($_REQUEST['echo']);
+        $this->_debug = isset($_REQUEST['dbecho']);
     }
 
     public static function getInstance()
@@ -116,6 +115,8 @@ class FDatabase
      */
     public function execute($query)
     {
+        FDebug::log($query, FDebugChannel::DB);
+        
         if ($this->_debug)
         {
             echo "<p style=\"color:red;\">query: $query</p>";

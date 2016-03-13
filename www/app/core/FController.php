@@ -4,7 +4,9 @@ require_once dirname(__FILE__) . '/../config/Params.php';
 require_once dirname(__FILE__) . '/FConfigBase.php';
 
 require_once dirname(__FILE__) . '/net/request/RequestDecoder.php';
+require_once dirname(__FILE__) . '/net/response/IResponseable.php';
 require_once dirname(__FILE__) . '/net/response/FResponse.php';
+require_once dirname(__FILE__) . '/net/response/FRedirect.php';
 
 // TODO: Move somewhere else
 require_once dirname(__FILE__) . '/net/response/NotAuthorizedResponse.php';
@@ -40,6 +42,7 @@ class FController {
     private $user;
     private $_page;
     private $_dirGate;
+    /* @var $_messages FMessages */
     private $_messages;
     private static $instance;
     
@@ -59,8 +62,13 @@ class FController {
 
         $this->connectDB();
 
-        FMessages::checkMessages();
         $this->_messages = FMessages::getInstance();
+        $this->_messages->loadMessages();
+    }
+    
+    public function getMessages()
+    {
+        return $this->_messages;
     }
 
     public static function getInstance() {
@@ -79,6 +87,8 @@ class FController {
 
     public function handleRequest()
     {
+        FDebug::log("=== Begin request ===", FDebugChannel::NET);
+        
         $requestDecoder = new RequestDecoder();
         $requestDecoder->decodeRequest($_REQUEST);
         
@@ -98,6 +108,16 @@ class FController {
         
         $this->login = new FLogin($this);
         $this->login->authorizeUser($this->authData);
+    }
+    
+    public function saveUserToSession()
+    {
+        $this->login->saveUserToSession();
+    }
+    
+    public function deleteUserFromSession()
+    {
+        $this->login->deleteUserFromSession();
     }
 
     public function getDb() {
@@ -158,25 +178,8 @@ class FController {
         // Execute controller with handler function
         $this->response = $controllerClass->$function($this->request->data);
         
-        FDebug::log("Controller executed", FDebugChannel::SYSTEM);
+        FDebug::log("=== End request ===", FDebugChannel::SYSTEM);
     }
-
-    public function displayIndex() {
-
-        header('Content-type: text/html; charset=utf-8');
-
-//        $viewGate = isset($_REQUEST[Params::VIEW_GATE]) ? $_REQUEST[Params::VIEW_GATE] : '';
-        include dirname(__FILE__) . '/../view/' . $this->_dirGate . 'index.php';
-    }
-
-    public function displayPage() {
-
-        if ($this->_page != '') {
-            include dirname(__FILE__) . '/../view/' . $this->getPageViewFilename();
-        }
-    }
-
-
 
     public function setLanguage($language = 'cs_CZ') {
         setlocale(LC_ALL, $language);
@@ -208,6 +211,13 @@ class FController {
     {
         return $this->login;
     }
+    
+    public function addMessage($message, $type = FMessage::TYPE_INFO)
+    {
+        $this->_messages->addMessage(new FMessage($message, $type));
+    }
+    
+    
 
 
 }

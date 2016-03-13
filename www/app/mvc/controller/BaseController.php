@@ -12,7 +12,10 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
  */
 class BaseController
 {
+    /* @var $controller FController  */
+    protected $controller;
     protected $smarty;
+    protected $template;
     
     public function __construct()
     {
@@ -27,13 +30,39 @@ class BaseController
 
         //** un-comment the following line to show the debug console
         $this->smarty->debugging = true;
-
         
+        $this->controller = FController::getInstance();
+    }
+    
+    protected function assignBase()
+    {
+        $user = $this->controller->getUser();
+        $this->assignByRef('user', $user);
+        
+        $this->assign('root', FConfigBase::$config['root']);
+        
+        $messages = &$this->controller->getMessages();
+        $this->assignByRef('messages', $messages->getMessages());
     }
     
     protected function fetchViewOutput()
     {
         return $this->smarty->fetch('index.tpl');
+    }
+    
+    protected function setTemplate($template)
+    {
+        $this->smarty->assign('template', $template);
+    }
+    
+    protected function assign($key, $value)
+    {
+        $this->smarty->assign($key, $value);
+    }
+    
+    protected function assignByRef($key, &$value)
+    {
+        $this->smarty->assignByRef($key, $value);
     }
 
 }

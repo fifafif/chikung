@@ -33,7 +33,14 @@ class FFormValidation {
      * @param string $message
      * @return <type>
      */
-    public function validate($data, $type) {
+    public function validate($data, $type) 
+    {
+        if (!isset($data))
+        {
+            $this->valid = false;
+            return false;
+        }
+        
         switch($type) {
             case self::REQUIRED:
                 $reg = ".+";

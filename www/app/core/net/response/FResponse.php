@@ -1,6 +1,6 @@
 <?php
 
-class FResponse
+class FResponse implements IResponseable
 {
     const TYPE_HTML = 0;
     const TYPE_TEXT = 1;

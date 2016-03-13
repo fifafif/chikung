@@ -1,8 +1,10 @@
 <?php
 
-class UserDataModel extends FModelObject
+require_once dirname(__FILE__) . '/entities/UserDataEntity.php';
+
+class UserDataModel extends UserDataEntity
 {
-    protected $dataTypes = array('id' => 0, 'user_id' => 0, 'exerciseCompleted' => 2, 'alarmTimes' => 2, 'hasStarted' => 1);
+    //protected $dataTypes = array('id' => 0, 'user_id' => 0, 'exerciseCompleted' => 2, 'alarmTimes' => 2, 'hasStarted' => 1);
     
     private $exerciseCompletedMap;
     

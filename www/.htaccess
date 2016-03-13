@@ -6,7 +6,11 @@ RewriteRule (.*) localhost/$1 [R=301,QSA,L]
 
 # =============== FRONT-END ==================
 
-RewriteRule ^/*$ /index.php?c=Test&h=test [L,QSA]
+# RewriteRule ^/*$ /index.php?c=Test&h=test [L,QSA]
+RewriteRule ^/*$ /index.php?c=Default&h=default [L,QSA]
+
+RewriteRule ^/*uzivatel/registrace/*$ /index.php?c=User&h=create [L,QSA]
+RewriteRule ^/*uzivatel/login/*$ /index.php?c=User&h=login [L,QSA]
 
 RewriteRule ^uvodni-stranka/*$ /index.php?p=home [R=301,L,QSA]
 RewriteRule ^kontakt/*$ /index.php?p=home&sp=kontakt [L,QSA]

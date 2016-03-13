@@ -73,6 +73,7 @@ class FUserModel extends FModelObject
                 ->where('id =', $this->data['id'], FQueryParam::INT);
         
         $result = $this->db->execute($query->getQuery());
+        return $result;
     }
     
     public function save()
@@ -85,6 +86,7 @@ class FUserModel extends FModelObject
                 ->insertValue('accessToken', $this->data['accessToken'], FQueryParam::STRING);
         
         $result = $this->db->execute($query->getQuery());
+        return $result;
     }
     
     public function loadByUsername($username)
@@ -111,23 +113,28 @@ class FUserModel extends FModelObject
         $this->parseWithCheckResult($result, 1);
     }
     
-    public function logout() {
+    public function logout() 
+    {
         $this->_isLogged = false;
     }
     
-    public function isLogged() {
+    public function isLogged() 
+    {
         return $this->_isLogged;
     }
     
-    public function serialize() {
-        return serialize(array(
+    public function serialize() 
+    {
+        return serialize(array
+        (
             'data' => $this->data,
             'tableName' => $this->tableName,
             'isLogged' => $this->_isLogged
         ));
     }
     
-    public function unserialize($data) {
+    public function unserialize($data) 
+    {
         $data = unserialize($data);        
         $this->data = $data['data'];
         $this->_isLogged = $data['isLogged'];

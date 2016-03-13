@@ -6,7 +6,27 @@ class FQueryParam
     const FLOAT = 1;
     const STRING = 2;
     const DATETIME = 3;
+    
+    public static function getDefaultValue($param)
+    {
+        switch ($param)
+        {
+            case self::INT:
+            case self::FLOAT:
+                return '0';
+                
+            case self::STRING:
+                return '';
+                
+            case self::DATETIME:
+                return '';
+                
+            default:
+                return 'NULL';
+        }
+    }
 }
+
 
 /**
  * Description of FQuery

@@ -5,44 +5,41 @@
  *
  * @author XiXao
  */
-class FMessages {
+class FMessages
+{
 
     private static $_instance;
-    
     private $_messages;
 
-    private function __construct() {
+    private function __construct()
+    {
         $this->_messages = array();
     }
-    
-    public static function getInstance() {
 
-        if (!isset(self::$_instance)) {
+    public static function getInstance()
+    {
+        if (!isset(self::$_instance))
+        {
             self::$_instance = new FMessages();
         }
         return self::$_instance;
     }
 
-    /**
-     * Nahrani Messages ze session.
-     */
-    public static function checkMessages() {
-        
-//        unset ($_SESSION['messages']);
-        
-        if (!isset($_SESSION['messages'])) {
-            self::getInstance();
-            $_SESSION['messages'] = serialize(self::$_instance);
-        } else {
-            self::$_instance = unserialize($_SESSION['messages']);
-            FModel::getInstance()->addData('messages', self::$_instance->getMessages());
-//            $smarty->assign('messages', $messages->getMessages());
-            self::$_instance->clearMessages();
+    public function loadMessages()
+    {
+        if (isset($_SESSION['messages']))
+        {
+            $this->_messages = unserialize($_SESSION['messages']);
+            
+            FModel::getInstance()->addData('messages', $this->_messages);
+
+            unset($_SESSION['messages']);
         }
     }
-    
-    public function saveMessages() {
-        $_SESSION['messages'] = serialize(self::$_instance);
+
+    public function saveMessages()
+    {
+        $_SESSION['messages'] = serialize($this->_messages);
     }
 
     /**
@@ -50,21 +47,27 @@ class FMessages {
      *
      * @param string $m
      */
-    public function addMessage($m) {
+    public function addMessage(FMessage $m)
+    {
         $this->_messages[] = $m;
         $this->saveMessages();
     }
 
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->_messages;
     }
 
-    /**
-     * Funkce smaze vsechny zpravy.
-     */
-    public function clearMessages() {
+    public function hasMessages()
+    {
+        return count($this->_messages) > 0;
+    }
+
+    public function clearMessages()
+    {
         $this->_messages = array();
-        $this->saveMessages();
+        
+        unset($_SESSION['messages']);
     }
 
 }

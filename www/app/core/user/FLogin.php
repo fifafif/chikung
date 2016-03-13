@@ -20,17 +20,21 @@ class FLogin {
     
     public function authorizeUser(AuthData $authData)
     {
-        $this->_user = new FUserModel($this->_controller->getDb());
-        $this->_controller->setUser($this->_user);
+        if (!$this->checkUserSession())
+        {
+            $this->_user = new FUserModel($this->_controller->getDb());
+            
+            if (isset($authData->authToken))
+            {  
+                $this->_user->authorizeByToken($authData->authToken);
+            }
+            else if (isset($authData->sessionId))
+            {
+                // TODO: Implement
+            }
+        }
         
-        if (isset($authData->authToken))
-        {
-            $this->_user->authorizeByToken($authData->authToken);
-        }
-        else if (isset($authData->sessionId))
-        {
-            // TODO: Implement
-        }
+        $this->_controller->setUser($this->_user);
     }
 
     public function createUser() 
@@ -47,17 +51,20 @@ class FLogin {
      */
     public function loginCheck() {
 
-        if (isset($_POST['login'])) {
+        if (isset($_POST['login'])) 
+        {
 
             /**
              * Zjisteni, je-li uzivatel s heslem a jmenem v databazi.
              */
             $success = $this->_user->login($_POST['user'], $_POST['password']);
 
-            if ($success) {
+            if ($success) 
+            {
                 $this->saveUserToSession();
                 unset($_POST['login']);
-            } else {
+            } 
+            else {
                 FMessages::getInstance()->addMessage(new FMessage('Access denided!', FMessage::TYPE_ERROR));
             }
 
@@ -68,23 +75,16 @@ class FLogin {
     /**
      * nahrani uzivatele ze session.
      */
-    public function checkUserSession() {
-        
-//        unset($_SESSION['user']);
-
-        if (!isset($_SESSION['user'])) {
-            $this->_user = new FUserModel();
-            $this->_user->setTableName('user');
-            $this->_user->setDatabase($this->_controller->getDb());
-            
-            $this->saveUserToSession();
-
-        } else {
-            
+    public function checkUserSession() 
+    {
+        if (isset($_SESSION['user'])) 
+        {
             $this->loadUserFromSession();
-        }
+            
+            return true;
+        } 
         
-        $this->_controller->setUser($this->_user);
+        return false;   
     }
 
     /**
@@ -106,11 +106,18 @@ class FLogin {
         }
     }
     
-    public function saveUserToSession() {
+    public function saveUserToSession() 
+    {
         $_SESSION['user'] = serialize($this->_user);
     }
     
-    public function loadUserFromSession() {
+    public function deleteUserFromSession()
+    {
+        unset($_SESSION['user']);
+    }
+    
+    public function loadUserFromSession() 
+    {
         $this->_user = unserialize($_SESSION['user']);
     }
     
