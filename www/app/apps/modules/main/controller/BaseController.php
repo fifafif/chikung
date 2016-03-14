@@ -2,7 +2,7 @@
 
 //require_once dirname(__FILE__) . '/../config/Settings.php';
 
-define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../plugins/smarty/');
+define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../../../plugins/smarty/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
 /**
@@ -40,6 +40,8 @@ class BaseController
         $this->assignByRef('user', $user);
         
         $this->assign('root', FConfigBase::$config['root']);
+        
+        $this->assign('title', "Chikung");
         
         $messages = &$this->controller->getMessages();
         $this->assignByRef('messages', $messages->getMessages());

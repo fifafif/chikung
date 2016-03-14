@@ -9,6 +9,7 @@ class RequestDecoder
     const PARAM_CONTROLLER = "c";
     const PARAM_REQUEST = "r";
     const PARAM_HANDLER = "h";
+    const PARAM_MODULE = "m";
     const PARAM_DATA = "data";
     const PARAM_DATA_JSON = "dj";
     const PARAM_CRYPTO = "dc";
@@ -88,9 +89,24 @@ class RequestDecoder
         $request->controller = $params[self::PARAM_CONTROLLER];
         $request->handler = $params[self::PARAM_HANDLER];
         
+        if (isset($params[self::PARAM_MODULE]))
+        {
+            $request->module = $params[self::PARAM_MODULE];
+        }
+        
         $request->data = isset($params[self::PARAM_DATA]) ? $params[self::PARAM_DATA] : null;
         
         return $request;
+    }
+    
+    private function escapeParameter($parameter)
+    {
+        if (get_magic_quotes_gpc())  
+        {
+            return stripslashes($parameter);
+        }
+        
+        return $parameter;
     }
     
     private function parseAuth($params)

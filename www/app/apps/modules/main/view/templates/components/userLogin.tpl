@@ -1,18 +1,5 @@
-<head>
-    
-</head>
-<body>
-    <h1>Chikung</h1>
-    
-    {* {$messages|@print_r} *}
-    {if $messages|@count gt 0}
-    <ul>
-    {foreach from=$messages item=message}
-        <li>{$message->getMessage()}</li>
-    {/foreach}
-    </ul>
-    {/if}
-    
+<div>User login:</div>
+
     {if $user->isLogged()}
     
     hello {$user->data['username']}
@@ -38,8 +25,3 @@
     </form>
     
     {/if}
-    
-</body>
-
-hello koko {$name}
-

@@ -36,12 +36,12 @@ require_once dirname(__FILE__) . '/user/FUser.php';
  *
  * @author XiXao
  */
-class FController {
+class FController 
+{
 
     private $db;
     private $user;
-    private $_page;
-    private $_dirGate;
+    private $moduleName;
     /* @var $_messages FMessages */
     private $_messages;
     private static $instance;
@@ -51,9 +51,9 @@ class FController {
     private $authData;
     private $login;
     
-    
     const DEFAULT_CONTROLLER = 'Default';
     const REQUEST_FN_SUFFIX = 'Handler';
+    
 
     private function __construct() {
 
@@ -147,7 +147,25 @@ class FController {
 
     public function getControllerFilename() {
 
-        return $this->_dirGate . $this->request->controller . 'Controller.php';
+        return $this->moduleName . $this->request->controller . 'Controller.php';
+    }
+    
+    public function getModulePath()
+    {
+        $path = dirname(__FILE__) . '/../apps/modules/';
+        
+        if (isset($this->request->module))
+        {
+            $path .= $this->request->module;
+        }
+        else
+        {
+            $path .= "main";
+        }
+        
+        $path .= "/controller/";
+        
+        return $path;
     }
 
     private function executeRequestController() 
@@ -157,16 +175,18 @@ class FController {
             return;
         }
         
-        FDebug::log("Loading controller: " . $this->request->controller . " -> " . $this->request->handler, FDebugChannel::SYSTEM);
+        $controllerFilePath = $this->getModulePath() . $this->getControllerFilename();
         
-        if (!file_exists(dirname(__FILE__) . '/../mvc/controller/' . $this->getControllerFilename())) 
+        FDebug::log("Loading controller: " . $this->request->controller . " -> " . $this->request->handler . " at path: $controllerFilePath", FDebugChannel::SYSTEM);
+        
+        if (!file_exists($controllerFilePath)) 
         {
-            FDebug::log("Controller: " . $this->getControllerFilename() . " does not exist!", FDebugChannel::SYSTEM);
+            FDebug::log("Controller: " . $controllerFilePath . " does not exist!", FDebugChannel::SYSTEM);
             
             return;
         }
 
-        include dirname(__FILE__) . '/../mvc/controller/' . $this->getControllerFilename();
+        include $controllerFilePath;
 
         $className = $this->getControllerName() . 'Controller';
 

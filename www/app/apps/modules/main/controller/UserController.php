@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__) . '/BaseController.php';
 //require_once dirname(__FILE__) . '/../model/UserDataModel.php';
-require_once dirname(__FILE__) . '/../../core/forms/FFormValidation.php';
+require_once dirname(__FILE__) . '/../../../../core/forms/FFormValidation.php';
 /*require_once dirname(__FILE__) . '/../model/DayModel.php';
 require_once dirname(__FILE__) . '/../model/UserDayModel.php';
 require_once dirname(__FILE__) . '/../model/ExerciseModel.php';
@@ -31,19 +31,27 @@ class UserController extends BaseController
         $password = filter_input(INPUT_POST, 'password');
         
         $validation = new FFormValidation();
-        $validation->validate($email, FFormValidation::EMAIL);
-        $validation->validate($username, FFormValidation::REQUIRED);
-        $validation->validate($password, FFormValidation::PASSWORD);
+        
+        if (!$validation->validate($email, FFormValidation::EMAIL))
+        {
+            $this->controller->addMessage("wrong email", FMessage::TYPE_ERROR);
+        }
+        
+        if (!$validation->validate($username, FFormValidation::REQUIRED))
+        {
+            $this->controller->addMessage("username required", FMessage::TYPE_ERROR);
+        }
+        
+        if (!$validation->validate($password, FFormValidation::PASSWORD))
+        {
+            $this->controller->addMessage("password at least 3 characters", FMessage::TYPE_ERROR);
+        }
         
         if (!$validation->isValid())
         {
-            $this->controller->addMessage("wrong data", FMessage::TYPE_ERROR);
-            
             return new FRedirect("");
         }
         
-        
-        $user = $this->controller->getUser();
         
         // Check if user with the same email or username exists
         $userCheck = new FUserModel(FDatabase::getInstance());
@@ -66,6 +74,8 @@ class UserController extends BaseController
         }
         
         // Create new user
+        $user = $this->controller->getUser();
+        
         $user->updateValue('username', $username);
         $passwordHash = sha1($password);
         $user->updateValue('password', $passwordHash);
@@ -121,7 +131,7 @@ class UserController extends BaseController
         $resultLogin = $user->login($username, $passwordHash);
         if ($resultLogin)
         {
-            $this->controller->addMessage("Logged out!");
+            $this->controller->addMessage("Logged in!");
             $this->controller->saveUserToSession();
         }
         else
@@ -134,9 +144,11 @@ class UserController extends BaseController
     
     public function logoutHandler($data = null)
     {
+        $this->controller->getUser()->logout();
+        
         $this->controller->deleteUserFromSession();
         
-        $this->controller->addMessage("Logged in!");
+        $this->controller->addMessage("Logged out!");
         
         return new FRedirect();
     }

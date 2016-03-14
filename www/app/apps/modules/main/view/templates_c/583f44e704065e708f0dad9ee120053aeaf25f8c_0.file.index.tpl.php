@@ -1,32 +1,37 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-03-13 00:56:52
+/* Smarty version 3.1.29, created on 2016-03-14 00:43:45
   from "D:\Projects\chikung\www\app\mvc\view\templates\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_56e4acc41113e1_91229787',
+  'unifunc' => 'content_56e5fb31183829_34755967',
   'file_dependency' => 
   array (
     '583f44e704065e708f0dad9ee120053aeaf25f8c' => 
     array (
       0 => 'D:\\Projects\\chikung\\www\\app\\mvc\\view\\templates\\index.tpl',
-      1 => 1457827009,
+      1 => 1457912622,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_56e4acc41113e1_91229787 ($_smarty_tpl) {
+function content_56e5fb31183829_34755967 ($_smarty_tpl) {
 ?>
 <head>
-    
+    <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+</title>
 </head>
 <body>
     <h1>Chikung</h1>
     
+    <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:components/userLogin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+
     
     <?php if (count($_smarty_tpl->tpl_vars['messages']->value) > 0) {?>
     <ul>
@@ -54,40 +59,11 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
     </ul>
     <?php }?>
     
-    <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
-    
-    hello <?php echo $_smarty_tpl->tpl_vars['user']->value->data['username'];?>
+    <div>
+        <?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, ((string)$_smarty_tpl->tpl_vars['template']->value).".tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+?>
 
+    </div>
     
-    <br>
-    <a href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
-index.php?c=User&h=logout">logout</a>
-    
-    <?php } else { ?>
-    
-    <h2>Registrace</h2>
-    <form action="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
-uzivatel/registrace" method="post">
-        Username: <input type="text" name="username"><br>
-        E-mail: <input type="text" name="email"><br>
-        Password: <input type="password" name="password"><br>
-        <input type="submit" name="submit">
-    </form>
-    
-    <h2>Login</h2>
-    <form action="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
-uzivatel/login" method="post">
-        Username: <input type="text" name="username-login"><br>
-        Password: <input type="password" name="password-login"><br>
-        <input type="submit" name="submit-login">
-    </form>
-    
-    <?php }?>
-    
-</body>
-
-hello koko <?php echo $_smarty_tpl->tpl_vars['name']->value;?>
-
-
-<?php }
+</body><?php }
 }

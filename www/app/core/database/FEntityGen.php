@@ -9,6 +9,12 @@ require_once dirname(__FILE__) . '/../utils/FDebug.php';
 class FEntityGen
 {
     private $db;
+    private $outputFolder;
+    
+    public function __construct($outputFolder = "")
+    {
+        $this->outputFolder = $outputFolder;
+    }
 
     public function connectDB()
     {
@@ -46,7 +52,10 @@ class FEntityGen
             $body[strlen($body) - 1] = ";";
             $body .= "\n}\n?>";
             
-            file_put_contents(dirname(__FILE__) . "/../../mvc/model/entities/" . ucfirst($row[0]) . "Entity.php", $body);
+            if (isset($this->outputFolder))
+            {
+                file_put_contents($this->outputFolder . ucfirst($row[0]) . "Entity.php", $body);
+            }
             
             echo $body . "<br>";
         }
@@ -121,8 +130,13 @@ class FEntityGen
     }
 }
 
+parse_str(implode('&', array_slice($argv, 1)), $_GET);
 
-$entityGen = new FEntityGen();
+//echo $_GET["a"];
+
+$outputFolder = dirname(__FILE__) . "/../../apps/modules/main/model/entities/";
+
+$entityGen = new FEntityGen($outputFolder);
 $entityGen->createEntities();
 
 ?>
