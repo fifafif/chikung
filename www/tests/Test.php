@@ -30,7 +30,7 @@ class Test
     }
     
     
-    public function runTest()
+    public function testUser()
     {
         require_once dirname(__FILE__) . '/../app/core/user/FUser.php';
         
@@ -44,9 +44,29 @@ class Test
         $user->update();
     }
     
+    public function testExcercise()
+    {
+        require_once dirname(__FILE__) . '/../app/apps/modules/main/model/ExerciseModel.php';
+        
+        $exercise = new ExerciseModel($this->db);        
+        $exercise->setValue(ExerciseModel::FIELD_NAME, "exericise 1");
+        $exercise->setValue(ExerciseModel::FIELD_DESCRIPTION, "desc 1");
+        $exercise->setValue(ExerciseModel::FIELD_VIDEO, "vid 1");
+        $exercise->setValue(ExerciseModel::FIELD_IMAGES, "img 1");
+        $exercise->insert();
+        
+        
+        $exercise->loadByPrimaryKey(10);
+        
+        print_r($exercise->data);
+        
+        //$exercise->setValue('email', 'new-email');email
+        //$exercise->update();
+    }
+    
 }
 
 $test = new Test();
-$test->runTest();
+$test->testExcercise();
 
 ?>

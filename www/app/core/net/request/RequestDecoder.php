@@ -10,6 +10,7 @@ class RequestDecoder
     const PARAM_REQUEST = "r";
     const PARAM_HANDLER = "h";
     const PARAM_MODULE = "m";
+    const PARAM_GATE = "g";
     const PARAM_DATA = "data";
     const PARAM_DATA_JSON = "dj";
     const PARAM_CRYPTO = "dc";
@@ -92,6 +93,11 @@ class RequestDecoder
         if (isset($params[self::PARAM_MODULE]))
         {
             $request->module = $params[self::PARAM_MODULE];
+        }
+        
+        if (isset($params[self::PARAM_GATE]))
+        {
+            $request->gate = $params[self::PARAM_GATE];
         }
         
         $request->data = isset($params[self::PARAM_DATA]) ? $params[self::PARAM_DATA] : null;

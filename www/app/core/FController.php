@@ -42,6 +42,7 @@ class FController
     private $db;
     private $user;
     private $moduleName;
+    private $gate;
     /* @var $_messages FMessages */
     private $_messages;
     private static $instance;
@@ -150,7 +151,7 @@ class FController
         return $this->moduleName . $this->request->controller . 'Controller.php';
     }
     
-    public function getModulePath()
+    public function getControllerPath()
     {
         $path = dirname(__FILE__) . '/../apps/modules/';
         
@@ -165,6 +166,11 @@ class FController
         
         $path .= "/controller/";
         
+        if (isset($this->request->gate))
+        {
+            $path .= $this->request->gate . "/";
+        }
+        
         return $path;
     }
 
@@ -175,7 +181,7 @@ class FController
             return;
         }
         
-        $controllerFilePath = $this->getModulePath() . $this->getControllerFilename();
+        $controllerFilePath = $this->getControllerPath() . $this->getControllerFilename();
         
         FDebug::log("Loading controller: " . $this->request->controller . " -> " . $this->request->handler . " at path: $controllerFilePath", FDebugChannel::SYSTEM);
         
@@ -206,17 +212,19 @@ class FController
     }
 
     
-    public function requireUserLogged($pageToRedirect = '/index.php', $messageWhenFail = null) 
+    public function requireUserLogged() 
     {
-        if (!isset($this->user) || !$this->user->isLogged()) {
-
-            if ($messageWhenFail) 
-            {
-                $this->_messages->addMessage($messageWhenFail);
-            }
-            
-            $this->redirect($pageToRedirect);
+        return isset($this->user) && $this->user->single() !== false && $this->user->isLogged();
+    }
+    
+    public function requireAdmin()
+    {
+        if (!$this->requireUserLogged())
+        {
+            return false;
         }
+        
+        return $this->user->isAdmin();
     }
     
     public function returnResponse()
@@ -236,7 +244,6 @@ class FController
     {
         $this->_messages->addMessage(new FMessage($message, $type));
     }
-    
     
 
 

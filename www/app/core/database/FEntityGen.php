@@ -37,19 +37,29 @@ class FEntityGen
             //echo "" . $row[0];
             
             $resTable = $this->db->execute("describe " . $row[0]);
-            
+                        
             $body = "<?php\n\nclass " . ucfirst($row[0]) . "Entity extends FModelObject\n{\n";
             //$body .= "    protected static \$tableName = '$row[0]';\n";
-            $body .= "    public function getTableName() { return '$row[0]'; }\n";
-            $body .= "    protected static \$dataTypes = array(";
+            
+            
+            
+            $fieldsString = "";
+            $entityArrayString = "    protected static \$dataTypes = array(";
             
             while ($rowTable = mysqli_fetch_assoc($resTable))
             {
-                $body .= "\n        " . $this->generateTableEntity($rowTable) . ", ";
+                $entity = $this->generateTableEntity($rowTable);
+                
+                $entityArrayString .= "\n        " . $this->buildTypeDefinitio($rowTable, $entity) . ", ";
+                $fieldsString .= "    const FIELD_" . strtoupper($rowTable['Field']) . " = '". $rowTable['Field'] . "';\n";
             }
             
-            $body[strlen($body) - 2] = ")";
-            $body[strlen($body) - 1] = ";";
+            $entityArrayString[strlen($entityArrayString) - 2] = ")";
+            $entityArrayString[strlen($entityArrayString) - 1] = ";";
+            
+            $body .= $fieldsString . "\n" . $entityArrayString . "\n\n";
+            $body .= "    public function getTableName() { return '$row[0]'; }\n";
+            
             $body .= "\n}\n?>";
             
             if (isset($this->outputFolder))
@@ -61,13 +71,16 @@ class FEntityGen
         }
     }
     
+    private function buildTypeDefinitio(&$row, &$array)
+    {
+        return "'" . $row["Field"] . "' => array ($array[0], $array[1], $array[2], $array[3], $array[4])";
+    }
+    
     private function generateTableEntity($row)
     {
         $size = 0;
 
         $bracketPos = strpos($row["Type"], "(");
-
-
         if ($bracketPos)
         {
             $fieldTypeName = substr($row["Type"], 0, ($bracketPos ? $bracketPos : -1));
@@ -79,19 +92,16 @@ class FEntityGen
         }
 
         $type = $this->getColumnType($fieldTypeName);
-
 //            echo "$fieldTypeName = $type\n<br>";
 
         $isAutoincrement = $row['Extra'] == "auto_increment" ? 'true' : 'false';
         $key = (!isset($row["Key"])) ? 0 : ($row["Key"] == 'PRI') ? 2 : 1;
         $default = 'NULL'; //$row['Default']; // TODO
         $isNull = $row['Null'] == 'YES' ? 'true' : 'false';
-
-        return "'" . $row["Field"] . "' => array ($type, $isNull, $key, $default, $isAutoincrement)";
-
-        //echo " :: $fieldType($size) :: <br> ";
-
-        //$field = sprintf("\'%\'"$row);
+        
+        $array = array($type, $isNull, $key, $default, $isAutoincrement);
+        
+        return $array;
     }
         
     protected $dataTypes = array('id' => array(0, 1, 0, 1), 'name' => 2, 'theme' => 2);
@@ -113,7 +123,7 @@ class FEntityGen
                 return FQueryParam::INT;
             
             case 'varchar':
-            case 'string':
+            case 'text':
                 return FQueryParam::STRING;
                 
             case 'datetime':

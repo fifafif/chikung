@@ -40,6 +40,13 @@ abstract class FModelObject implements Serializable
     {
         return $this->data;
     }
+    
+    public function getValue($key)
+    {
+        $a = &$this->single();
+        
+        return $a[$key];
+    }
 
     public function setValue($key, $value)
     {
@@ -53,6 +60,8 @@ abstract class FModelObject implements Serializable
             $this->data = array();
         }
         
+//        $data = &$this->single();
+               
         if (!isset($this->data[0]))
         {
             $this->data[0] = array();
@@ -297,16 +306,27 @@ abstract class FModelObject implements Serializable
         
         return $query->getQuery();
     }
+    
+    public function loadByPrimaryKey($id)
+    {
+        $primaryKeyName = $this->getPrimaryKeyFieldName();
+        
+        $query = FQuery::getInstance()->create()
+                ->select('*')
+                ->from($this->getTableName())
+                ->where("$primaryKeyName = ", $id, $this->getColumnType($primaryKeyName));
+        
+        return $this->loadFromDB($query->getQuery());
+    }
 
     
     public function single()
     {
-        if (isset($this->data[0]))
+        if (!is_array($this->data))
         {
-            return $this->data[0];
+            return false;
         }
-        
-        return null;
+        return reset($this->data);
     }
 }
 

@@ -15,8 +15,6 @@ class FUserModel extends UserEntity
     function __construct(FDatabase $database)
     {
         parent::__construct($database);
-        
-        $this->tableName = 'user';
     }
 
     
@@ -25,7 +23,7 @@ class FUserModel extends UserEntity
         // FDebug::log("token: " . $token, FDebugChannel::NET);
         
         $query = FQuery::getInstance()
-                ->create()->select('u.id, u.username, u.accessToken')->from('user', 'u')->where('accessToken =', $token, FQueryParam::STRING)->limit(1);
+                ->create()->select('*')->from('user', 'u')->where('accessToken =', $token, FQueryParam::STRING)->limit(1);
         $res = $this->db->execute($query->getQuery());
         
         if (mysqli_num_rows($res) != 1)
@@ -45,7 +43,7 @@ class FUserModel extends UserEntity
     public function login($username, $password) 
     {
         $query = FQuery::getInstance()->create()
-                ->select('u.id, u.username, u.email, u.accessToken')
+                ->select('*')
                 ->from('user', 'u')
                 ->where('username =', $username, FQueryParam::STRING)
                 ->whereAnd('password =', $password, FQueryParam::STRING)
@@ -53,10 +51,11 @@ class FUserModel extends UserEntity
         
         $result = $this->db->execute($query->getQuery());
         
+        $this->parseData($result);
+        
         if (mysqli_num_rows($result) == 1) 
         {
-            $this->data = mysqli_fetch_assoc($result);
-            $this->id = $this->data['id'];
+            $this->id = $this->data[0]['id'];
             $this->_isLogged = true;
             
             return true;    
@@ -126,7 +125,15 @@ class FUserModel extends UserEntity
         return $this->id;
     }
 
-
+    public function hasRole($role)
+    {
+        return $this->getValue(UserEntity::FIELD_ROLE) === $role;
+    }
+    
+    public function isAdmin()
+    {
+        return $this->hasRole(1);
+    }
 
 }
 

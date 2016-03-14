@@ -38,6 +38,7 @@ class BaseController
     {
         $user = $this->controller->getUser();
         $this->assignByRef('user', $user);
+        $this->assignByRef('userdata', $user->single());
         
         $this->assign('root', FConfigBase::$config['root']);
         
@@ -50,6 +51,11 @@ class BaseController
     protected function fetchViewOutput()
     {
         return $this->smarty->fetch('index.tpl');
+    }
+    
+    protected function fetchView($template)
+    {
+        return $this->smarty->fetch($template);
     }
     
     protected function setTemplate($template)
