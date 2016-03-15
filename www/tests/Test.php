@@ -48,17 +48,32 @@ class Test
     {
         require_once dirname(__FILE__) . '/../app/apps/modules/main/model/ExerciseModel.php';
         
-        $exercise = new ExerciseModel($this->db);        
-        $exercise->setValue(ExerciseModel::FIELD_NAME, "exericise 1");
-        $exercise->setValue(ExerciseModel::FIELD_DESCRIPTION, "desc 1");
-        $exercise->setValue(ExerciseModel::FIELD_VIDEO, "vid 1");
-        $exercise->setValue(ExerciseModel::FIELD_IMAGES, "img 1");
-        $exercise->insert();
+        $exercise = new ExerciseModel();
+        $exercise->name = "name 1";
+        $exercise->images = "img 1";
+        $exercise->video = "video 1";
+        $exercise->description = "description 1";
+        
+        $exercises = ExerciseModel::loadAll();
+        $first = reset($exercises);
+        
+        $exeUpdate = current(ExerciseModel::loadByPrimaryKey($first->id));
+        print_r($exeUpdate);
+        
+        $exeUpdate->name = "kuku";
+        
+        print_r($exeUpdate);
+        
+        $exeUpdate->update();
+        
+        //print_r($exercises);
+        
+        //$exercise->insert();
         
         
-        $exercise->loadByPrimaryKey(10);
+        //$exercise->loadByPrimaryKey(10);
         
-        print_r($exercise->data);
+        print_r($exercise);
         
         //$exercise->setValue('email', 'new-email');email
         //$exercise->update();

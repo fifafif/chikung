@@ -23,7 +23,7 @@ class UserController extends BaseController
         {
             FMessages::getInstance()->addMessage(new FMessage("no data", FMessage::TYPE_ERROR));
             
-            return new FResponse("nmoway");
+            return new FResponse("no data, no way");
         }
         
         $email = filter_input(INPUT_POST, 'email');
@@ -52,21 +52,20 @@ class UserController extends BaseController
             return new FRedirect("");
         }
         
-        
         // Check if user with the same email or username exists
-        $userCheck = new FUserModel(FDatabase::getInstance());
-        $userCheck->loadByEmail($email);
+//        $userCheck = new FUserModel(FDatabase::getInstance());
+        $userCheck = FUserModel::loadByEmail($email);
         
-        if ($userCheck->getResultRowCount() > 0)
+        if (count($userCheck))
         {
             $this->controller->addMessage("email already exists", FMessage::TYPE_ERROR);
             
             return new FRedirect("");
         }
         
-        $userCheck->loadByUsername($username);
+        $userCheck = FUserModel::loadByUsername($username);
         
-        if ($userCheck->getResultRowCount() > 0)
+        if (count($userCheck))
         {
             $this->controller->addMessage("username already exists", FMessage::TYPE_ERROR);
             
@@ -76,12 +75,14 @@ class UserController extends BaseController
         // Create new user
         $user = $this->controller->getUser();
         
-        $user->updateValue('username', $username);
         $passwordHash = sha1($password);
-        $user->updateValue('password', $passwordHash);
-        $user->updateValue('email', $email);
         $newAccessToken = bin2hex(openssl_random_pseudo_bytes(24));
-        $user->updateValue('accessToken', $newAccessToken);
+        
+        $user->username = $username;
+        $user->email = $email;        
+        $user->password = $passwordHash;
+        $user->accessToken = $newAccessToken;
+        $user->createDate = FDateTools::getCurrentMysqlDatetime();
         
         $resultSave = $user->insert();
         if ($resultSave)
@@ -90,9 +91,10 @@ class UserController extends BaseController
         }
         
         // Login user (to get his new Id)
-        $resultLogin = $user->login($username, $passwordHash);
-        if ($resultLogin)
+        $user = FUserModel::login($username, $passwordHash);
+        if ($user !== false)
         {
+            $this->controller->setUser($user);
             $this->controller->addMessage("Logged in!");
             $this->controller->saveUserToSession();
         }
@@ -125,12 +127,15 @@ class UserController extends BaseController
             return new FRedirect("");
         }
         
-        $user = $this->controller->getUser();
         $passwordHash = sha1($password);
         
-        $resultLogin = $user->login($username, $passwordHash);
-        if ($resultLogin)
+        $user = FUserModel::login($username, $passwordHash);
+        
+        print_r($user);
+        
+        if ($user !== false)
         {
+            $this->controller->setUser($user);
             $this->controller->addMessage("Logged in!");
             $this->controller->saveUserToSession();
         }

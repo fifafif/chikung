@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-03-14 07:37:43
+/* Smarty version 3.1.29, created on 2016-03-15 06:54:54
   from "D:\Projects\chikung\www\app\apps\modules\main\view\templates\components\userLogin.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_56e65c37190911_71346703',
+  'unifunc' => 'content_56e7a3ae77dd50_96721635',
   'file_dependency' => 
   array (
     'a99a5c26bd41f9eb215da21d3f204ffc75065b26' => 
     array (
       0 => 'D:\\Projects\\chikung\\www\\app\\apps\\modules\\main\\view\\templates\\components\\userLogin.tpl',
-      1 => 1457937461,
+      1 => 1458021291,
       2 => 'file',
     ),
   ),
@@ -19,13 +19,13 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_56e65c37190911_71346703 ($_smarty_tpl) {
+function content_56e7a3ae77dd50_96721635 ($_smarty_tpl) {
 ?>
 <div>User login:</div>
 
     <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
     
-    hello <?php echo $_smarty_tpl->tpl_vars['userdata']->value['username'];?>
+    hello <?php echo $_smarty_tpl->tpl_vars['user']->value->username;?>
 
     
     <br>

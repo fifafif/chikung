@@ -1,144 +1,116 @@
 <?php
 
+class EntitySchema
+{
+    const DESC_TYPE = 0;
+    const DESC_INDEX = 2;
+    const DESC_AUTOINCREMENT = 4;
+}
+
+class FDAO
+{
+    
+}
+
+
 /**
  * Description of FModel
  *
  * @author XiXao
  */
-abstract class FModelObject implements Serializable
+abstract class FModelObject// implements Serializable
 {
-    public $data;
-    
-    protected $db;
-    protected $resultRowCount = 0;
-    
-    const DESC_TYPE = 0;
-    const DESC_INDEX = 2;
-    const DESC_AUTOINCREMENT = 4;
-    
     protected static $dataTypes;
+    public static $tableName;
     
+    //public abstract function getTableName();
 
-    public function __construct(FDatabase $database)
-    {
-        $this->db = $database;
-    }
-
-    public function setDatabase(FDatabase $database)
-    {
-        $this->db = $database;
-    }
-
-    public function unsetDatabase()
-    {
-        $this->db = NULL;
-    }
-
-    public abstract function getTableName();
-
-    public function getData()
-    {
-        return $this->data;
-    }
-    
+    /**
+     * @deprecated user OOP
+     */
     public function getValue($key)
     {
-        $a = &$this->single();
-        
-        return $a[$key];
+        return $this->$key;
     }
 
+    /**
+     *  @deprecated user object oriented approach
+     */
     public function setValue($key, $value)
     {
         $this->updateValue($key, $value);
     }
 
+    /**
+     *  @deprecated user object oriented approach
+     */
     public function updateValue($dataName, $dataValue)
     {
-        if (!isset($this->data))
-        {
-            $this->data = array();
-        }
-        
-//        $data = &$this->single();
-               
-        if (!isset($this->data[0]))
-        {
-            $this->data[0] = array();
-        }
-
-        $this->data[0][$dataName] = $dataValue;
+        $this->$dataName = $dataValue;
     }
     
-    protected function loadFromDB($query)
+    public static function loadFromDB($query)
     {
-        $res = $this->db->execute($query);
+        $database = FDatabase::getInstance();
+        $res = $database->execute($query);
         
         if ($res == false)
         {
             return false;
         }
         
-        $this->parseData($res);
+        $objects = &self::parseDataIntoObjects($res);
         
-        return true;
+        return $objects;
     }
     
-    public function serialize()
+    protected static function parseDataIntoObjects($res)
     {
-        return serialize(array(
-            'data' => $this->data
-        ));
-    }
-
-    public function unserialize($data)
-    {
-        $data = unserialize($data);
-        $this->data = $data['data'];
-        $this->db = FDatabase::getInstance();
-    }
-
-    protected function parseWithCheckResult($res, $expectedRowCount = -1, $forceArray = false)
-    {
-        unset($this->data);
-
-        $this->resultRowCount = mysqli_num_rows($res);
-
-        //$fields = mysqli_fetch_fields($res);
-        //print_r($fields);
-        //$this->getColumnType("type");
-
-        if ($this->resultRowCount == 0)
-        {
-            $this->data = null;
-        } 
-        else if ($this->resultRowCount > 1 || $forceArray)
-        {
-            $this->data = array();
-
-            while ($row = mysqli_fetch_assoc($res))
-            {
-                $this->data[] = $this->setTypes($row);
-//                $this->data[] = $row;
-            }
-        } else // rowCount = 1
-        {
-            $this->data = $this->setTypes(mysqli_fetch_assoc($res));
-        }
-
-
-        return $expectedRowCount == -1 || $expectedRowCount == $this->resultRowCount;
-    }
-    
-    protected function parseData($res)
-    {
-        $this->data = array();
-
-        $this->resultRowCount = mysqli_num_rows($res);
-
+        $objects = array();
+        
         while ($row = mysqli_fetch_assoc($res))
         {
-            $this->data[] = $this->setTypes($row);
+            $object = new static();
+            self::assignDataWithTypeSet($object, $row);
+            $objects[] = $object;
+        }
+        
+        return $objects;
+    }
+
+    private static function assignDataWithTypeSet(&$object, &$row)
+    {
+        if (!isset(static::$dataTypes))
+        {
+            return $row;
+        }
+
+        foreach ($row as $key => $value)
+        {
+            $type = self::getColumnType($key);
+            if ($type !== false)
+            {
+                switch ($type)
+                {
+                    case FQueryParam::INT:
+
+                        settype($value, 'integer');
+                        break;
+
+                    case FQueryParam::FLOAT:
+
+                        settype($value, 'float');
+                        break;
+
+                    default:
+                        // String
+
+                        settype($value, 'string');
+                        break;
+                }
+            }
+            
+            $object->$key = $value;
         }
     }
     
@@ -152,31 +124,31 @@ abstract class FModelObject implements Serializable
         return static::$dataTypes[$column];
     }
     
-    protected function getColumnType($column)
+    protected static function getColumnType($column)
     {
         if (!isset(static::$dataTypes[$column]))
         {
             return false;
         }
         
-        return static::$dataTypes[$column][self::DESC_TYPE];
+        return static::$dataTypes[$column][EntitySchema::DESC_TYPE];
     }
     
-    protected function isAutoincrement($column)
+    protected static function isAutoincrement($column)
     {
         if (!isset(static::$dataTypes[$column]))
         {
             return false;
         }
         
-        return static::$dataTypes[$column][self::DESC_AUTOINCREMENT];
+        return static::$dataTypes[$column][EntitySchema::DESC_AUTOINCREMENT];
     }
     
-    protected function getPrimaryKeyFieldName()
+    protected static function getPrimaryKeyFieldName()
     {
         foreach (static::$dataTypes as $key => $value)
         {
-            if ($value[self::DESC_INDEX] == 2)
+            if ($value[EntitySchema::DESC_INDEX] == 2)
             {
                 return $key;
             }
@@ -185,58 +157,25 @@ abstract class FModelObject implements Serializable
         return null;
     }
 
-    private function setTypes(&$row)
-    {
-        if (!isset(static::$dataTypes))
-        {
-            return $row;
-        }
-
-        foreach ($row as $key => $value)
-        {
-            $type = $this->getColumnType($key);
-            if ($type !== false)
-            {
-                switch ($type)
-                {
-                    case FQueryParam::INT:
-
-                        settype($row[$key], 'integer');
-                        break;
-
-                    case FQueryParam::FLOAT:
-
-                        settype($row[$key], 'float');
-                        break;
-
-                    default:
-                        // String
-
-                        settype($row[$key], 'string');
-                        break;
-                }
-//                settype($row[$column], $this->dataTypes[$column]);
-            }
-        }
-
-        return $row;
-    }
-
-    public function getResultRowCount()
-    {
-        return $this->resultRowCount;
-    }
-    
     public function insert()
     {
-        foreach ($this->data as $row)
+        $query = FQuery::getInstance()->create()
+                ->insert(static::$tableName);
+        
+        foreach (static::$dataTypes as $key => $value)
         {
-            $query = $this->buildInsertQuery($row);
-            $singleRes = $this->db->execute($query);
-            if (!$singleRes)
+            if (self::isAutoincrement($key))
             {
-                return false;
+                continue;
             }
+
+            $query->insertValue($key, $this->$key, $this->getColumnType($key));
+        }
+        
+        $singleRes = FDatabase::getInstance()->execute($query->getQuery());
+        if (!$singleRes)
+        {
+            return false;
         }
         
         return true;
@@ -244,89 +183,55 @@ abstract class FModelObject implements Serializable
     
     public function update()
     {
-        foreach ($this->data as $row)
+        $query = FQuery::getInstance()->create()
+                    ->update(static::$tableName);
+        
+        foreach (static::$dataTypes as $key => $value)
         {
-            $query = $this->buildUpdateQuery($row);
-            $singleRes = $this->db->execute($query);
-            if (!$singleRes)
+            if (self::isAutoincrement($key))
             {
-                return false;
+                continue;
             }
+            
+            $query->set($key, $this->$key, self::getColumnType($key));
+        }
+        
+        $primaryKey = $this->getPrimaryKeyFieldName();
+        $query->where("$primaryKey =", $this->$primaryKey, self::getColumnType($primaryKey));
+        
+        $singleRes = FDatabase::getInstance()->execute($query->getQuery());
+        if (!$singleRes)
+        {
+            return false;
         }
         
         return true;
     }
     
-    public function loadAll()
+    public static function loadAll()
     {
         $query = FQuery::getInstance()->create()
                 ->select('*')
-                ->from($this->getTableName());
+                ->from(static::$tableName);
         
-        return $this->loadFromDB($query->getQuery());
+        return self::loadFromDB($query->getQuery());
     }
     
-    private function buildInsertQuery($data)
+    public static function loadByPrimaryKey($id)
     {
-        $query = FQuery::getInstance()->create()
-                ->insert($this->getTableName());
-        
-        foreach ($data as $key => $value)
-        {
-            if ($this->isAutoincrement($key))
-            {
-                continue;
-            }
-            
-            $query->insertValue($key, $value, $this->getColumnType($key));
-        }
-        
-        return $query->getQuery();
-    }
-    
-    private function buildUpdateQuery($data)
-    {
-        print_r($data);
-        
-        $query = FQuery::getInstance()->create()
-                ->update($this->getTableName());
-        
-        foreach ($data as $key => $value)
-        {
-            if ($this->isAutoincrement($key))
-            {
-                continue;
-            }
-            
-            $query->set($key, $value, $this->getColumnType($key));
-        }
-        
-        $primaryKey = $this->getPrimaryKeyFieldName();
-        $query->where("$primaryKey =", $data[$primaryKey], $this->getColumnType($primaryKey));
-        
-        return $query->getQuery();
-    }
-    
-    public function loadByPrimaryKey($id)
-    {
-        $primaryKeyName = $this->getPrimaryKeyFieldName();
+        $primaryKeyName = self::getPrimaryKeyFieldName();
         
         $query = FQuery::getInstance()->create()
                 ->select('*')
-                ->from($this->getTableName())
-                ->where("$primaryKeyName = ", $id, $this->getColumnType($primaryKeyName));
+                ->from(static::$tableName)
+                ->where("$primaryKeyName = ", $id, self::getColumnType($primaryKeyName));
         
-        return $this->loadFromDB($query->getQuery());
+        return self::loadFromDB($query->getQuery());
     }
-
     
-    public function single()
+    public static function first()
     {
-        if (!is_array($this->data))
-        {
-            return false;
-        }
-        return reset($this->data);
+        
     }
 }
 

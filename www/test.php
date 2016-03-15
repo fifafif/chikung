@@ -33,11 +33,14 @@ class Data
 }
 
 
+$variable = 'id';
 $data = new Data();
 
-$data['id'] = 55;
+$data->$variable = 55;
 
-echo $data->getType($data->id);
+echo $data->$variable;
+
+//echo $data->getType($data->id);
 
 
 //phpinfo();

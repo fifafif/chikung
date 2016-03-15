@@ -9,7 +9,7 @@ class AdminController extends BaseController
     {
         if (!$this->controller->requireAdmin())
         {
-            return new FResponse("need admin!");
+            //return new FResponse("need admin!");
         }
     
         $this->assignBase();

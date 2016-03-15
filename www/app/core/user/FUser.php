@@ -9,14 +9,8 @@ require_once dirname(__FILE__) . '/UserEntity.php';
  */
 class FUserModel extends UserEntity
 {
-    protected $id;
     protected $_isLogged = false;
     
-    function __construct(FDatabase $database)
-    {
-        parent::__construct($database);
-    }
-
     
     public function authorizeByToken($token)
     {
@@ -24,6 +18,7 @@ class FUserModel extends UserEntity
         
         $query = FQuery::getInstance()
                 ->create()->select('*')->from('user', 'u')->where('accessToken =', $token, FQueryParam::STRING)->limit(1);
+        
         $res = $this->db->execute($query->getQuery());
         
         if (mysqli_num_rows($res) != 1)
@@ -40,7 +35,7 @@ class FUserModel extends UserEntity
         return true;
     }
 
-    public function login($username, $password) 
+    public static function login($username, $password) 
     {
         $query = FQuery::getInstance()->create()
                 ->select('*')
@@ -49,45 +44,29 @@ class FUserModel extends UserEntity
                 ->whereAnd('password =', $password, FQueryParam::STRING)
                 ->limit(1);
         
-        $result = $this->db->execute($query->getQuery());
+        $users = self::loadFromDB($query->getQuery());
         
-        $this->parseData($result);
-        
-        if (mysqli_num_rows($result) == 1) 
-        {
-            $this->id = $this->data[0]['id'];
-            $this->_isLogged = true;
-            
-            return true;    
-        } 
-        else 
-        {
-            return false;
-        }
+        return reset($users);
     }
     
-    public function loadByUsername($username)
+    public static function loadByUsername($username)
     {
         $query = FQuery::getInstance()->create()
                 ->select('*')
                 ->from('user')
                 ->where('username =', $username, FQueryParam::STRING);
         
-        $result = $this->db->execute($query->getQuery());
-        
-        $this->parseData($result);
+        return self::loadFromDB($query->getQuery());
     }
     
-    public function loadByEmail($email)
+    public static function loadByEmail($email)
     {
         $query = FQuery::getInstance()->create()
                 ->select('*')
                 ->from('user')
                 ->where('email =', $email, FQueryParam::STRING);
         
-        $result = $this->db->execute($query->getQuery());
-        
-        $this->parseData($result);
+        return self::loadFromDB($query->getQuery());
     }
     
     public function logout() 
@@ -97,27 +76,7 @@ class FUserModel extends UserEntity
     
     public function isLogged() 
     {
-        return $this->_isLogged;
-    }
-    
-    public function serialize() 
-    {
-        return serialize(array
-        (
-            'data' => $this->data,
-            'tableName' => $this->tableName,
-            'isLogged' => $this->_isLogged
-        ));
-    }
-    
-    public function unserialize($data) 
-    {
-        $data = unserialize($data);        
-        $this->data = $data['data'];
-        $this->_isLogged = $data['isLogged'];
-        $this->tableName = $data['tableName'];
-        $this->model = FModel::getInstance();
-        $this->db = FDatabase::getInstance();        
+        return isset($this->id);
     }
     
     public function getId()     
@@ -127,7 +86,7 @@ class FUserModel extends UserEntity
 
     public function hasRole($role)
     {
-        return $this->getValue(UserEntity::FIELD_ROLE) === $role;
+        return $this->role === $role;
     }
     
     public function isAdmin()

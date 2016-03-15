@@ -2,7 +2,7 @@
 
     {if $user->isLogged()}
     
-    hello {$userdata['username']}
+    hello {$user->username}
     
     <br>
     <a href="{$root}index.php?c=User&h=logout">logout</a>

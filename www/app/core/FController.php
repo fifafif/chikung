@@ -214,7 +214,7 @@ class FController
     
     public function requireUserLogged() 
     {
-        return isset($this->user) && $this->user->single() !== false && $this->user->isLogged();
+        return isset($this->user) && $this->user->isLogged();
     }
     
     public function requireAdmin()

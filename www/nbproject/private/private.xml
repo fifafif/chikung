@@ -5,14 +5,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Projects/chikung/www/app/core/FModelObject.php</file>
-            <file>file:/D:/Projects/chikung/www/app/mvc/model/entities/SettingsEntity.php</file>
-            <file>file:/D:/Projects/chikung/www/app/mvc/model/entities/UserDayEntity.php</file>
-            <file>file:/D:/Projects/chikung/www/app/mvc/model/entities/ExerciseEntity.php</file>
-            <file>file:/D:/Projects/chikung/www/app/mvc/model/entities/DayEntity.php</file>
-            <file>file:/D:/Projects/chikung/www/app/mvc/model/ExerciseModel.php</file>
-            <file>file:/D:/Projects/chikung/www/app/core/database/FEntityGen.php</file>
-            <file>file:/D:/Projects/chikung/www/app/mvc/model/ExerciseVariationModel.php</file>
-            <file>file:/D:/Projects/chikung/www/app/mvc/model/entities/ExerciseVariationEntity.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/FController.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/user/FLogin.php</file>
+            <file>file:/D:/Projects/chikung/www/app/apps/modules/main/controller/UserController.php</file>
+            <file>file:/D:/Projects/chikung/www/app/apps/modules/main/view/templates/components/userLogin.tpl</file>
+            <file>file:/D:/Projects/chikung/www/app/core/user/FUser.php</file>
+            <file>file:/D:/Projects/chikung/www/app/apps/modules/main/controller/admin/AdminController.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/utils/FDateTools.php</file>
         </group>
     </open-files>
 </project-private>

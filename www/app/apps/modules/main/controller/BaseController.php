@@ -38,7 +38,6 @@ class BaseController
     {
         $user = $this->controller->getUser();
         $this->assignByRef('user', $user);
-        $this->assignByRef('userdata', $user->single());
         
         $this->assign('root', FConfigBase::$config['root']);
         

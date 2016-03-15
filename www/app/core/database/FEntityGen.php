@@ -51,14 +51,16 @@ class FEntityGen
                 $entity = $this->generateTableEntity($rowTable);
                 
                 $entityArrayString .= "\n        " . $this->buildTypeDefinitio($rowTable, $entity) . ", ";
-                $fieldsString .= "    const FIELD_" . strtoupper($rowTable['Field']) . " = '". $rowTable['Field'] . "';\n";
+                //$fieldsString .= "    const FIELD_" . strtoupper($rowTable['Field']) . " = '". $rowTable['Field'] . "';\n";
+                $fieldsString .= "    public \$" . $rowTable['Field'] . ";\n";
             }
             
             $entityArrayString[strlen($entityArrayString) - 2] = ")";
             $entityArrayString[strlen($entityArrayString) - 1] = ";";
             
             $body .= $fieldsString . "\n" . $entityArrayString . "\n\n";
-            $body .= "    public function getTableName() { return '$row[0]'; }\n";
+//            $body .= "    public function getTableName() { return '$row[0]'; }\n";
+            $body .= "    public static \$tableName = '$row[0]';\n";
             
             $body .= "\n}\n?>";
             
