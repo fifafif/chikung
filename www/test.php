@@ -1,5 +1,47 @@
 <?php
 
+class DataContext
+{
+    private $database;
+    
+    
+    public function load($modelClass)
+    {
+        echo $modelClass;
+        echo $modelClass::$id;
+    }
+    
+    public function e(User $u)
+    {
+        echo $u::$id;
+    }
+}
+
+class User
+{
+    public static $id = 'id';
+}
+
+class B extends User
+{
+    public static $id = 'id2';
+}
+
+$b = new B();
+echo $b::$id;
+
+
+$d = new DataContext();
+$d->e($b);
+
+//$d->load(User::class);
+        
+        
+        
+
+
+exit();
+
 
 class Data
 {

@@ -9,15 +9,9 @@ class AdminController extends BaseController
     {
         if (!$this->controller->requireAdmin())
         {
-            //return new FResponse("need admin!");
+            return new FResponse("need admin!");
         }
-    
-        $this->assignBase();
         
-        $this->setTemplate('default');
-        
-        $output = $this->fetchView('admin/index.tpl');
-        
-        return new FResponse($output);
+        return $this->fetchViewToResponse('admin/index.tpl', 'default');
     }
 }

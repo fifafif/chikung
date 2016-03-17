@@ -2,7 +2,6 @@
 
 require_once dirname(__FILE__) . '/BaseController.php';
 //require_once dirname(__FILE__) . '/../model/UserDataModel.php';
-require_once dirname(__FILE__) . '/../../../../core/forms/FFormValidation.php';
 /*require_once dirname(__FILE__) . '/../model/DayModel.php';
 require_once dirname(__FILE__) . '/../model/UserDayModel.php';
 require_once dirname(__FILE__) . '/../model/ExerciseModel.php';
@@ -99,8 +98,6 @@ class UserController extends BaseController
             $this->controller->saveUserToSession();
         }
         
-        $this->assignBase();
-        
         return new FRedirect();
     }
     
@@ -130,8 +127,6 @@ class UserController extends BaseController
         $passwordHash = sha1($password);
         
         $user = FUserModel::login($username, $passwordHash);
-        
-        print_r($user);
         
         if ($user !== false)
         {

@@ -116,11 +116,11 @@ class FQuery
     
     public function from($tableName, $alias = null)
     {
-        $query = self::QFROM . self::SPACE . $tableName . self::SPACE;
+        $query = self::QFROM . self::SPACE . $this->escapeString($tableName) . self::SPACE;
         
         if ($alias != null)
         {
-            $query .= self::QAS . self::SPACE . $alias . self::SPACE;
+            $query .= self::QAS . self::SPACE . $this->escapeString($alias) . self::SPACE;
         }
         
         $this->query .= $query;
@@ -170,7 +170,7 @@ class FQuery
     
     public function update($tableName)
     {
-        $this->query .= 'UPDATE ' . $tableName . ' SET ';
+        $this->query .= 'UPDATE ' . $this->escapeString($tableName) . ' SET ';
         
         return $this;
     }
@@ -196,7 +196,7 @@ class FQuery
     
     public function insert($tableName)
     {
-        $this->query .= 'INSERT INTO ' . $tableName . ' ';
+        $this->query .= 'INSERT INTO ' . $this->escapeString($tableName) . ' ';
         
         $this->type = self::TYPE_INSERT;
         

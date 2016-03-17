@@ -7,11 +7,6 @@ class EntitySchema
     const DESC_AUTOINCREMENT = 4;
 }
 
-class FDAO
-{
-    
-}
-
 
 /**
  * Description of FModel
@@ -22,6 +17,11 @@ abstract class FModelObject// implements Serializable
 {
     protected static $dataTypes;
     public static $tableName;
+    
+    public static function getDataTypes()
+    {
+        return static::$dataTypes;
+    }
     
     //public abstract function getTableName();
 
@@ -114,7 +114,7 @@ abstract class FModelObject// implements Serializable
         }
     }
     
-    protected function getColumnDescription($column)
+    public function getColumnDescription($column)
     {
         if (!isset(static::$dataTypes[$column]))
         {
@@ -124,7 +124,7 @@ abstract class FModelObject// implements Serializable
         return static::$dataTypes[$column];
     }
     
-    protected static function getColumnType($column)
+    public static function getColumnType($column)
     {
         if (!isset(static::$dataTypes[$column]))
         {
@@ -134,7 +134,7 @@ abstract class FModelObject// implements Serializable
         return static::$dataTypes[$column][EntitySchema::DESC_TYPE];
     }
     
-    protected static function isAutoincrement($column)
+    public static function isAutoincrement($column)
     {
         if (!isset(static::$dataTypes[$column]))
         {
@@ -144,7 +144,7 @@ abstract class FModelObject// implements Serializable
         return static::$dataTypes[$column][EntitySchema::DESC_AUTOINCREMENT];
     }
     
-    protected static function getPrimaryKeyFieldName()
+    public static function getPrimaryKeyFieldName()
     {
         foreach (static::$dataTypes as $key => $value)
         {
@@ -225,6 +225,16 @@ abstract class FModelObject// implements Serializable
                 ->select('*')
                 ->from(static::$tableName)
                 ->where("$primaryKeyName = ", $id, self::getColumnType($primaryKeyName));
+        
+        return self::loadFromDB($query->getQuery());
+    }
+    
+    public static function loadByKey($key, $value)
+    {
+        $query = FQuery::getInstance()->create()
+                ->select('*')
+                ->from(static::$tableName)
+                ->where("$key = ", $value, self::getColumnType($key));
         
         return self::loadFromDB($query->getQuery());
     }

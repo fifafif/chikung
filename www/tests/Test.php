@@ -79,9 +79,37 @@ class Test
         //$exercise->update();
     }
     
+    public function testExcercise2()
+    {
+        require_once dirname(__FILE__) . '/../app/apps/modules/main/model/ExerciseModel.php';
+        require_once dirname(__FILE__) . '/../app/core/database/DataContext.php';
+        
+        $dataContext = new DataContext($this->db);
+        
+        $exercise = new ExerciseModel();
+        $exercise->name = "name 1";
+        $exercise->images = "img 1";
+        $exercise->video = "video 1";
+        $exercise->description = "description 1";
+        
+        $dataContext->insert($exercise);
+        
+        $result = $dataContext->loadAll(ExerciseModel::class);
+        $first = $result->first();
+        
+        $id = $first->id;
+        $first->name = "name 1222";
+        $dataContext->update($first);
+        
+        $changed = $dataContext->loadByPrimaryKey(ExerciseModel::class, $id)->first();
+        //$exeUpdate = current(ExerciseModel::loadByPrimaryKey($first->id));
+        print_r($changed);
+
+    }
+    
 }
 
 $test = new Test();
-$test->testExcercise();
+$test->testExcercise2();
 
 ?>

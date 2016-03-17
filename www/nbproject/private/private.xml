@@ -6,12 +6,14 @@
         <group>
             <file>file:/D:/Projects/chikung/www/app/core/FModelObject.php</file>
             <file>file:/D:/Projects/chikung/www/app/core/FController.php</file>
-            <file>file:/D:/Projects/chikung/www/app/core/user/FLogin.php</file>
-            <file>file:/D:/Projects/chikung/www/app/apps/modules/main/controller/UserController.php</file>
-            <file>file:/D:/Projects/chikung/www/app/apps/modules/main/view/templates/components/userLogin.tpl</file>
+            <file>file:/D:/Projects/chikung/www/app/core/database/DataContext.php</file>
+            <file>file:/D:/Projects/chikung/www/tests/Test.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/FModel.php</file>
             <file>file:/D:/Projects/chikung/www/app/core/user/FUser.php</file>
-            <file>file:/D:/Projects/chikung/www/app/apps/modules/main/controller/admin/AdminController.php</file>
-            <file>file:/D:/Projects/chikung/www/app/core/utils/FDateTools.php</file>
+            <file>file:/D:/Projects/chikung/www/app/apps/modules/main/model/entities/ExerciseEntity.php</file>
+            <file>file:/D:/Projects/chikung/www/test.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/messages/FMessages.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/database/FQuery.php</file>
         </group>
     </open-files>
 </project-private>

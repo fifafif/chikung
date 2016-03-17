@@ -2,6 +2,8 @@
 
 class ExerciseEntity extends FModelObject
 {
+    const KEY_ID = 'id';
+    
     public $id;
     public $name;
     public $description;

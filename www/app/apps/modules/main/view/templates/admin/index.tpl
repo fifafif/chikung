@@ -15,7 +15,9 @@
     {/if}
     
     <div>
-        {include file="$template.tpl"}
+        {include file="admin/$template.tpl"}
     </div>
+    
+    <a href="{$root}admin/cviceni">Cviceni</a>
     
 </body>

@@ -2,6 +2,8 @@
 
 //require_once dirname(__FILE__) . '/../config/Settings.php';
 
+require_once dirname(__FILE__) . '/../../../../core/forms/FFormValidation.php';
+
 define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../../../plugins/smarty/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
@@ -54,7 +56,7 @@ class BaseController
     
     protected function fetchView($template)
     {
-        return $this->smarty->fetch($template);
+        return $this->smarty->fetch($template . ".tpl");
     }
     
     protected function setTemplate($template)
@@ -70,6 +72,14 @@ class BaseController
     protected function assignByRef($key, &$value)
     {
         $this->smarty->assignByRef($key, $value);
+    }
+    
+    protected function fetchViewToResponse($view, $template)
+    {
+        $this->assignBase();
+        $this->setTemplate($template);        
+                
+        return new FResponse($this->fetchView($view));
     }
 
 }
