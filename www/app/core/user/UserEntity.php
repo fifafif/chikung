@@ -2,6 +2,11 @@
 
 class UserEntity extends FModelObject
 {
+    const INDEX_id = 'id';
+    const INDEX_email = 'email';
+    const INDEX_username = 'username';
+    const INDEX_accessToken = 'accessToken';
+
     public $id;
     public $username;
     public $email;
@@ -19,6 +24,7 @@ class UserEntity extends FModelObject
         'createDate' => array (3, false, 1, NULL, false), 
         'role' => array (0, false, 1, NULL, false));
 
+    public static function getTableName() { return self::$tableName; }
     public static $tableName = 'user';
 
 }

@@ -50,6 +50,8 @@ class RequestDecoder
             
             default:
                 
+                // POST or GET
+                
                 $this->decodeFromParams($data);
                 
                 break;
@@ -68,6 +70,7 @@ class RequestDecoder
         }
         
         $this->request = $this->parseRequest($data[self::PARAM_REQUEST]);
+        //$this->parseRequestDataJson($this->request, $data[self::PARAM_REQUEST]);
         $this->requestAuth = $this->parseAuth($data);
     }
     
@@ -76,6 +79,21 @@ class RequestDecoder
         $this->request = $this->parseRequest($data);
         $this->requestAuth = $this->parseAuth($data);
     }
+    
+    /* TODO: Create Request object from POST and GET
+    private function parseRequestDataJson(FRequest $request, $params)
+    {
+        $request->data = isset($params[self::PARAM_DATA]) ? $params[self::PARAM_DATA] : null;
+    }
+    
+    
+    private function parseRequestData(FRequest $request, $params)
+    {
+        foreach ($params as $key => $value)
+        {
+            $request->data
+        }
+    }*/
     
     private function parseRequest($params)
     {

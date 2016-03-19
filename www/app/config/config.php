@@ -2,6 +2,23 @@
 
 ; ini (in php file) for app configuration
 
+; ========================================================
+;  MODULES 
+; ========================================================
+
+[module:name=main]
+tables = exercise
+path = main
+
+[module:name=common]
+tables = userPayment
+path = common
+
+
+; ========================================================
+;  DATABASE
+; ========================================================
+
 ; development configuration
 [dev:domain=localhost]
 db_host = localhost

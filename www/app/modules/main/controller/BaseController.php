@@ -2,9 +2,9 @@
 
 //require_once dirname(__FILE__) . '/../config/Settings.php';
 
-require_once dirname(__FILE__) . '/../../../../core/forms/FFormValidation.php';
+require_once dirname(__FILE__) . '/../../../core/forms/FFormValidation.php';
 
-define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../../../plugins/smarty/');
+define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../../plugins/smarty/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
 /**

@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../BaseController.php';
-require_once dirname(__FILE__) . '/../../../../../core/forms/FFormValidation.php';
+require_once dirname(__FILE__) . '/../../../../core/forms/FFormValidation.php';
 
 class AdminController extends BaseController
 {

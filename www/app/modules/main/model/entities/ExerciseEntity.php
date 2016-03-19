@@ -2,8 +2,8 @@
 
 class ExerciseEntity extends FModelObject
 {
-    const KEY_ID = 'id';
-    
+    const INDEX_id = 'id';
+
     public $id;
     public $name;
     public $description;
@@ -17,6 +17,7 @@ class ExerciseEntity extends FModelObject
         'video' => array (2, false, 1, NULL, false), 
         'images' => array (2, false, 1, NULL, false));
 
+    public static function getTableName() { return self::$tableName; }
     public static $tableName = 'exercise';
 
 }

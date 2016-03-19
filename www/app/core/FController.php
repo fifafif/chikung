@@ -153,7 +153,7 @@ class FController
     
     public function getControllerPath()
     {
-        $path = dirname(__FILE__) . '/../apps/modules/';
+        $path = dirname(__FILE__) . '/../modules/';
         
         if (isset($this->request->module))
         {
