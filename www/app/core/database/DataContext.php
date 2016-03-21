@@ -160,6 +160,11 @@ class DataContext
         return true;
     }
     
+    public function load($modelClassName)
+    {
+        return $this->loadAll($modelClassName);
+    }
+    
     public function loadAll($modelClassName)
     {
         $query = FQuery::getInstance()->create()

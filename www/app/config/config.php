@@ -8,11 +8,19 @@
 
 [module:name=main]
 tables = exercise
-path = main
+path = main/
 
 [module:name=common]
-tables = userPayment
-path = common
+default = true
+tables = course,userCourse
+path = common/
+
+[module:name=payment]
+tables = userCoursePayment,payment
+path = payment/
+
+[module:name=admin]
+path = admin/
 
 
 ; ========================================================

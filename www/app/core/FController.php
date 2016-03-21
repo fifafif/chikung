@@ -45,6 +45,7 @@ class FController
     private $gate;
     /* @var $_messages FMessages */
     private $_messages;
+    private $model;
     private static $instance;
     
     private $request;
@@ -65,6 +66,8 @@ class FController
 
         $this->_messages = FMessages::getInstance();
         $this->_messages->loadMessages();
+        
+        $this->model = new FModel($this->db);
     }
     
     public function getMessages()
@@ -78,6 +81,11 @@ class FController
             self::$instance = new FController();
         }
         return self::$instance;
+    }
+    
+    public function getModel()
+    {
+        return $this->model;
     }
 
     public function connectDB() 
@@ -157,14 +165,14 @@ class FController
         
         if (isset($this->request->module))
         {
-            $path .= $this->request->module;
+            $path .= FConfigBase::getModulePath($this->request->module);
         }
         else
         {
-            $path .= "main";
+            $path .= FConfigBase::getDefaultModulePath();
         }
         
-        $path .= "/controller/";
+        $path .= "controller/";
         
         if (isset($this->request->gate))
         {

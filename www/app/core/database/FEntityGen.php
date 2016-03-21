@@ -175,13 +175,11 @@ class FEntityGen
             return $this->outputFolder . 'core/user/';
         }
         
-        print_r(FConfigBase::$modules);
-        
         foreach (FConfigBase::$modules as $module)
         {
             if (in_array($tableName, $module['tables']))
             {
-                return $this->outputFolder . 'modules/' . $module['path'] . '/model/entities/';
+                return $this->outputFolder . 'modules/' . $module['path'] . 'model/entities/';
             }
         }
         

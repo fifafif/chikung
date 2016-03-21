@@ -1,25 +1,28 @@
 <?php
 
+require_once dirname(__FILE__) . '/database/DataContext.php';
+
 /**
  * Description of FModel
  *
  * @author XiXao
  */
-class FModel {
-
-    private static $_instance;
+class FModel 
+{
+    private $dataContext;
     private $_dataA;
     private $_modelA;
     
-    private function __construct() {
+    public function __construct(FDatabase $database) 
+    {
+        $this->dataContext = new DataContext($database);
+        
         $this->_dataA = array();
     }
     
-    public static function getInstance() {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new FModel();
-        }
-        return self::$_instance;
+    public function getDataContext()
+    {
+        return $this->dataContext;
     }
     
     public function addData($dataName, $data) {

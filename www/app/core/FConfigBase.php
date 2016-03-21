@@ -11,6 +11,7 @@ class FConfigBase {
     
     public static $config = NULL;
     public static $modules = NULL;
+    public static $defaultModule = NULL;
     
     public function loadSettings() {
         
@@ -64,13 +65,41 @@ class FConfigBase {
                     $module = array();
                     $module['name'] = $name;
                     $module['path'] = $valueA['path'];
-                    $module['tables'] = explode(',', $valueA['tables']);
+                    if (isset($valueA['tables']))
+                    {
+                        $module['tables'] = explode(',', $valueA['tables']);
+                    }
+                    
+                    if (isset($valueA['default']) && $valueA['default'] == true)
+                    {
+                        self::$defaultModule = $name;
+                    }
                     
                     self::$modules[$name] = $module;
                     
                     break;
             }
         }
+    }
+    
+    public static function getDefaultModulePath()
+    {
+        if (!isset(self::$modules) || !isset(self::$defaultModule))
+        {
+            return 'main/';
+        }
+        
+        return self::$modules[self::$defaultModule]['path'];
+    }
+    
+    public static function getModulePath($module)
+    {
+        if (!isset(self::$modules) || !isset(self::$modules[$module]) || !isset(self::$modules[$module]['path']))
+        {
+            return $module . '/';
+        }
+        
+        return self::$modules[$module]['path'];
     }
 }
 

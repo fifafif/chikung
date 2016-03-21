@@ -7,7 +7,6 @@
  */
 class FMessages
 {
-
     private static $_instance;
     private $_messages;
 
@@ -30,8 +29,6 @@ class FMessages
         if (isset($_SESSION['messages']))
         {
             $this->_messages = unserialize($_SESSION['messages']);
-            
-            FModel::getInstance()->addData('messages', $this->_messages);
 
             unset($_SESSION['messages']);
         }
