@@ -3,10 +3,17 @@
 class DataResult
 {
     private $data;
+    private $modelClassName;
     
-    function __construct($data)
+    function __construct($data, $modelClassName)
     {
         $this->data = $data;
+        $this->modelClassName = $modelClassName;
+    }
+    
+    function getModelClassName()
+    {
+        return $this->modelClassName;
     }
 
     public function get()
@@ -26,9 +33,48 @@ class DataResult
         return $dict;
     }
     
+    public function toLookup($key)
+    {
+        $dict = array();
+        
+        foreach ($this->data as $value)
+        {
+            if (!isset($dict[$value->$key]))
+            {
+                $dict[$value->$key] = array();
+            }
+            
+            $dict[$value->$key][] = $value;
+        }
+        
+        return $dict;
+    }
+    
     public function first()
     {
         return reset($this->data);
+    }
+    
+    public function join(DataResult $other, $key)
+    {
+        $keys = explode('_', $key);
+        
+        $keyModelName = $keys[0];
+        $otherKey = $keys[1];
+        
+        $otherDict = $other->toDictionary($otherKey);
+        
+        foreach ($this->data as $model)
+        {
+            if (isset($otherDict[$model->$key]))
+            {
+                $model->$keyModelName = $otherDict[$model->$key];
+            }
+            else
+            {
+                $model->$keyModelName = null;
+            }
+        }
     }
 }
 
@@ -58,7 +104,7 @@ class DataContext
         
         $objects = &self::parseDataIntoObjects($modelClassName, $res);
         
-        $dataResult = new DataResult($objects);
+        $dataResult = new DataResult($objects, $modelClassName);
         
         return $dataResult;
     }
@@ -112,7 +158,7 @@ class DataContext
     public function insert(FModelObject $model)
     {
         $query = FQuery::getInstance()->create()
-                ->insert($model::$tableName);
+                ->insert($model::getTableName());
         
         foreach ($model::getDataTypes() as $key => $value)
         {
@@ -136,7 +182,7 @@ class DataContext
     public function update(FModelObject $model)
     {
         $query = FQuery::getInstance()->create()
-                    ->update($model::$tableName);
+                    ->update($model::getTableName());
         
         foreach ($model::getDataTypes() as $key => $value)
         {
@@ -169,7 +215,7 @@ class DataContext
     {
         $query = FQuery::getInstance()->create()
                 ->select('*')
-                ->from($modelClassName::$tableName);
+                ->from($modelClassName::getTableName());
         
         return $this->loadFromDB($modelClassName, $query->getQuery());
     }
@@ -180,7 +226,7 @@ class DataContext
         
         $query = FQuery::getInstance()->create()
                 ->select('*')
-                ->from($modelClassName::$tableName)
+                ->from($modelClassName::getTableName())
                 ->where("$primaryKeyName = ", $id, $modelClassName::getColumnType($primaryKeyName));
         
         return $this->loadFromDB($modelClassName, $query->getQuery());
@@ -190,9 +236,50 @@ class DataContext
     {
         $query = FQuery::getInstance()->create()
                 ->select('*')
-                ->from($modelClassName::$tableName)
+                ->from($modelClassName::getTableName())
                 ->where("$key = ", $value, $modelClassName::getColumnType($key));
         
-        return $this->loadFromDB($query->getQuery());
+        return $this->loadFromDB($modelClassName, $query->getQuery());
     }
+    
+    public function loadByKeyValues($modelClassName, $key, $values)
+    {
+        $query = FQuery::getInstance()->create()
+                ->select('*')
+                ->from($modelClassName::getTableName())
+                ->whereIn($key, $values, $modelClassName::getColumnType($key));
+        
+        return $this->loadFromDB($modelClassName, $query->getQuery());
+    }
+    
+    public function loadByIndex($modelClassName, $index)
+    {
+        $query = FQuery::getInstance()->create()
+                ->select('*')
+                ->from($modelClassName::getTableName());
+        
+        $indexFields = &$modelClassName::getIndexFields($index);
+        
+        if ($indexFields == false)
+        {
+            return false;
+        }
+        
+        $count = count($indexFields);
+        
+        if ($count != func_num_args() - 2)
+        {
+            return false;
+        }
+        
+        $query->where($indexFields[0] . ' =', func_get_arg(2), $modelClassName::getColumnType($indexFields[0]));
+        
+        for ($i = 1; $i < $count; ++$i)
+        {
+            $query->whereAnd($indexFields[$i] . ' =', func_get_arg($i + 2), $modelClassName::getColumnType($indexFields[$i]));    
+        }
+        
+        return $this->loadFromDB($modelClassName, $query->getQuery());
+    }   
+    
 }

@@ -66,17 +66,7 @@ class Test
         
         $exeUpdate->update();
         
-        //print_r($exercises);
-        
-        //$exercise->insert();
-        
-        
-        //$exercise->loadByPrimaryKey(10);
-        
         print_r($exercise);
-        
-        //$exercise->setValue('email', 'new-email');email
-        //$exercise->update();
     }
     
     public function testExcercise2()
@@ -102,14 +92,93 @@ class Test
         $dataContext->update($first);
         
         $changed = $dataContext->loadByPrimaryKey(ExerciseModel::class, $id)->first();
-        //$exeUpdate = current(ExerciseModel::loadByPrimaryKey($first->id));
+        
         print_r($changed);
-
     }
     
+    public function testLoadByIndex()
+    {
+        require_once dirname(__FILE__) . '/../app/modules/common/model/entities/UserCourseEntity.php';
+        require_once dirname(__FILE__) . '/../app/core/database/DataContext.php';
+        
+        $dataContext = new DataContext($this->db);
+        
+        $userCourse = new UserCourseEntity();
+        $userCourse->user_id = 1;
+        $userCourse->course_id = 1;
+//        $dataContext->insert($userCourse);
+        
+        $userCourse = new UserCourseEntity();
+        $userCourse->user_id = 2;
+        $userCourse->course_id = 1;        
+//        $dataContext->insert($userCourse);
+        
+        $result = $dataContext->loadByIndex(UserCourseEntity::class, UserCourseEntity::INDEX_user_id_course_id, 1, 5);
+        $first = $result->first();
+        
+        print_r($first);
+    }
+    
+    public function testLoadByMultiKey()
+    {
+        require_once dirname(__FILE__) . '/../app/modules/common/model/entities/UserCourseEntity.php';
+        require_once dirname(__FILE__) . '/../app/core/database/DataContext.php';
+        
+        $dataContext = new DataContext($this->db);
+        
+        $userCourse = new UserCourseEntity();
+        $userCourse->user_id = 1;
+        $userCourse->course_id = 1;
+//        $dataContext->insert($userCourse);
+        
+        $userCourse = new UserCourseEntity();
+        $userCourse->user_id = 2;
+        $userCourse->course_id = 1;        
+//        $dataContext->insert($userCourse);
+        
+        $result = $dataContext->loadByMultiKey(UserCourseEntity::class, UserCourseEntity::INDEX_user_id, array(1, 2));
+        
+        print_r($result);
+    }
+    
+    public function testJoin()
+    {
+        require_once dirname(__FILE__) . '/../app/modules/common/model/entities/UserCourseEntity.php';
+        require_once dirname(__FILE__) . '/../app/core/database/DataContext.php';
+        require_once dirname(__FILE__) . '/../app/core/user/FUser.php';
+        
+        $dataContext = new DataContext($this->db);
+        
+        $usersData = $dataContext->loadAll(UserEntity::class);
+        $userCoursesData = $dataContext->loadAll(UserCourseEntity::class);
+        
+        $userCoursesData->join($usersData, UserCourseEntity::INDEX_user_id);
+        
+        print_r($userCoursesData);
+    }
+    
+    public function testToLookup()
+    {
+        require_once dirname(__FILE__) . '/../app/modules/common/model/entities/UserCourseEntity.php';
+        require_once dirname(__FILE__) . '/../app/core/database/DataContext.php';
+        require_once dirname(__FILE__) . '/../app/core/user/FUser.php';
+        
+        $dataContext = new DataContext($this->db);
+        
+        $userCourses = $dataContext->loadAll(UserCourseEntity::class)->toLookup(UserCourseEntity::INDEX_user_id);
+        
+        self::printData($userCourses);
+    }
+    
+    public static function printData($data)
+    {
+        print "<pre>";
+        print_r($data);
+        print "</pre>";
+    }
 }
 
 $test = new Test();
-$test->testExcercise2();
+$test->testToLookup();
 
 ?>

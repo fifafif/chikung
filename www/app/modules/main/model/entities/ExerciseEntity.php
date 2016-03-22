@@ -4,6 +4,10 @@ class ExerciseEntity extends FModelObject
 {
     const INDEX_id = 'id';
 
+
+    protected static $indexFields = array(
+        'id' => array( 'id' ));
+
     public $id;
     public $name;
     public $description;

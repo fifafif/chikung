@@ -5,9 +5,16 @@ class PaymentEntity extends FModelObject
     const INDEX_id = 'id';
     const INDEX_user_id = 'user_id';
 
+
+    protected static $indexFields = array(
+        'id' => array( 'id' ),
+        'user_id' => array( 'user_id' ));
+
     public $id;
     public $user_id;
+    public $user = null;
     public $author_id;
+    public $author = null;
     public $method;
     public $paymentDate;
     public $amount;

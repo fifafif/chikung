@@ -6,6 +6,15 @@ class UserEntity extends FModelObject
     const INDEX_email = 'email';
     const INDEX_username = 'username';
     const INDEX_accessToken = 'accessToken';
+    const INDEX_id_username = 'id-username';
+
+
+    protected static $indexFields = array(
+        'id' => array( 'id' ),
+        'email' => array( 'email' ),
+        'username' => array( 'username' ),
+        'accessToken' => array( 'accessToken' ),
+        'id-username' => array( 'id', 'username' ));
 
     public $id;
     public $username;

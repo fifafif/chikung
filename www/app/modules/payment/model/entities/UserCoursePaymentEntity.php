@@ -6,8 +6,15 @@ class UserCoursePaymentEntity extends FModelObject
     const INDEX_userCourse_id = 'userCourse_id';
     const INDEX_symbol = 'symbol';
 
+
+    protected static $indexFields = array(
+        'id' => array( 'id' ),
+        'userCourse_id' => array( 'userCourse_id' ),
+        'symbol' => array( 'symbol' ));
+
     public $id;
     public $userCourse_id;
+    public $userCourse = null;
     public $symbol;
     public $created;
     public $status;

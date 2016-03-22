@@ -15,8 +15,11 @@ class EntitySchema
  */
 abstract class FModelObject// implements Serializable
 {
-    protected static $dataTypes;
     public static $tableName;
+    
+    protected static $dataTypes;
+    protected static $indexFields;
+    
     
     public static function getDataTypes()
     {
@@ -112,6 +115,16 @@ abstract class FModelObject// implements Serializable
             
             $object->$key = $value;
         }
+    }
+    
+    public static function getIndexFields($index)
+    {
+        if (!isset(static::$indexFields[$index]))
+        {
+            return false;    
+        }
+        
+        return static::$indexFields[$index];
     }
     
     public function getColumnDescription($column)

@@ -43,8 +43,10 @@ class FEntityGen
             
             $indexString = "";
             
+            
             $indices = array();
                         
+            // Parse Indices
             while ($rowIndex = mysqli_fetch_assoc($resIndex))
             {
                 if (!isset($indices[$rowIndex['Key_name']]))
@@ -57,32 +59,60 @@ class FEntityGen
             
             foreach ($indices as $key => $value)
             {
-                if (count($value) == 1)
+                //if (count($value) == 1)
                 {
                     if ($key == 'PRIMARY')
                     {
                         $key = $value[0];
                     }
-                    $indexString .= "    const INDEX_$key = '$value[0]';\n";
+                    
+                    $keyCorrected = str_replace('-', '_', $key);
+                    
+                    $indexString .= "    const INDEX_$keyCorrected = '$key';\n";
                 }
             }
+            
+            
+            $indexFieldsString = "    protected static \$indexFields = array(";
+            
+            foreach ($indices as $key => $value)
+            {
+                if ($key == 'PRIMARY')
+                {
+                    $key = $value[0];
+                }
+                
+                $indexFieldsString .= "\n        '$key' => array( '" . implode("', '", $value) . "' ),";
+            }
+            
+            $indexFieldsString[strlen($indexFieldsString) - 1] = ')';
+            $indexFieldsString .= ';';
             
             $fieldsString = "";
             $entityArrayString = "    protected static \$dataTypes = array(";
             
+            // Parse data fields
             while ($rowTable = mysqli_fetch_assoc($resTable))
             {
                 $entity = $this->generateTableEntity($rowTable);
                 
                 $entityArrayString .= "\n        " . $this->buildTypeDefinitio($rowTable, $entity) . ", ";
                 $fieldsString .= "    public \$" . $rowTable['Field'] . ";\n";
+                
+                if (strpos($rowTable['Field'], '_') !== false)
+                {
+                    $referenceFields = explode('_', $rowTable['Field']);
+                    $fieldsString .= "    public \$" . $referenceFields[0] . " = null;\n";
+                }
+                
             }
             
             $entityArrayString[strlen($entityArrayString) - 2] = ")";
             $entityArrayString[strlen($entityArrayString) - 1] = ";";
             
             $body = "<?php\n\nclass " . ucfirst($tableName) . "Entity extends FModelObject\n{\n";
-            $body .= $indexString . "\n";
+            $body .= $indexString . "\n\n";
+            $body .= $indexFieldsString . "\n\n";
             $body .= $fieldsString . "\n" . $entityArrayString . "\n\n";
             $body .= "    public static function getTableName() { return self::\$tableName; }\n";
             $body .= "    public static \$tableName = '$row[0]';\n";            

@@ -155,6 +155,23 @@ class FQuery
         return $this;
     }
     
+    public function whereIn($arg, $values, $type = 0)
+    {
+        $query = self::WHERE . self::SPACE . $arg . self::SPACE . 'IN (';
+        
+        foreach ($values as $value)
+        {
+            $query .= ' ' . $this->escapeParam($value, $type) . ',';
+        }
+        
+        $query[strlen($query) - 1] = ' ';
+        $query .= ')';
+        
+        $this->query .= $query;
+        
+        return $this;
+    }
+    
     public function limit($from, $to = 0)
     {
         $query = self::LIMIT . self::SPACE . (int)$from . self::SPACE;
@@ -272,8 +289,5 @@ class FQuery
         return (get_magic_quotes_gpc() ? $value : addslashes($value));
     }
 }
-
-
-
 
 ?>
