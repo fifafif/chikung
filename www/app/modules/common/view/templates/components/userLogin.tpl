@@ -9,7 +9,7 @@
     
     {else}
     
-    <h2>Registrace</h2>
+    <h2>Registrace pico!</h2>
     <form action="{$root}uzivatel/registrace" method="post">
         Username: <input type="text" name="username"><br>
         E-mail: <input type="text" name="email"><br>
