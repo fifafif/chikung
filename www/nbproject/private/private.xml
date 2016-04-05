@@ -10,6 +10,9 @@
             <file>file:/D:/Projects/chikung/www/tests/Test.php</file>
             <file>file:/D:/Projects/chikung/www/tests/perf.php</file>
             <file>file:/D:/Projects/chikung/www/app/core/database/FEntityGen.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/database/DBCatchUp.php</file>
+            <file>file:/D:/Projects/chikung/www/app/core/database/db.sql</file>
+            <file>file:/D:/Projects/chikung/www/app/core/database/FDatabase.php</file>
             <file>file:/D:/Projects/chikung/www/app/core/database/FQuery.php</file>
         </group>
     </open-files>

@@ -1,10 +1,12 @@
 <?php
 
+define('APP_PATH', '\\..\\..\\www\\');
 
-require_once dirname(__FILE__) . '/FDatabase.php';
-require_once dirname(__FILE__) . '/FQuery.php';
-require_once dirname(__FILE__) . '/../FConfigBase.php';
-require_once dirname(__FILE__) . '/../utils/FDebug.php';
+require_once dirname(__FILE__) . APP_PATH . 'app/core/database/FDatabase.php';
+require_once dirname(__FILE__) . APP_PATH . 'app/core/database/FQuery.php';
+require_once dirname(__FILE__) . APP_PATH . 'app/core/FConfigBase.php';
+require_once dirname(__FILE__) . APP_PATH . 'app/core/utils/FDebug.php';
+
 
 class FEntityGen
 {
@@ -221,7 +223,7 @@ parse_str(implode('&', array_slice($argv, 1)), $_GET);
 
 //echo $_GET["a"];
 
-$outputFolder = dirname(__FILE__) . "/../../";
+$outputFolder = dirname(__FILE__) . APP_PATH . "app/";
 
 $entityGen = new FEntityGen($outputFolder);
 $entityGen->createEntities();

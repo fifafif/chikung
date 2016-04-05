@@ -69,6 +69,11 @@ class FDatabase
             mysqli_close($this->_db);
         }
     }
+    
+    public function getLink()
+    {
+        return $this->_db;
+    }
 
     /**
      * Funkce osetri string pro ulozeni do databaze.
@@ -122,6 +127,18 @@ class FDatabase
             echo "<p style=\"color:red;\">query: $query</p>";
         }
         $result = mysqli_query($this->_db, $query) or $this->throwException(mysqli_error($this->_db));
+        return $result;
+    }
+    
+    public function executeMulti($query)
+    {
+        FDebug::log($query, FDebugChannel::DB);
+        
+        if ($this->_debug)
+        {
+            echo "<p style=\"color:red;\">query: $query</p>";
+        }
+        $result = mysqli_multi_query($this->_db, $query) or $this->throwException(mysqli_error($this->_db));
         return $result;
     }
 
