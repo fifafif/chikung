@@ -82,6 +82,22 @@ class FFormValidation {
     public function notValid() {
         $this->valid = false;
     }
+    
+    /* TODO
+    public function buildModelObjectFromData($modelClassName, $dataArray)
+    {
+        
+    }
+    
+     * TODO
+    public function validateModelObject(FModelObject $modelObject)
+    {
+        $this->startValidation();
+        foreach ($modelObject->getDataTypes() as $key => $value)
+        {
+            $isValid = 
+        }
+    }*/
 
 }
 ?>

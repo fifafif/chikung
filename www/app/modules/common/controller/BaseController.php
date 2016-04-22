@@ -37,6 +37,8 @@ class BaseController
         $this->smarty->setCompileDir($moduleDir . 'view/templates_c/');
         $this->smarty->setConfigDir($moduleDir . 'view/configs/');
         $this->smarty->setCacheDir($moduleDir . 'view/cache/');
+        
+        $this->controller->getFlink()->registerSmarty($this->smarty);
 
         //** un-comment the following line to show the debug console
         $this->smarty->debugging = true;

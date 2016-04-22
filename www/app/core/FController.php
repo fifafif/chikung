@@ -26,6 +26,8 @@ require_once dirname(__FILE__) . '/messages/FMessages.php';
 
 require_once dirname(__FILE__) . '/utils/FDateTools.php';
 
+require_once dirname(__FILE__) . '/routes/FLink.php';
+
 require_once dirname(__FILE__) . '/user/FLogin.php';
 require_once dirname(__FILE__) . '/user/FUser.php';
 
@@ -52,6 +54,7 @@ class FController
     private $response;
     private $authData;
     private $login;
+    private $flink;
     
     const DEFAULT_CONTROLLER = 'Default';
     const REQUEST_FN_SUFFIX = 'Handler';
@@ -68,6 +71,8 @@ class FController
         $this->_messages->loadMessages();
         
         $this->model = new FModel($this->db);
+        
+        $this->flink = new FLink(FConfigBase::$config['root']);
     }
     
     public function getMessages()
@@ -253,7 +258,10 @@ class FController
         $this->_messages->addMessage(new FMessage($message, $type));
     }
     
-
+    function getFlink()
+    {
+        return $this->flink;
+    }
 
 }
 

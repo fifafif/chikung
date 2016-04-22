@@ -93,12 +93,12 @@ class UserController extends BaseController
             $this->controller->saveUserToSession();
         }
         
-        $courseController = new CourseController();
+        /*$courseController = new CourseController();
         
         if ($courseController->joinCourse(1))
         {
             $this->controller->addMessage("Course joined!");
-        }
+        }*/
         
         return new FRedirect();
     }

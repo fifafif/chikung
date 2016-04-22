@@ -52,6 +52,13 @@ abstract class FModelObject// implements Serializable
         $this->$dataName = $dataValue;
     }
     
+    public function updateValueSetType($key, $value)
+    {
+        self::setDataType($key, $value);
+        
+        $this->$dataName = $value;
+    }
+    
     public static function loadFromDB($query)
     {
         $database = FDatabase::getInstance();
@@ -252,9 +259,41 @@ abstract class FModelObject// implements Serializable
         return self::loadFromDB($query->getQuery());
     }
     
-    public static function first()
+    public function fillDataFromArray($dataArray)
     {
-        
+        foreach (static::getDataTypes() as $key => $value)
+        {
+            if (isset($dataArray[$key]))
+            {
+                $this->updateValueSetType($key, $dataArray[$key]);
+            }
+        }
+    }
+    
+    public static function setDataType($columnName, &$value)
+    {
+        $type = self::getColumnType($columnName);
+        if ($type !== false)
+        {
+            switch ($type)
+            {
+                case FQueryParam::INT:
+
+                    settype($value, 'integer');
+                    break;
+
+                case FQueryParam::FLOAT:
+
+                    settype($value, 'float');
+                    break;
+
+                default:
+                    // String
+
+                    settype($value, 'string');
+                    break;
+            }
+        }
     }
 }
 
