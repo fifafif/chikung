@@ -5,14 +5,16 @@ class FRedirect implements IResponseable
 {
     private $redirectUrl;
     
-    function __construct($redirectUrl = '')
+    function __construct($redirectUrl = '', $includeRoot = true)
     {
-        $this->redirectUrl = $redirectUrl;
+        $this->redirectUrl = ($includeRoot ? FConfigBase::$config['root'] : '') . $redirectUrl;
     }
     
     public function sendResponse()
     {
-        header("Location: " . FConfigBase::$config['root'] . $this->redirectUrl);
+        FDebug::log("Redirecting to: $this->redirectUrl", FDebugChannel::NET);
+        
+        header("Location: " . $this->redirectUrl);
         exit;
     }
     

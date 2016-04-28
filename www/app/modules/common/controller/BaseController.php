@@ -26,6 +26,11 @@ class BaseController
         $this->dataContext = $this->controller->getModel()->getDataContext();
     }
     
+    protected function getUserId()
+    {
+        return $this->controller->getUser()->id;
+    }
+    
     protected function includeSmarty($moduleDir)
     {
         define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../../plugins/smarty/');
@@ -107,6 +112,13 @@ class BaseController
         $this->smarty->assignByRef($key, $value);
     }
     
+    /**
+     * Assign templates to Smarty and returns FResponse with rendered HTML
+     * 
+     * @param type $view Base template (Index.tpl)
+     * @param type $template Actual subpage template (Users.tpl)
+     * @return \FResponse Rendered HTML
+     */
     protected function fetchViewToResponse($view, $template)
     {
         if (!isset($this->smarty))

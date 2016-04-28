@@ -2,9 +2,9 @@
     <title>{$title}</title>
 </head>
 <body>
-    <h1>Chikung</h1>
+    <h1>Kurz 1</h1>
     
-    {include file='./components/userLogin.tpl'}
+    {include file='components/userLogin.tpl'}
     
     {if $messages|@count gt 0}
     <ul>
@@ -13,12 +13,6 @@
     {/foreach}
     </ul>
     {/if}
-    
-    <div>
-        {if $user->isLogged()}
-        <{a href="c1:course:showAllDays"}>kurz</a>
-        {/if}
-    </div>
     
     <div>
         {include file="$template.tpl"}

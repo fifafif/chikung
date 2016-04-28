@@ -5,6 +5,13 @@
 ; ========================================================
 ;  MODULES 
 ; ========================================================
+; 
+; Module configuration example:
+; 
+; [module:name=main]
+; tables = exercise
+; path = main/
+; ========================================================
 
 [module:name=main]
 tables = exercise
@@ -21,6 +28,10 @@ path = payment/
 
 [module:name=admin]
 path = admin/
+
+[module:name=c1]
+tables = c1day,c1exercise,c1userProgress
+path = c1/
 
 
 ; ========================================================

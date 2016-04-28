@@ -67,7 +67,7 @@ class FLink
                 break;
         }
         
-        return "\"$htmlLink\"";
+        return $htmlLink;
     }
     
     public function decodeAndPrint($link, $args)
@@ -89,7 +89,7 @@ class FLink
             }
         }
         
-        return $this->root . "index.php?" . (isset($link->module) ? "m=$link->module" : '') . "c=$link->controller&h=$link->handler$args";
+        return $this->root . "index.php?" . (isset($link->module) ? "m=$link->module&" : '') . "c=$link->controller&h=$link->handler$args";
     }
     
     private function printNice($controller, $handler, $args)
@@ -144,7 +144,7 @@ class FLink
  
         }
         
-        return 'a href=' . $flink->decodeAndPrint($link, $params);
+        return 'a href="' . $flink->decodeAndPrint($link, $params) . '"';
     }
     
     public static function printSmartyForm($params, $smarty)
@@ -154,6 +154,13 @@ class FLink
         $link = $params['action'];
         unset($params['action']);
         
-        return 'form action=' . $flink->decodeAndPrint($link, $params);
+        return 'form action="' . $flink->decodeAndPrint($link, $params) . '"';
+    }
+    
+    public static function printLinkFromParams($link, $params = null)
+    {
+        $flink = FLink::getInstance();
+        
+        return $flink->decodeAndPrint($link, $params);
     }
 }

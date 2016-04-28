@@ -202,6 +202,7 @@ class FEntityGen
     
     private function getTableModule($tableName)
     {
+        // FIXME !!!! Move to core and config core
         if ($tableName == 'user')
         {
             return $this->outputFolder . 'core/user/';
@@ -209,9 +210,12 @@ class FEntityGen
         
         foreach (FConfigBase::$modules as $module)
         {
-            if (in_array($tableName, $module['tables']))
+            if (isset($module['tables']))
             {
-                return $this->outputFolder . 'modules/' . $module['path'] . 'model/entities/';
+                if (in_array($tableName, $module['tables']))
+                {
+                    return $this->outputFolder . 'modules/' . $module['path'] . 'model/entities/';
+                }
             }
         }
         

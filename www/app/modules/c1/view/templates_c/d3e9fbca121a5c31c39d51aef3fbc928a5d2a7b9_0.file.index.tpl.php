@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-04-28 07:23:32
+/* Smarty version 3.1.29, created on 2016-04-28 06:55:00
   from "D:\Projects\chikung\www\app\modules\common\view\templates\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57219e54571cc2_45189858',
+  'unifunc' => 'content_572197a4765da9_73802085',
   'file_dependency' => 
   array (
     'd3e9fbca121a5c31c39d51aef3fbc928a5d2a7b9' => 
@@ -20,7 +20,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:./components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_57219e54571cc2_45189858 ($_smarty_tpl) {
+function content_572197a4765da9_73802085 ($_smarty_tpl) {
 ?>
 <head>
     <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>

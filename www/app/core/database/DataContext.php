@@ -21,6 +21,11 @@ class DataResult
         return $this->data;
     }
     
+    public function toArray()
+    {
+        return $this->data;
+    }
+    
     public function toDictionary($key)
     {
         $dict = array();
@@ -76,6 +81,17 @@ class DataResult
             }
         }
     }
+    
+    public function count()
+    {
+        if (!isset($this->data))
+        {
+            return 0;
+        }
+        
+        return count($this->data);
+    }
+        
 }
 
 
