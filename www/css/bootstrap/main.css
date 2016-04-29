@@ -1,0 +1,158 @@
+/* 
+    Document   : main
+    Created on : 22.11.2011, 12:51:22
+    Author     : XiXao
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    padding-top: 60px;
+}
+
+.usermenu {
+    float: right;
+}
+
+div {
+    /*border: 1px solid red;*/
+}
+
+th {
+    /*border: 1px solid black;*/
+}
+
+.usermenu a {
+    color: #f7941d;
+    padding: 10px 10px 11px;
+    line-height: 19px;
+    display: block;
+}
+
+.edit-btns {
+    float: right;
+}
+
+.launched {
+    background-color: #e4f5e6;
+}
+
+.developing {
+    background-color: #f5eee4;
+}
+
+.delayed {
+    background-color: #f5e4e4;
+}
+
+.planned {
+    background-color: #e4f0f5;
+}
+
+.pagination div {
+    float: left;
+    margin-left: 20px;
+    padding: 8px;
+    font-size: 18px;
+}
+
+.pagination-time {
+}
+
+.pagination-time a {
+    /*    margin: 0px;*/
+}
+
+.prev-btn {
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0px 0px 4px;
+}
+
+.next-btn {
+    -webkit-border-radius: 0px 4px 4px 0px;
+    -moz-border-radius: 0px 4px 4px 0px;
+    border-radius: 0px 4px 4px 0px;
+    border-left: 0px;
+}
+
+.labeled h4 {
+    font-weight: normal;
+    margin: 0px;
+    color: #aaa;
+}
+
+.labeled {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.green-text {
+    color: green;
+}
+
+.red-text {
+    color: #9d261d;
+}
+
+.bigger {
+    font-size: 1.2em;
+}
+
+.tabs {
+    background-color: red;
+    background-color: #e6e6e6;
+    background-repeat: no-repeat;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f1f1), color-stop(25%, #eeeeee), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(#f1f1f1, #eeeeee 25%, #e6e6e6);
+    background-image: -moz-linear-gradient(top, #f1f1f1, #eeeeee 25%, #e6e6e6);
+    background-image: -ms-linear-gradient(#f1f1f1, #eeeeee 25%, #e6e6e6);
+    background-image: -o-linear-gradient(#f1f1f1, #eeeeee 25%, #e6e6e6);
+    background-image: linear-gradient(#f1f1f1, #eeeeee 25%, #e6e6e6);
+}
+
+.tabs > li > a:hover {
+    text-decoration: none;
+    background-color: #f1f1f1;
+    border-color: #eee #eee #ddd;
+}
+
+.edit-btns-alone {
+    width: 100%;
+    text-align: right;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.btn-actions {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0px;
+}
+
+.btn-actions li {
+    display: inline-block;
+}
+
+.nomargin {
+    margin: 0px;
+}
+
+.nopadding {
+    padding: 0px;
+}
+
+.login-form {
+    color: #777;
+    text-align: right;
+}
+
+.login-form input {
+    margin-bottom: 5px;
+}

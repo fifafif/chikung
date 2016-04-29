@@ -54,7 +54,7 @@ class FController
     private $response;
     private $authData;
     private $login;
-    private $flink;
+    private $link;
     
     const DEFAULT_CONTROLLER = 'Default';
     const REQUEST_FN_SUFFIX = 'Handler';
@@ -72,7 +72,8 @@ class FController
         
         $this->model = new FModel($this->db);
         
-        $this->flink = new FLink(FConfigBase::$config['root']);
+        $this->link = new FLink(FConfigBase::$config['root']);
+        $this->link->setControllerPath(dirname(__FILE__));
     }
     
     public function getMessages()
@@ -209,7 +210,7 @@ class FController
 
         $className = $this->getControllerName() . 'Controller';
 
-        $controllerClass = new $className();
+        $controllerClass = new $className($this);
         $function = $this->request->handler . self::REQUEST_FN_SUFFIX;
         
         FDebug::log("Executing controller: " . $className . " -> " . $function, FDebugChannel::SYSTEM);
@@ -258,9 +259,14 @@ class FController
         $this->_messages->addMessage(new FMessage($message, $type));
     }
     
-    function getFlink()
+    function getLink()
     {
-        return $this->flink;
+        return $this->link;
+    }
+    
+    public function getModulePath($moduleName)
+    {
+        return $this->link->getModulePath($moduleName);
     }
 
 }

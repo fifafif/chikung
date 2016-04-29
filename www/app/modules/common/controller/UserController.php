@@ -6,10 +6,10 @@ require_once dirname(__FILE__) . '/CourseController.php';
 
 class UserController extends BaseController
 {
-    public function __construct()
+    /*public function __construct()
     {
         parent::__construct();
-    }   
+    }  */ 
     
     public function createHandler($data = null)
     {

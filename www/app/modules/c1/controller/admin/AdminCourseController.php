@@ -1,9 +1,9 @@
 <?php
 
-require_once dirname(__FILE__) . '/../../common/controller/BaseController.php';
-require_once dirname(__FILE__) . '/../model/entities/C1dayEntity.php';
-require_once dirname(__FILE__) . '/../model/entities/C1exerciseEntity.php';
-require_once dirname(__FILE__) . '/../model/entities/C1userProgressEntity.php';
+require_once dirname(__FILE__) . '/../../../common/controller/BaseController.php';
+require_once dirname(__FILE__) . '/../../model/entities/C1dayEntity.php';
+require_once dirname(__FILE__) . '/../../model/entities/C1exerciseEntity.php';
+require_once dirname(__FILE__) . '/../../model/entities/C1userProgressEntity.php';
 
 
 /**
@@ -11,41 +11,24 @@ require_once dirname(__FILE__) . '/../model/entities/C1userProgressEntity.php';
  *
  * @author XiXao
  */
-class CourseController extends BaseController
+class AdminCourseController extends BaseController
 {
     public function showAllDaysHandler($data = null)
     {
-        $this->includeSmarty(dirname(__FILE__) . '/../', '');
+        $this->includeSmarty(dirname(__FILE__) . '/../../', '');
         
         $days = $this->dataContext->loadAll(C1dayEntity::class)->toArray();
         
-        $progressData = $this->dataContext->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id, $this->getUserId())->toDictionary(C1userProgressEntity::INDEX_c1day_id);
+        $this->assignByRef('days', $days);
         
-        $dayData = array();
+        $commonTemplate = $this->controller->getModulePath('common') . 'view/templates/index';
         
-        foreach ($days as $day)
-        {
-            $data = array();
-            $data['day'] = $day;
-            $progress = null;
-            if (isset($progressData[$day->id]))
-            {
-                $progress = $progressData[$day->id];
-            }
-            $data['progress'] = $progress;
-            $dayData[] = $data;
-        }
-        
-        $this->assignByRef('days', $dayData);
-        
-        $commonTemplate = dirname(__FILE__) . '/../../common/view/templates/index';
-        
-        return $this->fetchViewToResponse($commonTemplate, 'days');
+        return $this->fetchViewToResponse($commonTemplate, 'admin/days');
     }
     
     public function showDayHandler($data = null)
     {
-        $this->includeSmarty(dirname(__FILE__) . '/../', '');
+        $this->includeSmarty(dirname(__FILE__) . '/../../', '');
         
         $id = filter_input(INPUT_GET, 'day');
         
@@ -57,12 +40,12 @@ class CourseController extends BaseController
         
         $commonTemplate = $this->controller->getModulePath('common') . 'view/templates/index';
         
-        return $this->fetchViewToResponse($commonTemplate, 'day');
+        return $this->fetchViewToResponse($commonTemplate, 'admin/day');
     }
     
     public function completeDayHandler($data = null)
     {
-        $this->includeSmarty(dirname(__FILE__) . '/../', '');
+        $this->includeSmarty(dirname(__FILE__) . '/../');
         
         $id = filter_input(INPUT_GET, 'day');
         $userId = $this->controller->getUser()->id;

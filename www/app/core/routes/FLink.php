@@ -10,6 +10,7 @@ class LinkParams
     public $module;
     public $controller;
     public $handler;
+    public $gate;
     public $args;
 }
 
@@ -23,6 +24,7 @@ class FLink
     const TYPE_UGLY = 0;
     const TYPE_NICE = 1;
     
+    private $controllerPath = '';
     private static $instance;
     private $type;
     private $root;
@@ -35,6 +37,12 @@ class FLink
         self::$instance = $this;
     }
     
+    function setControllerPath($controllerPath)
+    {
+        $this->controllerPath = $controllerPath;
+    }
+
+        
     public static function getInstance()
     {
         return self::$instance;
@@ -89,7 +97,11 @@ class FLink
             }
         }
         
-        return $this->root . "index.php?" . (isset($link->module) ? "m=$link->module&" : '') . "c=$link->controller&h=$link->handler$args";
+        return $this->root . "index.php?"
+                . (isset($link->module) ? "m=$link->module&" : '')
+                . "c=$link->controller&h=$link->handler"
+                . (isset($link->gate) ? "&g=$link->gate" : '')
+                . $args;
     }
     
     private function printNice($controller, $handler, $args)
@@ -113,6 +125,13 @@ class FLink
             $linkParams->module = $linkArray[0];
             $linkParams->controller = $linkArray[1];
             $linkParams->handler = $linkArray[2];
+        }
+        else if (count($linkArray) == 4)
+        {
+            $linkParams->module = $linkArray[0];
+            $linkParams->gate = $linkArray[1];
+            $linkParams->controller = $linkArray[2];
+            $linkParams->handler = $linkArray[3];
         }
         else
         {
@@ -162,5 +181,10 @@ class FLink
         $flink = FLink::getInstance();
         
         return $flink->decodeAndPrint($link, $params);
+    }
+    
+    public function getModulePath($moduleName)
+    {
+        return $this->controllerPath . '/../modules/' . FConfigBase::getModulePath($moduleName);
     }
 }

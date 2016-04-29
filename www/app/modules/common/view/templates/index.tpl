@@ -1,5 +1,9 @@
 <head>
     <title>{$title}</title>
+    <link rel="stylesheet" type="text/css" href="{$root}css/reset.css">
+    <link rel="stylesheet" type="text/css" href="{$root}css/style.css">
+    <link rel="stylesheet" type="text/css" href="{$root}css/fgui.css">
+    <link rel="stylesheet" type="text/css" href="{$root}css/bootstrap/bootstrap.min.css">
 </head>
 <body>
     <h1>Chikung</h1>
@@ -17,6 +21,7 @@
     <div>
         {if $user->isLogged()}
         <{a href="c1:course:showAllDays"}>kurz</a>
+        <{a href="c1:admin:adminCourse:showAllDays"}>kurz admin</a>
         {/if}
     </div>
     

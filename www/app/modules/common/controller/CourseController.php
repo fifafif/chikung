@@ -12,10 +12,10 @@ require_once dirname(__FILE__) . '/../model/entities/UserCourseEntity.php';
  */
 class CourseController extends BaseController
 {
-    function __construct()
+    /*function __construct()
     {
         parent::__construct();
-    }
+    }*/
 
     public function joinCourse($courseId)
     {

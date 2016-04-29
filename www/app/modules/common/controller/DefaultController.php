@@ -4,10 +4,10 @@ require_once dirname(__FILE__) . '/../../common/controller/BaseController.php';
 
 class DefaultController extends BaseController
 {
-    public function __construct()
+    /*public function __construct()
     {
         parent::__construct();
-    }
+    }*/
     
     public function defaultHandler($data = null)
     {

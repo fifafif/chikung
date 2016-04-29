@@ -20,9 +20,9 @@ class BaseController
     protected $smarty;
     protected $dataContext;
     
-    public function __construct()
+    public function __construct(FController $controller)
     {
-        $this->controller = FController::getInstance();
+        $this->controller = $controller;
         $this->dataContext = $this->controller->getModel()->getDataContext();
     }
     
@@ -31,19 +31,19 @@ class BaseController
         return $this->controller->getUser()->id;
     }
     
-    protected function includeSmarty($moduleDir)
+    protected function includeSmarty($moduleDir, $templatesDir = 'templates/')
     {
         define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../../plugins/smarty/');
         require_once(SMARTY_DIR . 'Smarty.class.php');
         
         $this->smarty = new Smarty();
         
-        $this->smarty->setTemplateDir($moduleDir . 'view/templates/');
+        $this->smarty->setTemplateDir($moduleDir . 'view/' . $templatesDir);
         $this->smarty->setCompileDir($moduleDir . 'view/templates_c/');
         $this->smarty->setConfigDir($moduleDir . 'view/configs/');
         $this->smarty->setCacheDir($moduleDir . 'view/cache/');
         
-        $this->controller->getFlink()->registerSmarty($this->smarty);
+        $this->controller->getLink()->registerSmarty($this->smarty);
 
         //** un-comment the following line to show the debug console
         $this->smarty->debugging = true;

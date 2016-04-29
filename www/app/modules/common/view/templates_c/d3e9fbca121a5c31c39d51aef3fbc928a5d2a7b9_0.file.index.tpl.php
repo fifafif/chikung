@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-04-28 07:23:32
+/* Smarty version 3.1.29, created on 2016-04-29 09:33:15
   from "D:\Projects\chikung\www\app\modules\common\view\templates\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57219e54571cc2_45189858',
+  'unifunc' => 'content_57230e3b678370_19642953',
   'file_dependency' => 
   array (
     'd3e9fbca121a5c31c39d51aef3fbc928a5d2a7b9' => 
     array (
       0 => 'D:\\Projects\\chikung\\www\\app\\modules\\common\\view\\templates\\index.tpl',
-      1 => 1461819295,
+      1 => 1461914704,
       2 => 'file',
     ),
   ),
@@ -20,11 +20,19 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:./components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_57219e54571cc2_45189858 ($_smarty_tpl) {
+function content_57230e3b678370_19642953 ($_smarty_tpl) {
 ?>
 <head>
     <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
 </title>
+    <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
+css/reset.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
+css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
+css/fgui.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
+css/bootstrap/bootstrap.min.css">
 </head>
 <body>
     <h1>Chikung</h1>
@@ -63,6 +71,8 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
         <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
         <<?php echo FLink::printSmartyLink(array('href'=>"c1:course:showAllDays"),$_smarty_tpl);?>
 >kurz</a>
+        <<?php echo FLink::printSmartyLink(array('href'=>"c1:admin:adminCourse:showAllDays"),$_smarty_tpl);?>
+>kurz admin</a>
         <?php }?>
     </div>
     

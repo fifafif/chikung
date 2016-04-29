@@ -1,0 +1,112 @@
+.show320 {
+    display: none;
+}
+
+
+/*================================================  768px  ===================================================*/
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    body {
+    }
+
+    .container {
+        width: 700px;
+    }
+
+    .span2 {
+        width: 100px;
+    }
+    .span3 {
+        width: 160px;
+    }
+    .span4 {
+        width: 220px;
+    }
+    
+    .span6 {
+        width: 340px;
+    }
+    
+    .span8 {
+        width: 340px;
+    }
+    
+    
+    .span12 {
+        width: 700px;
+    }
+
+    .span16 {
+        width: 700px;
+    }
+}
+
+
+/*================================================  320px  ===================================================*/
+
+@media only screen and (max-width: 767px) {
+
+    body {
+        padding-top: 140px;
+    }
+    
+    .show320 {
+        display: inline;
+    }
+    
+    .hidden480 {
+        display: none;
+    }
+    
+    .hidden320 {
+        display: none;
+    }
+    
+    .container {
+        max-width: 92%;
+        min-width: 280px;
+    }
+    
+    .span16 {
+        max-width: 96%;
+        min-width: 280px;
+    }
+    
+    .pagination div {
+        margin-left: 0;
+    }
+    
+    .page-header {
+        overflow: hidden;
+    }
+
+}
+
+
+/*================================================  480px  ===================================================*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    body {
+        padding-top: 100px;
+    }
+    
+    .show320 {
+        display: none;
+    }
+    
+    .hidden480 {
+        display: none;
+    }
+    
+    .container {
+        width: 460px;
+    }
+    
+    .span16 {
+        max-width: 100%;
+        width: 460px;
+    }
+
+}
