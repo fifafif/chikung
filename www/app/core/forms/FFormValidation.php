@@ -4,8 +4,10 @@
  *
  * @author XiXao
  */
-class FFormValidation {
-
+class FFormValidation 
+{
+    private $controller;
+    
     private $valid = true;
     const PASS_LENGTH = 3;
     
@@ -13,7 +15,10 @@ class FFormValidation {
     const EMAIL = 'email';
     const PASSWORD = 'password';
     
-    public function __construct() {
+    public function __construct(FController $controller = null) 
+    {
+        $this->controller = $controller;
+        
         $this->startValidation();
     }
 
@@ -62,6 +67,18 @@ class FFormValidation {
         
         return true;
     }
+    
+    public function validateWithMessage($data, $type, $message = '')
+    {
+        if (!$this->validate($data, $type))
+        {
+            if (isset($this->controller))
+            {
+                $this->controller->addMessage($message, FMessage::TYPE_ERROR);
+            }
+        }
+    }
+    
 
     /**
      * Funkce, ktera se musi zavolat po overeni vsech polich, jestli je formular validni.

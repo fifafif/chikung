@@ -26,6 +26,18 @@ class DataResult
         return $this->data;
     }
     
+    public function toKeyValuePair($keyName, $valueName)
+    {
+        $array = array();
+        
+        foreach ($this->data as $object)
+        {
+            $array[$object->$keyName] = $object->$valueName;
+        }
+        
+        return $array;
+    }
+    
     public function toDictionary($key)
     {
         $dict = array();

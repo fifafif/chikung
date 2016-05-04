@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-04-28 08:57:23
-  from "D:\Projects\chikung\www\app\modules\c1\view\templates\days.tpl" */
+/* Smarty version 3.1.29, created on 2016-05-04 08:18:34
+  from "D:\Projects\chikung\www\app\modules\c1\view\admin\days.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5721b4538746c5_52541623',
+  'unifunc' => 'content_5729943af17120_77242809',
   'file_dependency' => 
   array (
-    'a2fb1b1c1fabd4c1aeaa4fec8c69ff165f98815f' => 
+    'b3cf6f194e9e12e7a55ce6f72fc40822b308121e' => 
     array (
-      0 => 'D:\\Projects\\chikung\\www\\app\\modules\\c1\\view\\templates\\days.tpl',
-      1 => 1461826639,
+      0 => 'D:\\Projects\\chikung\\www\\app\\modules\\c1\\view\\admin\\days.tpl',
+      1 => 1462253049,
       2 => 'file',
     ),
   ),
@@ -19,10 +19,12 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_5721b4538746c5_52541623 ($_smarty_tpl) {
+function content_5729943af17120_77242809 ($_smarty_tpl) {
 ?>
 <h2>Days</h2>
 
+<<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:adminDay:showAdd"),$_smarty_tpl);?>
+>Add new day</a>            
 
 <?php if (count($_smarty_tpl->tpl_vars['days']->value) > 0) {?>
 <ul>
@@ -38,13 +40,11 @@ foreach ($_from as $_smarty_tpl->tpl_vars['day']->value) {
 $_smarty_tpl->tpl_vars['day']->_loop = true;
 $__foreach_day_0_saved_local_item = $_smarty_tpl->tpl_vars['day'];
 ?>
-    <li><<?php echo FLink::printSmartyLink(array('href'=>"c1:course:showDay",'day'=>$_smarty_tpl->tpl_vars['day']->value["day"]->id),$_smarty_tpl);?>
+    <li><<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:adminDay:showDay",'day'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
 >
-        <?php echo $_smarty_tpl->tpl_vars['day']->value["day"]->name;?>
+        <?php echo $_smarty_tpl->tpl_vars['day']->value->name;?>
  
-        <?php if (isset($_smarty_tpl->tpl_vars['day']->value["progress"])) {?> completed <?php }?>
-        </a>
-            
+        </a>            
     </li>
 <?php
 $_smarty_tpl->tpl_vars['day'] = $__foreach_day_0_saved_local_item;

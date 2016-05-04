@@ -31,21 +31,37 @@ class BaseController
         return $this->controller->getUser()->id;
     }
     
-    protected function includeSmarty($moduleDir, $templatesDir = 'templates/')
+    protected function getPathToView()
+    {
+        throw new Exception('getPathToView() function has to be overriden!');
+    }
+    
+    protected function includeSmartySimple()
+    {
+        $this->includeSmartyOneFolder($this->getPathToView());
+    }
+    
+    protected function includeSmartyOneFolder($moduleDir)
+    {
+        $this->includeSmarty($moduleDir, '', 'smarty/templates_c/', 'smarty/configs/', 'smarty/cache/');
+    }
+    
+    protected function includeSmarty($moduleDir, $templatesDir = 'templates/', $compileDir = 'templates_c/', $configDir = 'configs/', $cacheDir = 'cacheDir/')
     {
         define('SMARTY_DIR',str_replace("\\","/",dirname(__FILE__)).'/../../../plugins/smarty/');
         require_once(SMARTY_DIR . 'Smarty.class.php');
+        require_once(dirname(__FILE__) . '/../../../core/mvc/view/SmartyBinder.php');
         
         $this->smarty = new Smarty();
         
         $this->smarty->setTemplateDir($moduleDir . 'view/' . $templatesDir);
-        $this->smarty->setCompileDir($moduleDir . 'view/templates_c/');
-        $this->smarty->setConfigDir($moduleDir . 'view/configs/');
-        $this->smarty->setCacheDir($moduleDir . 'view/cache/');
+        $this->smarty->setCompileDir($moduleDir . 'view/' . $compileDir);
+        $this->smarty->setConfigDir($moduleDir . 'view/' . $configDir);
+        $this->smarty->setCacheDir($moduleDir . 'view/' . $cacheDir);
         
-        $this->controller->getLink()->registerSmarty($this->smarty);
+        $smartyBinder = new SmartyBinder();
+        $smartyBinder->register($this->smarty);
 
-        //** un-comment the following line to show the debug console
         $this->smarty->debugging = true;
     }
     

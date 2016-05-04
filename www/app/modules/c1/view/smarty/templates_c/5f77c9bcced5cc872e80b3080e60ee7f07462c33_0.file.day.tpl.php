@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-04-28 07:22:44
-  from "D:\Projects\chikung\www\app\modules\c1\view\templates\day.tpl" */
+/* Smarty version 3.1.29, created on 2016-05-04 08:18:40
+  from "D:\Projects\chikung\www\app\modules\c1\view\admin\days\day.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57219e245bd962_11032891',
+  'unifunc' => 'content_57299440061d71_34972054',
   'file_dependency' => 
   array (
-    '6a36371bdd39ef74fede813e9de76cfc03945d09' => 
+    '5f77c9bcced5cc872e80b3080e60ee7f07462c33' => 
     array (
-      0 => 'D:\\Projects\\chikung\\www\\app\\modules\\c1\\view\\templates\\day.tpl',
-      1 => 1461820961,
+      0 => 'D:\\Projects\\chikung\\www\\app\\modules\\c1\\view\\admin\\days\\day.tpl',
+      1 => 1462257019,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57219e245bd962_11032891 ($_smarty_tpl) {
+function content_57299440061d71_34972054 ($_smarty_tpl) {
 ?>
 <h2>Day - <?php echo $_smarty_tpl->tpl_vars['day']->value->name;?>
 </h2>
@@ -28,6 +28,9 @@ function content_57219e245bd962_11032891 ($_smarty_tpl) {
 </p>
 
 <h3>Cviky</h3>
+
+<<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminExercise:showAdd"),$_smarty_tpl);?>
+>pridat cvik</a>
 
 <?php if (count($_smarty_tpl->tpl_vars['exercises']->value) > 0) {?>
 <ul>
@@ -55,9 +58,6 @@ $_smarty_tpl->tpl_vars['exercise'] = $__foreach_exercise_0_saved_item;
 ?>
 </ul>
 <?php }?>
-
-<<?php echo FLink::printSmartyLink(array('href'=>"c1:course:completeDay",'day'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
->splnit den</a>
 
 <?php }
 }

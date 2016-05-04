@@ -15,7 +15,7 @@ class CourseController extends BaseController
 {
     public function showAllDaysHandler($data = null)
     {
-        $this->includeSmarty(dirname(__FILE__) . '/../', '');
+        $this->includeSmartySimple();
         
         $days = $this->dataContext->loadAll(C1dayEntity::class)->toArray();
         
@@ -45,7 +45,7 @@ class CourseController extends BaseController
     
     public function showDayHandler($data = null)
     {
-        $this->includeSmarty(dirname(__FILE__) . '/../', '');
+        $this->includeSmartySimple();
         
         $id = filter_input(INPUT_GET, 'day');
         
@@ -62,7 +62,7 @@ class CourseController extends BaseController
     
     public function completeDayHandler($data = null)
     {
-        $this->includeSmarty(dirname(__FILE__) . '/../', '');
+        $this->includeSmartySimple();
         
         $id = filter_input(INPUT_GET, 'day');
         $userId = $this->controller->getUser()->id;
@@ -88,4 +88,11 @@ class CourseController extends BaseController
         
         return $this->fetchViewToResponse($commonTemplate, 'day');
     }
+
+    protected function getPathToView()
+    {
+        return dirname(__FILE__) . '/../';
+    }
+    
+            
 }

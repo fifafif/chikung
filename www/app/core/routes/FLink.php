@@ -143,39 +143,6 @@ class FLink
         return $linkParams;
     }
     
-    public function registerSmarty(Smarty $smarty)
-    {
-        $smarty->registerPlugin('function', 'a', 'FLink::printSmartyLink');
-        $smarty->registerPlugin('function', 'form', 'FLink::printSmartyForm');
-    }
-    
-    public static function printSmartyLink($params, $smarty)
-    {
-        $flink = FLink::getInstance();
-
-        if (isset($params['href']))
-        {
-            $link = $params['href'];
-            unset($params['href']);
-        }
-        else
-        {
- 
-        }
-        
-        return 'a href="' . $flink->decodeAndPrint($link, $params) . '"';
-    }
-    
-    public static function printSmartyForm($params, $smarty)
-    {
-        $flink = FLink::getInstance();
-
-        $link = $params['action'];
-        unset($params['action']);
-        
-        return 'form action="' . $flink->decodeAndPrint($link, $params) . '"';
-    }
-    
     public static function printLinkFromParams($link, $params = null)
     {
         $flink = FLink::getInstance();

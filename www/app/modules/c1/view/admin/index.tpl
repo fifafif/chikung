@@ -1,10 +1,10 @@
 <head>
-    <title>{$title}</title>
+    <title>{$title} - administrace</title>
 </head>
 <body>
-    <h1>Kurz 1</h1>
+    <h1>Administrace kurzu</h1>
     
-    {include file='./../../common/view/templates/components/userLogin.tpl'}
+    {include file='./../../../common/view/components/userLogin.tpl'}
     
     {if $messages|@count gt 0}
     <ul>

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-04-29 09:27:09
+/* Smarty version 3.1.29, created on 2016-05-03 07:20:24
   from "D:\Projects\chikung\www\app\modules\common\view\templates\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57230ccd4f2f30_58890231',
+  'unifunc' => 'content_57283518476bb8_59870024',
   'file_dependency' => 
   array (
     'd3e9fbca121a5c31c39d51aef3fbc928a5d2a7b9' => 
     array (
       0 => 'D:\\Projects\\chikung\\www\\app\\modules\\common\\view\\templates\\index.tpl',
-      1 => 1461914704,
+      1 => 1462252820,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:./components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_57230ccd4f2f30_58890231 ($_smarty_tpl) {
+function content_57283518476bb8_59870024 ($_smarty_tpl) {
 ?>
 <head>
     <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
@@ -71,7 +71,7 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
         <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
         <<?php echo FLink::printSmartyLink(array('href'=>"c1:course:showAllDays"),$_smarty_tpl);?>
 >kurz</a>
-        <<?php echo FLink::printSmartyLink(array('href'=>"c1:admin:adminCourse:showAllDays"),$_smarty_tpl);?>
+        <<?php echo FLink::printSmartyLink(array('href'=>"c1:admin:adminCourse:default"),$_smarty_tpl);?>
 >kurz admin</a>
         <?php }?>
     </div>

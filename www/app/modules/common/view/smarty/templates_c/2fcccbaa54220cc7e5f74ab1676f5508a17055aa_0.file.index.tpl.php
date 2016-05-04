@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-04-29 09:25:08
-  from "D:\Projects\chikung\www\app\modules\common\view\templates\index.tpl" */
+/* Smarty version 3.1.29, created on 2016-05-04 08:16:04
+  from "D:\Projects\chikung\www\app\modules\common\view\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57230c54d7d489_23044585',
+  'unifunc' => 'content_572993a4b30f01_79201260',
   'file_dependency' => 
   array (
-    'd3e9fbca121a5c31c39d51aef3fbc928a5d2a7b9' => 
+    '2fcccbaa54220cc7e5f74ab1676f5508a17055aa' => 
     array (
-      0 => 'D:\\Projects\\chikung\\www\\app\\modules\\common\\view\\templates\\index.tpl',
-      1 => 1461914704,
+      0 => 'D:\\Projects\\chikung\\www\\app\\modules\\common\\view\\index.tpl',
+      1 => 1462252820,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:./components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_57230c54d7d489_23044585 ($_smarty_tpl) {
+function content_572993a4b30f01_79201260 ($_smarty_tpl) {
 ?>
 <head>
     <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
@@ -69,9 +69,9 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
     
     <div>
         <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
-        <<?php echo FLink::printSmartyLink(array('href'=>"c1:course:showAllDays"),$_smarty_tpl);?>
+        <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:course:showAllDays"),$_smarty_tpl);?>
 >kurz</a>
-        <<?php echo FLink::printSmartyLink(array('href'=>"c1:admin:adminCourse:showAllDays"),$_smarty_tpl);?>
+        <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:adminCourse:default"),$_smarty_tpl);?>
 >kurz admin</a>
         <?php }?>
     </div>

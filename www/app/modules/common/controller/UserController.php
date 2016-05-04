@@ -6,10 +6,10 @@ require_once dirname(__FILE__) . '/CourseController.php';
 
 class UserController extends BaseController
 {
-    /*public function __construct()
+    protected function getPathToView()
     {
-        parent::__construct();
-    }  */ 
+        return dirname(__FILE__) . '/../';
+    }
     
     public function createHandler($data = null)
     {

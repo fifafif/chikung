@@ -7,6 +7,7 @@ require_once dirname(__FILE__) . '/net/request/RequestDecoder.php';
 require_once dirname(__FILE__) . '/net/response/IResponseable.php';
 require_once dirname(__FILE__) . '/net/response/FResponse.php';
 require_once dirname(__FILE__) . '/net/response/FRedirect.php';
+require_once dirname(__FILE__) . '/net/response/FRedirectLink.php';
 
 // TODO: Move somewhere else
 require_once dirname(__FILE__) . '/net/response/NotAuthorizedResponse.php';
@@ -25,6 +26,7 @@ require_once dirname(__FILE__) . '/messages/FMessage.php';
 require_once dirname(__FILE__) . '/messages/FMessages.php';
 
 require_once dirname(__FILE__) . '/utils/FDateTools.php';
+require_once dirname(__FILE__) . '/utils/FArray.php';
 
 require_once dirname(__FILE__) . '/routes/FLink.php';
 

@@ -21,7 +21,7 @@
     <div>
         {if $user->isLogged()}
         <{a href="c1:course:showAllDays"}>kurz</a>
-        <{a href="c1:admin:adminCourse:showAllDays"}>kurz admin</a>
+        <{a href="c1:admin:adminCourse:default"}>kurz admin</a>
         {/if}
     </div>
     

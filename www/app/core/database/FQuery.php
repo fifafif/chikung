@@ -194,7 +194,7 @@ class FQuery
     
     public function set($arg, $value, $type = 0)
     {
-        $query = ($this->updateColumnCount > 0 ? ', ' : '') . $arg . ' = ' . $this->escapeParam($value, $type) . ' ';
+        $query = ($this->updateColumnCount > 0 ? ', ' : '') . '`' . $arg . '` = ' . $this->escapeParam($value, $type) . ' ';
         ++$this->updateColumnCount;
         
         $this->query .= $query;
@@ -204,7 +204,7 @@ class FQuery
     
     public function setNext($arg, $value, $type = 0)
     {
-        $query = ', ' . $arg . ' = ' . $this->escapeParam($value, $type) . ' ';
+        $query = ', `' . $arg . '` = ' . $this->escapeParam($value, $type) . ' ';
         
         $this->query .= $query;
         
@@ -213,7 +213,7 @@ class FQuery
     
     public function insert($tableName)
     {
-        $this->query .= 'INSERT INTO ' . $this->escapeString($tableName) . ' ';
+        $this->query .= 'INSERT INTO `' . $this->escapeString($tableName) . '` ';
         
         $this->type = self::TYPE_INSERT;
         
@@ -222,7 +222,7 @@ class FQuery
     
     public function insertValue($arg, $value, $type = 0)
     {
-        $this->insertArgs .= $arg . ', ';
+        $this->insertArgs .= "`$arg`, ";
         $this->insertValues .= $this->escapeParam($value, $type) . ', ';
         
         return $this;

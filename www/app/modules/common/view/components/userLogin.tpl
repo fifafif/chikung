@@ -1,8 +1,6 @@
 <div>User login:</div>
 
 
-
-{* <a href={"user:create"|link}>user </a> *}
 <{a href="User:create" a=!$user->isLogged() name="123"}>user </a>
 
 

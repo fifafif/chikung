@@ -4,15 +4,15 @@ require_once dirname(__FILE__) . '/../../common/controller/BaseController.php';
 
 class DefaultController extends BaseController
 {
-    /*public function __construct()
-    {
-        parent::__construct();
-    }*/
-    
     public function defaultHandler($data = null)
     {
-        $this->includeSmarty(dirname(__FILE__) . '/../');
+        $this->includeSmartySimple();
         
         return $this->fetchViewToResponse('index', 'default');
+    }
+    
+    protected function getPathToView()
+    {
+        return dirname(__FILE__) . '/../';
     }
 }
