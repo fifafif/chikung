@@ -241,6 +241,15 @@ class FQuery
         $this->query .= '(' . $this->insertArgs . ' ) VALUES ( ' . $this->insertValues . ' );';
     }
     
+    public function delete($tableName)
+    {
+        $this->query .= 'DELETE FROM `' . $this->escapeString($tableName) . '` ';
+        
+        $this->type = self::TYPE_INSERT;
+        
+        return $this;
+    }
+    
     private function buildQuery()
     {
         if ($this->isBuilt == true)

@@ -310,4 +310,34 @@ class DataContext
         return $this->loadFromDB($modelClassName, $query->getQuery());
     }   
     
+    public function delete(FModelObject $model)
+    {
+        $primaryIndex = $model::getPrimaryKeyFieldName();
+        $primaryIndexValue = $model->getValue($primaryIndex);
+        
+        return $this->deleteByKey($model, $primaryIndex, $primaryIndexValue);
+    }
+    
+    public function deleteByPrimaryKey($modelClassName, $value)
+    {
+        $primaryIndex = $modelClassName::getPrimaryKeyFieldName();
+        
+        return $this->deleteByKey($modelClassName, $primaryIndex, $value);
+    }
+    
+    public function deleteByKey($modelClassName, $key, $value)
+    {
+        $query = FQuery::getInstance()->create()
+                ->delete($modelClassName::getTableName())
+                ->where("$key = ", $value, $modelClassName::getColumnType($key));
+        
+        $res = $this->database->execute($query->getQuery());
+        if (!$res)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
 }

@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-05-04 08:18:40
+/* Smarty version 3.1.29, created on 2016-05-11 06:50:34
   from "D:\Projects\chikung\www\app\modules\c1\view\admin\days\day.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57299440061d71_34972054',
+  'unifunc' => 'content_5732ba1abb2b74_84072722',
   'file_dependency' => 
   array (
     '5f77c9bcced5cc872e80b3080e60ee7f07462c33' => 
     array (
       0 => 'D:\\Projects\\chikung\\www\\app\\modules\\c1\\view\\admin\\days\\day.tpl',
-      1 => 1462257019,
+      1 => 1462942001,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57299440061d71_34972054 ($_smarty_tpl) {
+function content_5732ba1abb2b74_84072722 ($_smarty_tpl) {
 ?>
 <h2>Day - <?php echo $_smarty_tpl->tpl_vars['day']->value->name;?>
 </h2>
@@ -31,6 +31,10 @@ function content_57299440061d71_34972054 ($_smarty_tpl) {
 
 <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminExercise:showAdd"),$_smarty_tpl);?>
 >pridat cvik</a>
+<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showEdit",'day'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
+>editovat</a>
+<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:delete",'day'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
+ onclick="return confirm('Opravdu smazat?');">smazat</a>
 
 <?php if (count($_smarty_tpl->tpl_vars['exercises']->value) > 0) {?>
 <ul>
