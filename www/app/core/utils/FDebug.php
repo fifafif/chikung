@@ -2,12 +2,12 @@
 
 abstract class FDebugChannel
 {
-
     const UNDEFINED = 0;
     const DB = 1;
     const SERVICE = 2;
     const NET = 3;
     const SYSTEM = 4;
+    const VIEW = 5;
 
     public static $channelNames = array('undefined', 'db', 'service', 'net', 'system');
 
@@ -15,7 +15,6 @@ abstract class FDebugChannel
 
 class FDebug
 {
-
     private static $_enabled = false;
     private static $enabledChannels = array();
     private static $_channelColorA = array('black', 'blue', 'green', 'yellow', 'orange', 'yellow', 'cyan');
@@ -94,6 +93,11 @@ class FDebug
         if (self::$logFileName == null)
         {
             return;
+        }
+        
+        if (!is_dir(dirname(self::$logFileName)))
+        {
+            mkdir(dirname(self::$logFileName));
         }
 
         file_put_contents(self::$logFileName, $message . "\n", FILE_APPEND);

@@ -1,9 +1,3 @@
-<div>User login:</div>
-
-
-<{a href="User:create" a=!$user->isLogged() name="123"}>user </a>
-
-
     {if $user->isLogged()}
     
     hello {$user->username}
@@ -13,7 +7,7 @@
     
     {else}
     
-    <h2>Registrace pico!</h2>
+    <h2>Registrace</h2>
     <{form action="User:create"} method="post">
         Username: <input type="text" name="username"><br>
         E-mail: <input type="text" name="email"><br>

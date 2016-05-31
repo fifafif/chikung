@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-05-04 08:16:04
+/* Smarty version 3.1.29, created on 2016-05-31 07:17:49
   from "D:\Projects\chikung\www\app\modules\common\view\components\userLogin.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_572993a4e88748_47432670',
+  'unifunc' => 'content_574d1e7d19b4f7_45397237',
   'file_dependency' => 
   array (
     'd46176f7cad36b45cfad80c4e13da96fc81e13b1' => 
     array (
       0 => 'D:\\Projects\\chikung\\www\\app\\modules\\common\\view\\components\\userLogin.tpl',
-      1 => 1462342115,
+      1 => 1464671205,
       2 => 'file',
     ),
   ),
@@ -19,15 +19,8 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_572993a4e88748_47432670 ($_smarty_tpl) {
+function content_574d1e7d19b4f7_45397237 ($_smarty_tpl) {
 ?>
-<div>User login:</div>
-
-
-<<?php echo SmartyBinder::printSmartyAhref(array('href'=>"User:create",'a'=>!$_smarty_tpl->tpl_vars['user']->value->isLogged(),'name'=>"123"),$_smarty_tpl);?>
->user </a>
-
-
     <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
     
     hello <?php echo $_smarty_tpl->tpl_vars['user']->value->username;?>
@@ -39,7 +32,7 @@ index.php?c=User&h=logout">logout</a>
     
     <?php } else { ?>
     
-    <h2>Registrace pico!</h2>
+    <h2>Registrace</h2>
     <<?php echo SmartyBinder::printSmartyForm(array('action'=>"User:create"),$_smarty_tpl);?>
  method="post">
         Username: <input type="text" name="username"><br>

@@ -91,7 +91,7 @@ class FUserModel extends UserEntity
     
     public function isAdmin()
     {
-        return $this->hasRole(1);
+        return $this->hasRole(FLogin::ROLE_ADMIN);
     }
 
 }

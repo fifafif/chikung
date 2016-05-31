@@ -38,7 +38,7 @@ class CourseController extends BaseController
         
         $this->assignByRef('days', $dayData);
         
-        $commonTemplate = dirname(__FILE__) . '/../../common/view/templates/index';
+        $commonTemplate = $this->controller->getModulePath('common') . 'view/index';
         
         return $this->fetchViewToResponse($commonTemplate, 'days');
     }
@@ -55,15 +55,22 @@ class CourseController extends BaseController
         $exercises = $this->dataContext->loadByKey(C1exerciseEntity::class, C1exerciseEntity::INDEX_c1day_id, $id)->toArray();
         $this->assignByRef('exercises', $exercises);
         
-        $commonTemplate = $this->controller->getModulePath('common') . 'view/templates/index';
+        $isCompleted = false;
+        $userProgress = $this->dataContext->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id_c1day_id, $this->getUserId(), $id)->first();
+        if ($userProgress != null && $userProgress->state == 1)
+        {
+            $isCompleted = true;
+        }
+        
+        $this->assign('isCompleted', $isCompleted);
+        
+        $commonTemplate = $this->controller->getModulePath('common') . 'view/index';
         
         return $this->fetchViewToResponse($commonTemplate, 'day');
     }
     
     public function completeDayHandler($data = null)
     {
-        $this->includeSmartySimple();
-        
         $id = filter_input(INPUT_GET, 'day');
         $userId = $this->controller->getUser()->id;
         
@@ -72,7 +79,7 @@ class CourseController extends BaseController
         {
             $this->controller->addMessage("Does not compute! Already saved!", FMessage::TYPE_WARNING);
             
-            return new FRedirect(FLink::printLinkFromParams('c1:course:showDay', array('day' => $id)), false);
+            return new FRedirect(FLink::printLinkFromParams('c1:Course:showDay', array('day' => $id)), false);
         }
         
         $userProgress = new C1userProgressEntity();
@@ -83,10 +90,29 @@ class CourseController extends BaseController
         $this->dataContext->insert($userProgress);
         
         $this->controller->addMessage("Progress saved!", FMessage::TYPE_INFO);
-                
-        $commonTemplate = dirname(__FILE__) . '/../../common/view/templates/index';
         
-        return $this->fetchViewToResponse($commonTemplate, 'day');
+        return new FRedirectLink('c1:Course:showAllDays');
+    }
+    
+    public function uncompleteDayHandler($data = null)
+    {
+        $id = filter_input(INPUT_GET, 'day');
+        $userId = $this->controller->getUser()->id;
+        
+        $userProgress = $this->dataContext->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id_c1day_id, $userId, $id)->first();
+        
+        if ($userProgress == false)
+        {
+            $this->controller->addMessage("Does not compute! Already saved!", FMessage::TYPE_WARNING);
+            
+            return new FRedirect(FLink::printLinkFromParams('c1:Course:showDay', array('day' => $id)), false);
+        }
+        
+        $this->dataContext->delete($userProgress);
+        
+        $this->controller->addMessage("Progress saved!", FMessage::TYPE_INFO);
+        
+        return new FRedirectLink('c1:Course:showAllDays');
     }
 
     protected function getPathToView()

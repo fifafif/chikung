@@ -69,9 +69,7 @@ abstract class FModelObject// implements Serializable
             return false;
         }
         
-        $objects = &self::parseDataIntoObjects($res);
-        
-        return $objects;
+        return self::parseDataIntoObjects($res);
     }
     
     protected static function parseDataIntoObjects($res)

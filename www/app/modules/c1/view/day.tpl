@@ -12,5 +12,10 @@
 </ul>
 {/if}
 
-<{a href="c1:course:completeDay" day=$day->id}>splnit den</a>
+{if $isCompleted}
+    <a href={link a="c1:Course:uncompleteDay" day=$day->id}>oznacit jako nesplneny</a>
+{else}
+    <a href={link a="c1:Course:completeDay" day=$day->id}>splnit den</a>
+{/if}
+
 

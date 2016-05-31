@@ -4,9 +4,11 @@
 
 <h3>Cviky</h3>
 
-<{a href="c1:admin:AdminExercise:showAdd"}>pridat cvik</a>
+<a href={link a="c1:admin:AdminExercise:showAdd"}>pridat cvik</a>
 <a href={link a="c1:admin:AdminDay:showEdit" day=$day->id}>editovat</a>
 <a href={link a="c1:admin:AdminDay:delete" day=$day->id} onclick="return confirm('Opravdu smazat?');">smazat</a>
+
+<hr />
 
 {if $exercises|@count gt 0}
 <ul>

@@ -130,7 +130,7 @@ class DataContext
             return false;
         }
         
-        $objects = &self::parseDataIntoObjects($modelClassName, $res);
+        $objects = self::parseDataIntoObjects($modelClassName, $res);
         
         $dataResult = new DataResult($objects, $modelClassName);
         
@@ -286,7 +286,7 @@ class DataContext
                 ->select('*')
                 ->from($modelClassName::getTableName());
         
-        $indexFields = &$modelClassName::getIndexFields($index);
+        $indexFields = $modelClassName::getIndexFields($index);
         
         if ($indexFields == false)
         {

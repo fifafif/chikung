@@ -8,15 +8,20 @@ class FResponse implements IResponseable
     
     const ENCODING_UTF8 = 0;
     
+    const CODE_OK = 200;
+    const CODE_NOT_AUTHORIZED = 401;
+    
     protected $body;
     protected $type;
     protected $encoding;
+    protected $code;
     
-    function __construct($body, $type = 0, $encoding = 0)
+    function __construct($body, $type = 0, $encoding = 0, $code = FResponse::CODE_OK)
     {
         $this->body = $body;
         $this->type = $type;
         $this->encoding = $encoding;
+        $this->code = $code;
     }
     
     public function getBody()     
@@ -37,7 +42,7 @@ class FResponse implements IResponseable
     
     public function buildHeader()
     {
-        header('Content-Type: ' . self::getHeaderTypeString($this->type) . '; charset=' . self::getEncodingString($this->encoding));
+        header('Content-Type: ' . self::getHeaderTypeString($this->type) . '; charset=' . self::getEncodingString($this->encoding), false, $this->code);
     }
     
     public function printResponse()

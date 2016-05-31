@@ -20,6 +20,11 @@ class AdminCourseController extends BaseController
     
     public function defaultHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         $days = $this->dataContext->loadAll(C1dayEntity::class)->toArray();

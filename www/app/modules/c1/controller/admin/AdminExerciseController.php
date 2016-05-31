@@ -20,6 +20,11 @@ class AdminExerciseController extends BaseController
     
     public function addHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         if (!isset($_REQUEST['submit']))
         {
             $this->controller->addMessage('Must submit!');
@@ -59,6 +64,11 @@ class AdminExerciseController extends BaseController
     
     public function showAddHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         $days = $this->dataContext->loadAll(C1dayEntity::class);//->toKeyValuePair('id', 'name');
@@ -75,6 +85,11 @@ class AdminExerciseController extends BaseController
     
     public function showHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         $id = filter_input(INPUT_GET, 'id');

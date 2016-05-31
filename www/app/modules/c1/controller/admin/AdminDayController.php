@@ -20,6 +20,11 @@ class AdminDayController extends BaseController
     
     public function addHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         if (!isset($_REQUEST['submit']))
         {
             $this->controller->addMessage('Must submit!');
@@ -51,6 +56,11 @@ class AdminDayController extends BaseController
     
     public function showAddHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         return $this->fetchViewToResponse('admin/index', 'admin/days/day-add');
@@ -58,6 +68,11 @@ class AdminDayController extends BaseController
     
     public function showDayHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }   
+        
         $this->includeSmartySimple();
         
         $id = filter_input(INPUT_GET, 'day');
@@ -73,6 +88,11 @@ class AdminDayController extends BaseController
     
     public function showEditHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         $id = filter_input(INPUT_GET, 'day');
@@ -88,6 +108,11 @@ class AdminDayController extends BaseController
     
     public function editHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $id = filter_input(INPUT_GET, 'day');
         
         if (!isset($_REQUEST['submit']))
@@ -138,6 +163,11 @@ class AdminDayController extends BaseController
     
     public function deleteHandler($data = null)
     {
+        if (!$this->controller->isAdmin())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $id = filter_input(INPUT_GET, 'day');
         
         $res = $this->dataContext->deleteByPrimaryKey(C1dayEntity::class, $id);

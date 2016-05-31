@@ -79,8 +79,8 @@ class BaseController
         
         $this->assign('title', "Chikung");
         
-        $messages = &$this->controller->getMessages();
-        $this->assignByRef('messages', $messages->getMessages());
+        $messages = $this->controller->getMessages()->getMessages();
+        $this->assignByRef('messages', $messages);
     }
     
     protected function fetchViewOutput()
@@ -141,6 +141,8 @@ class BaseController
         {
             return null;
         }
+        
+        FDebug::log("Fetching view: [$view] template: [$template]", FDebugChannel::VIEW);
         
         $this->assignBase();
         $this->setTemplate($template);        

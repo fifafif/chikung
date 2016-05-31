@@ -7,7 +7,7 @@ class AdminController extends BaseController
 {
     public function defaultHandler()
     {
-        if (!$this->controller->requireAdmin())
+        if (!$this->controller->isAdmin())
         {
             return new FResponse("need admin!");
         }

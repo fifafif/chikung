@@ -233,7 +233,7 @@ class FController
         return isset($this->user) && $this->user->isLogged();
     }
     
-    public function requireAdmin()
+    public function isAdmin()
     {
         if (!$this->requireUserLogged())
         {
