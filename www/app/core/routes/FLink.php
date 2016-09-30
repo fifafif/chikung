@@ -115,18 +115,20 @@ class FLink
         
         $linkArray = explode(':', $link);
         
-        if (count($linkArray) == 2)
+        $paramCount = count($linkArray);
+        
+        if ($paramCount == 2)
         {
             $linkParams->controller = $linkArray[0];
             $linkParams->handler = $linkArray[1];
         }
-        else if (count($linkArray) == 3)
+        else if ($paramCount == 3)
         {
             $linkParams->module = $linkArray[0];
             $linkParams->controller = $linkArray[1];
             $linkParams->handler = $linkArray[2];
         }
-        else if (count($linkArray) == 4)
+        else if ($paramCount == 4)
         {
             $linkParams->module = $linkArray[0];
             $linkParams->gate = $linkArray[1];

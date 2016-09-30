@@ -4,7 +4,7 @@
 {if $days|@count gt 0}
 <ul>
 {foreach from=$days item=day}
-    <li><{a href="c1:Course:showDay" day=$day["day"]->id}>
+    <li><{a href="c1:Course:showDay" id=$day["day"]->id}>
         {$day["day"]->name} 
         {if isset($day["progress"])} completed {/if}
         </a>

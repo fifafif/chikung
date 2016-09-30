@@ -14,6 +14,7 @@ class FFormValidation
     const REQUIRED = 'required';
     const EMAIL = 'email';
     const PASSWORD = 'password';
+    const NUMBER = 'number';
     
     public function __construct(FController $controller = null) 
     {
@@ -48,18 +49,21 @@ class FFormValidation
         
         switch($type) {
             case self::REQUIRED:
-                $reg = ".+";
+                $reg = "/.+/";
                 break;
             case self::EMAIL:
-                $reg = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$";
+                $reg = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/";
                 break;
             case self::PASSWORD:
-                $reg = ".{" . self::PASS_LENGTH . ",}";
+                $reg = "/.{" . self::PASS_LENGTH . ",}/";
+                break;
+            case self::NUMBER:
+                $reg = "/[0-9]+/";
                 break;
             default:
                 return false;
         }
-        if (!eregi($reg, $data)) {
+        if (!preg_match($reg, $data)) {
             
             $this->valid = false;
             return false;

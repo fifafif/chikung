@@ -75,7 +75,7 @@ class AdminDayController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'day');
+        $id = filter_input(INPUT_GET, 'id');
         
         $day = $this->dataContext->loadByPrimaryKey(C1dayEntity::class, $id)->first();
         $this->assignByRef('day', $day);
@@ -95,7 +95,7 @@ class AdminDayController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'day');
+        $id = filter_input(INPUT_GET, 'id');
         
         $day = $this->dataContext->loadByPrimaryKey(C1dayEntity::class, $id)->first();
         $this->assignByRef('day', $day);
@@ -113,13 +113,13 @@ class AdminDayController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'day');
+        $id = filter_input(INPUT_GET, 'id');
         
         if (!isset($_REQUEST['submit']))
         {
             $this->controller->addMessage('Must submit!');
             
-            return new FRedirectLink('c1:admin:AdminDay:showEdit', array('day' => $id));
+            return new FRedirectLink('c1:admin:AdminDay:showEdit', array('id' => $id));
         }
         
         $order = filter_input(INPUT_POST, 'order');
@@ -132,7 +132,7 @@ class AdminDayController extends BaseController
         
         if (!$validation->isValid())
         {
-            return new FRedirectLink('c1:admin:AdminDay:showEdit', array('day' => $id));
+            return new FRedirectLink('c1:admin:AdminDay:showEdit', array('id' => $id));
         }
         
         $day = $this->dataContext->loadByPrimaryKey(C1dayEntity::class, $id)->first();
@@ -158,7 +158,7 @@ class AdminDayController extends BaseController
             $this->controller->addMessage('Day update failed!');
         }
         
-        return new FRedirectLink('c1:admin:AdminDay:showDay', array('day' => $id));
+        return new FRedirectLink('c1:admin:AdminDay:showDay', array('id' => $id));
     }
     
     public function deleteHandler($data = null)
@@ -168,7 +168,7 @@ class AdminDayController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'day');
+        $id = filter_input(INPUT_GET, 'id');
         
         $res = $this->dataContext->deleteByPrimaryKey(C1dayEntity::class, $id);
         if ($res)

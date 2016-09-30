@@ -79,7 +79,7 @@ class CourseController extends BaseController
         {
             $this->controller->addMessage("Does not compute! Already saved!", FMessage::TYPE_WARNING);
             
-            return new FRedirect(FLink::printLinkFromParams('c1:Course:showDay', array('day' => $id)), false);
+            return new FRedirect(FLink::printLinkFromParams('c1:Course:showDay', array('id' => $id)), false);
         }
         
         $userProgress = new C1userProgressEntity();
@@ -105,7 +105,7 @@ class CourseController extends BaseController
         {
             $this->controller->addMessage("Does not compute! Already saved!", FMessage::TYPE_WARNING);
             
-            return new FRedirect(FLink::printLinkFromParams('c1:Course:showDay', array('day' => $id)), false);
+            return new FRedirect(FLink::printLinkFromParams('c1:Course:showDay', array('id' => $id)), false);
         }
         
         $this->dataContext->delete($userProgress);
