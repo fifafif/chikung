@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-05-31 07:55:24
+/* Smarty version 3.1.29, created on 2016-06-04 22:02:31
   from "D:\Projects\chikung\www\app\modules\c1\view\days.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_574d274c0a9062_59836754',
+  'unifunc' => 'content_575333d750d5f4_09915726',
   'file_dependency' => 
   array (
     'd6fec9ad01323ed21907e1f3e262359910435bb0' => 
     array (
       0 => 'D:\\Projects\\chikung\\www\\app\\modules\\c1\\view\\days.tpl',
-      1 => 1464673734,
+      1 => 1464677514,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_574d274c0a9062_59836754 ($_smarty_tpl) {
+function content_575333d750d5f4_09915726 ($_smarty_tpl) {
 ?>
 <h2>Days</h2>
 
@@ -38,7 +38,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['day']->value) {
 $_smarty_tpl->tpl_vars['day']->_loop = true;
 $__foreach_day_0_saved_local_item = $_smarty_tpl->tpl_vars['day'];
 ?>
-    <li><<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:course:showDay",'day'=>$_smarty_tpl->tpl_vars['day']->value["day"]->id),$_smarty_tpl);?>
+    <li><<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:Course:showDay",'day'=>$_smarty_tpl->tpl_vars['day']->value["day"]->id),$_smarty_tpl);?>
 >
         <?php echo $_smarty_tpl->tpl_vars['day']->value["day"]->name;?>
  

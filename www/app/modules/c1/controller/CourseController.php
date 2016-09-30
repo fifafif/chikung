@@ -114,6 +114,20 @@ class CourseController extends BaseController
         
         return new FRedirectLink('c1:Course:showAllDays');
     }
+    
+    public function showExerciseHandler($data = null)
+    {
+        $this->includeSmartySimple();
+        
+        $id = filter_input(INPUT_GET, 'id');
+        
+        $exercise = $this->dataContext->loadByPrimaryKey(C1exerciseEntity::class, $id)->first();
+        $this->assignByRef('exercise', $exercise);
+        
+        $commonTemplate = $this->controller->getModulePath('common') . 'view/index';
+        
+        return $this->fetchViewToResponse($commonTemplate, 'exercise');
+    }
 
     protected function getPathToView()
     {
