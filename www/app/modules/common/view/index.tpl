@@ -22,10 +22,10 @@
     
     <div>
         {if $user->isLogged()}
-            <{a href="c1:Course:showAllDays"}>kurz</a>
+            <{a href="c1:Course:showAllDays"} class="btn-green">prejit na kurz</a>
 
             {if $user->isAdmin()}
-                <{a href="c1:admin:AdminCourse:default"}>kurz admin</a>
+                <{a href="c1:admin:AdminCourse:default"} class="btn-grey">administrace kurzu</a>
             {/if}
         {/if}
     </div>

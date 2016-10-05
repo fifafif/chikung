@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-09-30 23:27:36
+/* Smarty version 3.1.29, created on 2016-10-05 04:30:43
   from "C:\projects\Chikung\chikung\www\app\modules\c1\view\admin\days.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57eef4e8501b24_40702158',
+  'unifunc' => 'content_57f481f32f9793_47748036',
   'file_dependency' => 
   array (
     '64ff76c488aaf49e40cb654366087c8f4d298657' => 
     array (
       0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\c1\\view\\admin\\days.tpl',
-      1 => 1475277844,
+      1 => 1475641842,
       2 => 'file',
     ),
   ),
@@ -19,14 +19,9 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57eef4e8501b24_40702158 ($_smarty_tpl) {
+function content_57f481f32f9793_47748036 ($_smarty_tpl) {
 ?>
-<h2>Days</h2>
-
-<<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminDay:showAdd"),$_smarty_tpl);?>
->pridat den</a>
-<<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminExercise:showAll"),$_smarty_tpl);?>
->zobrazit vsechny cviky</a>
+<h2>Seznam dnu</h2>
 
 <?php if (count($_smarty_tpl->tpl_vars['days']->value) > 0) {?>
 <ul>
@@ -56,6 +51,13 @@ $_smarty_tpl->tpl_vars['day'] = $__foreach_day_0_saved_item;
 }
 ?>
 </ul>
+<?php }?>
+
+<hr />
+
+<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showAdd"),$_smarty_tpl);?>
+ class="btn-grey">pridat den</a>
+<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:showAll"),$_smarty_tpl);?>
+ class="btn-grey">zobrazit vsechny cviky</a>
 <?php }
-}
 }

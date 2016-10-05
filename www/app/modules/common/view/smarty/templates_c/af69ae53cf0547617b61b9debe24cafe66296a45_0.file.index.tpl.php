@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-09-30 18:13:04
+/* Smarty version 3.1.29, created on 2016-10-05 05:14:26
   from "C:\projects\Chikung\chikung\www\app\modules\common\view\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57eeab306678d9_08794550',
+  'unifunc' => 'content_57f48c3247e817_10328826',
   'file_dependency' => 
   array (
     'af69ae53cf0547617b61b9debe24cafe66296a45' => 
     array (
       0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\common\\view\\index.tpl',
-      1 => 1475253453,
+      1 => 1475644464,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:./components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_57eeab306678d9_08794550 ($_smarty_tpl) {
+function content_57f48c3247e817_10328826 ($_smarty_tpl) {
 ?>
 <head>
     <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
@@ -72,11 +72,11 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
     <div>
         <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
             <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:Course:showAllDays"),$_smarty_tpl);?>
->kurz</a>
+ class="btn-green">prejit na kurz</a>
 
             <?php if ($_smarty_tpl->tpl_vars['user']->value->isAdmin()) {?>
                 <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
->kurz admin</a>
+ class="btn-grey">administrace kurzu</a>
             <?php }?>
         <?php }?>
     </div>

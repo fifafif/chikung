@@ -147,9 +147,7 @@ class UserController extends BaseController
     public function logoutHandler($data = null)
     {
         $this->controller->getUser()->logout();
-        
         $this->controller->deleteUserFromSession();
-        
         $this->controller->addMessage("Logged out!");
         
         return new FRedirect();

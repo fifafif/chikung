@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-10-05 04:41:55
-  from "C:\projects\Chikung\chikung\www\app\modules\c1\view\admin\days\day.tpl" */
+/* Smarty version 3.1.29, created on 2016-10-05 05:30:22
+  from "C:\projects\Chikung\chikung\www\app\modules\c1\view\day.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57f484933e14e5_29320965',
+  'unifunc' => 'content_57f48fee6b0fc7_68247472',
   'file_dependency' => 
   array (
-    '528238521c6e30c4c42e66dc281714a83e00fd36' => 
+    '1874a28b7dab513bd8de2256210be39096c57e47' => 
     array (
-      0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\c1\\view\\admin\\days\\day.tpl',
-      1 => 1475642513,
+      0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\c1\\view\\day.tpl',
+      1 => 1475645418,
       2 => 'file',
     ),
   ),
@@ -19,16 +19,15 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57f484933e14e5_29320965 ($_smarty_tpl) {
+function content_57f48fee6b0fc7_68247472 ($_smarty_tpl) {
 ?>
-<h2>Day - <?php echo $_smarty_tpl->tpl_vars['day']->value->name;?>
+<h2>Den - <?php echo $_smarty_tpl->tpl_vars['day']->value->name;?>
 </h2>
 
 <p><?php echo $_smarty_tpl->tpl_vars['day']->value->description;?>
 </p>
 
 <h3>Cviky</h3>
-
 
 <?php if (count($_smarty_tpl->tpl_vars['exercises']->value) > 0) {?>
 <ul>
@@ -47,7 +46,7 @@ $__foreach_exercise_0_saved_local_item = $_smarty_tpl->tpl_vars['exercise'];
     <li><a href=<?php ob_start();
 echo $_smarty_tpl->tpl_vars['exercise']->value->id;
 $_tmp1=ob_get_clean();
-echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:show",'id'=>$_tmp1),$_smarty_tpl);?>
+echo SmartyBinder::printSmartyLink(array('a'=>"c1:Course:showExercise",'id'=>$_tmp1),$_smarty_tpl);?>
 ><?php echo $_smarty_tpl->tpl_vars['exercise']->value->name;?>
 </li>
 <?php
@@ -60,16 +59,19 @@ $_smarty_tpl->tpl_vars['exercise'] = $__foreach_exercise_0_saved_item;
 </ul>
 <?php }?>
 
-
 <hr />
 
-<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
+<?php if ($_smarty_tpl->tpl_vars['isCompleted']->value) {?>
+    <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:Course:uncompleteDay",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
+ class="btn-red" onclick="return confirm('Nepslnili jste?');">oznacit jako nesplneny</a>
+<?php } else { ?>
+    <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:Course:completeDay",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
+ class="btn-green" onclick="return confirm('Opravdu jste splnili?');">splnit den</a>
+<?php }?>
+
+<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1::Course:showAllDays"),$_smarty_tpl);?>
  class="btn-grey">zpatky</a>
-<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:showAdd",'dayId'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
-class="btn-green">pridat cvik</a>
-<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showEdit",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
-class="btn-grey">editovat</a>
-<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:delete",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
- onclick="return confirm('Opravdu smazat?');" class="btn-red">smazat</a>
+
+
 <?php }
 }

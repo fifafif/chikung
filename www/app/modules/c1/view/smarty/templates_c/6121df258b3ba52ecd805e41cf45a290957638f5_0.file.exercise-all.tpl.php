@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-09-30 23:11:17
+/* Smarty version 3.1.29, created on 2016-10-05 04:40:32
   from "C:\projects\Chikung\chikung\www\app\modules\c1\view\admin\exercise\exercise-all.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57eef1155d42c2_95651054',
+  'unifunc' => 'content_57f48440805619_40726455',
   'file_dependency' => 
   array (
     '6121df258b3ba52ecd805e41cf45a290957638f5' => 
     array (
       0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\c1\\view\\admin\\exercise\\exercise-all.tpl',
-      1 => 1475277025,
+      1 => 1475642336,
       2 => 'file',
     ),
   ),
@@ -19,14 +19,9 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57eef1155d42c2_95651054 ($_smarty_tpl) {
+function content_57f48440805619_40726455 ($_smarty_tpl) {
 ?>
 <h2>Vsechny cviky</h2>
-
-<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
->zpatky</a>
-
-<hr />
 
 <?php if (count($_smarty_tpl->tpl_vars['exercises']->value) > 0) {?>
 <ul>
@@ -58,5 +53,8 @@ $_smarty_tpl->tpl_vars['exercise'] = $__foreach_exercise_0_saved_item;
 </ul>
 <?php }?>
 
-<?php }
+<hr />
+
+<a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
+ class="btn-grey">zpatky</a><?php }
 }

@@ -1,9 +1,5 @@
 <h2>Vsechny cviky</h2>
 
-<a href={link a="c1:admin:AdminCourse:default"}>zpatky</a>
-
-<hr />
-
 {if $exercises|@count gt 0}
 <ul>
 {foreach from=$exercises item=exercise}
@@ -12,3 +8,6 @@
 </ul>
 {/if}
 
+<hr />
+
+<a href={link a="c1:admin:AdminCourse:default"} class="btn-grey">zpatky</a>

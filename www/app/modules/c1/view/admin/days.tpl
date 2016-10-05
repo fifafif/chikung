@@ -1,7 +1,4 @@
-<h2>Days</h2>
-
-<{a href="c1:admin:AdminDay:showAdd"}>pridat den</a>
-<{a href="c1:admin:AdminExercise:showAll"}>zobrazit vsechny cviky</a>
+<h2>Seznam dnu</h2>
 
 {if $days|@count gt 0}
 <ul>
@@ -13,3 +10,8 @@
 {/foreach}
 </ul>
 {/if}
+
+<hr />
+
+<a href={link a="c1:admin:AdminDay:showAdd"} class="btn-grey">pridat den</a>
+<a href={link a="c1:admin:AdminExercise:showAll"} class="btn-grey">zobrazit vsechny cviky</a>

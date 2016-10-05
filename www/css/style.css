@@ -2,3 +2,13 @@ body
 {
     margin: 8px;
 }
+
+ul li
+{
+    margin-bottom: 6px;
+}
+
+input, textarea
+{
+    margin-bottom: 6px;
+}

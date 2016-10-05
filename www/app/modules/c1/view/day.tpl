@@ -1,4 +1,4 @@
-<h2>Day - {$day->name}</h2>
+<h2>Den - {$day->name}</h2>
 
 <p>{$day->description}</p>
 
@@ -12,10 +12,14 @@
 </ul>
 {/if}
 
+<hr />
+
 {if $isCompleted}
-    <a href={link a="c1:Course:uncompleteDay" day=$day->id}>oznacit jako nesplneny</a>
+    <a href={link a="c1:Course:uncompleteDay" id=$day->id} class="btn-red" onclick="return confirm('Nepslnili jste?');">oznacit jako nesplneny</a>
 {else}
-    <a href={link a="c1:Course:completeDay" day=$day->id}>splnit den</a>
+    <a href={link a="c1:Course:completeDay" id=$day->id} class="btn-green" onclick="return confirm('Opravdu jste splnili?');">splnit den</a>
 {/if}
+
+<a href={link a="c1::Course:showAllDays"} class="btn-grey">zpatky</a>
 
 
