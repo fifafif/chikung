@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-10-05 04:40:34
+/* Smarty version 3.1.29, created on 2016-10-07 17:14:42
   from "C:\projects\Chikung\chikung\www\app\modules\c1\view\admin\exercise\exercise.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57f48442404424_46659131',
+  'unifunc' => 'content_57f7d80224e057_02182975',
   'file_dependency' => 
   array (
     '3626531ad3bdfe2c2e412373b2014fb9fd2daf1e' => 
     array (
       0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\c1\\view\\admin\\exercise\\exercise.tpl',
-      1 => 1475642424,
+      1 => 1475860475,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_57f48442404424_46659131 ($_smarty_tpl) {
+function content_57f7d80224e057_02182975 ($_smarty_tpl) {
 ?>
 <h2>Cvik - <?php echo $_smarty_tpl->tpl_vars['exercise']->value->name;?>
 </h2>
@@ -31,6 +31,12 @@ function content_57f48442404424_46659131 ($_smarty_tpl) {
 
 <br>
 <?php echo $_smarty_tpl->tpl_vars['exercise']->value->description;?>
+
+
+<p>
+    <iframe width="560" height="315" src="<?php echo $_smarty_tpl->tpl_vars['exercise']->value->video;?>
+" frameborder="0" allowfullscreen></iframe>
+</p>
 
 
 <hr />

@@ -1,7 +1,6 @@
 <head>
     <title>{$title}</title>
     
-    <link rel="stylesheet" type="text/css" href="{$root}css/reset.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/fgui.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/style.css">
@@ -12,12 +11,17 @@
     {include file='./../../common/view/components/userLogin.tpl'}
     
     {if $messages|@count gt 0}
+        
+    <hr />
+        
     <ul>
     {foreach from=$messages item=message}
         <li>{$message->getMessage()}</li>
     {/foreach}
     </ul>
     {/if}
+    
+    <hr />
     
     <div>
         {include file="$template.tpl"}

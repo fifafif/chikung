@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-10-05 05:14:26
+/* Smarty version 3.1.29, created on 2016-10-07 18:44:06
   from "C:\projects\Chikung\chikung\www\app\modules\common\view\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57f48c3247e817_10328826',
+  'unifunc' => 'content_57f7ecf6915767_50360799',
   'file_dependency' => 
   array (
     'af69ae53cf0547617b61b9debe24cafe66296a45' => 
     array (
       0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\common\\view\\index.tpl',
-      1 => 1475644464,
+      1 => 1475865804,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,12 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:./components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_57f48c3247e817_10328826 ($_smarty_tpl) {
+function content_57f7ecf6915767_50360799 ($_smarty_tpl) {
 ?>
 <head>
     <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
 </title>
-    <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
-css/reset.css">
+    
     <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
 css/fgui.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
@@ -77,6 +76,8 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
             <?php if ($_smarty_tpl->tpl_vars['user']->value->isAdmin()) {?>
                 <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
  class="btn-grey">administrace kurzu</a>
+                <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"common:admin:AdminUser:default"),$_smarty_tpl);?>
+ class="btn-grey">administrace uzivatelu</a>
             <?php }?>
         <?php }?>
     </div>

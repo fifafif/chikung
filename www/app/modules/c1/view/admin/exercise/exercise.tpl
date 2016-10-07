@@ -6,6 +6,11 @@
 <br>
 {$exercise->description}
 
+<p>
+    <iframe width="560" height="315" src="{$exercise->video}" frameborder="0" allowfullscreen></iframe>
+</p>
+
+
 <hr />
 
 {if isset($day) && $day != false}

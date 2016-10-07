@@ -1,6 +1,6 @@
 <head>
     <title>{$title}</title>
-    <link rel="stylesheet" type="text/css" href="{$root}css/reset.css">
+    
     <link rel="stylesheet" type="text/css" href="{$root}css/fgui.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/style.css">
@@ -26,6 +26,7 @@
 
             {if $user->isAdmin()}
                 <{a href="c1:admin:AdminCourse:default"} class="btn-grey">administrace kurzu</a>
+                <{a href="common:admin:AdminUser:default"} class="btn-grey">administrace uzivatelu</a>
             {/if}
         {/if}
     </div>

@@ -1,9 +1,14 @@
 <head>
     <title>{$title} - administrace</title>
-    <link rel="stylesheet" type="text/css" href="{$root}css/reset.css">
+    
     <link rel="stylesheet" type="text/css" href="{$root}css/fgui.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/style.css">
+    
+    <script type="text/javascript" src="{$root}js/libs/nicEdit.js"></script>
+    
+    
+
 </head>
 <body>
     <h1>Administrace kurzu</h1>

@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS `c1day`;
 CREATE TABLE IF NOT EXISTS `c1day` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order` int(11) NOT NULL,
-  `name` varchar(64) COLLATE utf8_czech_ci NOT NULL,
-  `description` varchar(256) COLLATE utf8_czech_ci NOT NULL DEFAULT '',
+  `name` varchar(256) COLLATE utf8_czech_ci NOT NULL,
+  `description` varchar(2048) COLLATE utf8_czech_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
