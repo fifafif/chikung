@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/../../common/controller/BaseController.php';
+require_once dirname(__FILE__) . '/../../common/model/CourseModel.php';
 require_once dirname(__FILE__) . '/../model/entities/C1dayEntity.php';
 require_once dirname(__FILE__) . '/../model/entities/C1exerciseEntity.php';
 require_once dirname(__FILE__) . '/../model/entities/C1userProgressEntity.php';
@@ -15,6 +16,11 @@ class CourseController extends BaseController
 {
     public function showAllDaysHandler($data = null)
     {
+        if (!$this->isCourseActivated())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         $days = $this->dataContext->loadAll(C1dayEntity::class)->toArray();
@@ -56,6 +62,11 @@ class CourseController extends BaseController
     
     public function showDayHandler($data = null)
     {
+        if (!$this->isCourseActivated())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         $id = filter_input(INPUT_GET, 'id');
@@ -82,6 +93,11 @@ class CourseController extends BaseController
     
     public function completeDayHandler($data = null)
     {
+        if (!$this->isCourseActivated())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $id = filter_input(INPUT_GET, 'id');
         $userId = $this->controller->getUser()->id;
         
@@ -108,6 +124,11 @@ class CourseController extends BaseController
     
     public function uncompleteDayHandler($data = null)
     {
+        if (!$this->isCourseActivated())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $id = filter_input(INPUT_GET, 'id');
         $userId = $this->controller->getUser()->id;
         
@@ -129,6 +150,11 @@ class CourseController extends BaseController
     
     public function showExerciseHandler($data = null)
     {
+        if (!$this->isCourseActivated())
+        {
+            return new NotAuthorizedResponse();
+        }
+        
         $this->includeSmartySimple();
         
         $id = filter_input(INPUT_GET, 'id');
@@ -144,6 +170,13 @@ class CourseController extends BaseController
     protected function getPathToView()
     {
         return dirname(__FILE__) . '/../';
+    }
+    
+    protected function isCourseActivated()
+    {
+        $courseModel = new CourseModel($this->dataContext);
+        
+        return $courseModel->isCourseActivated($this->controller->getUser()->id, 1);
     }
     
             

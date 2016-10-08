@@ -4,46 +4,59 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/days/day-add.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/exercise/exercise.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/exercise/exercise-all.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/core/routes/FLink.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/admin/user/user.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/days/day.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/admin/AdminExerciseController.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/components/userLogin.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/core/user/FLogin.php</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/core/utils/FDebug.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/core/database/DataContext.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/index.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/css/fgui.css</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/core/user/UserEntity.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/core/FModel.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/CourseController.php</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/days/day-edit.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/core/user/FUser.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/exercise.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/default.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/FController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/admin/default.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/BaseController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/utils/FDateTools.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/admin/AdminDayController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/utils/FArray.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/days.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/CourseController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/mvc/view/SmartyBinder.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/index.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/UserController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/admin/user/user-edit.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/DefaultController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/mvc/view/SmartyComponent.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/admin/DefaultController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/mvc/view/FormRenderer.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/css/bootstrap/bootstrap.css</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/admin/AdminCourseController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/days/day-add.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/exercise/exercise.tpl</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/routes/FLink.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/user/FLogin.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/utils/FDebug.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/days/day-edit.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/exercise/exercise-edit.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/core/net/response/FRedirectLink.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/css/style.css</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/exercise.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/default.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/core/forms/FFormValidation.php</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/BaseController.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/core/FConfigBase.php</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/core/utils/FDateTools.php</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/admin/AdminDayController.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/model/entities/C1exerciseEntity.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/index.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/exercise/exercise-add.tpl</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/days.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/core/utils/FArray.php</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/days.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/CourseController.php</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/admin/index.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/UserController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/css/bootstrap/forms.less</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/view/day.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/DefaultController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/controller/admin/AdminUserController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/mvc/view/IViewBindeable.php</file>
             <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/admin/index.tpl</file>
-            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/admin/AdminCourseController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/common/view/admin/user/overview.tpl</file>
         </group>
     </open-files>
 </project-private>

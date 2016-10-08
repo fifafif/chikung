@@ -34,13 +34,14 @@ CREATE TABLE IF NOT EXISTS `c1userProgress` (
   KEY `c1day_id` (`c1day_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-DROP TABLE IF EXISTS `course`;
-CREATE TABLE IF NOT EXISTS `course` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) COLLATE utf8_czech_ci NOT NULL,
-  `description` varchar(512) COLLATE utf8_czech_ci DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+CREATE TABLE `course` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`courseKey` VARCHAR(64) NOT NULL COLLATE 'utf8_czech_ci',
+	`name` VARCHAR(256) NOT NULL COLLATE 'utf8_czech_ci',
+	`description` VARCHAR(2048) NULL DEFAULT '' COLLATE 'utf8_czech_ci',
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `CourseKey` (`courseKey`)
+) COLLATE='utf8_czech_ci' ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `DBVERSION`;
 CREATE TABLE IF NOT EXISTS `DBVERSION` (
@@ -95,7 +96,9 @@ CREATE TABLE IF NOT EXISTS `userCourse` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id-course_id` (`user_id`,`course_id`),
   KEY `user_id` (`user_id`),
-  KEY `course_id` (`course_id`)
+  KEY `course_id` (`course_id`),
+  INDEX `user_id-course_id-status` (`user_id`, `course_id`, `status`),
+  INDEX `user_id-status` (`user_id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 DROP TABLE IF EXISTS `userCoursePayment`;
@@ -110,11 +113,5 @@ CREATE TABLE IF NOT EXISTS `userCoursePayment` (
   UNIQUE KEY `symbol` (`symbol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-CREATE TABLE `course1` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(64) NOT NULL COLLATE 'utf8_czech_ci',
-	`description` VARCHAR(512) NULL DEFAULT '' COLLATE 'utf8_czech_ci',
-	PRIMARY KEY (`id`)
-)
 COLLATE='utf8_czech_ci'
 ENGINE=InnoDB;

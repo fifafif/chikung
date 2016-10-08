@@ -17,10 +17,8 @@ class CourseController extends BaseController
         parent::__construct();
     }*/
 
-    public function joinCourse($courseId)
+    public function joinCourse($userId, $courseId)
     {
-        $userId = $this->controller->getUser()->id;
-        
         $course = $this->dataContext->loadByPrimaryKey(CourseEntity::class, $courseId)->first();
         if ($course == false)
         {
@@ -30,6 +28,7 @@ class CourseController extends BaseController
         $userCourse = new UserCourseEntity();
         $userCourse->user_id = $userId;
         $userCourse->course_id = $course->id;
+        $userCourse->status = 1;
         
         $res = $this->dataContext->insert($userCourse);
         if ($res == false)

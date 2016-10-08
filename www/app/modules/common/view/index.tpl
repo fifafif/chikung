@@ -28,6 +28,8 @@
                 <{a href="c1:admin:AdminCourse:default"} class="btn-grey">administrace kurzu</a>
                 <{a href="common:admin:AdminUser:default"} class="btn-grey">administrace uzivatelu</a>
             {/if}
+    
+            <hr />
         {/if}
     </div>
     

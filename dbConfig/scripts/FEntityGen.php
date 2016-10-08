@@ -127,6 +127,10 @@ class FEntityGen
                 
                 file_put_contents($tableModulePath . ucfirst($row[0]) . "Entity.php", $body);
             }
+            else
+            {
+                echo "Saving table [$tableName] FAILED! Module path not found [$tableModulePath]\n\n";
+            }
             
             echo $body . "\n\n";
         }

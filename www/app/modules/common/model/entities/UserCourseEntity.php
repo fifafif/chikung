@@ -6,13 +6,17 @@ class UserCourseEntity extends FModelObject
     const INDEX_user_id_course_id = 'user_id-course_id';
     const INDEX_user_id = 'user_id';
     const INDEX_course_id = 'course_id';
+    const INDEX_user_id_course_id_status = 'user_id-course_id-status';
+    const INDEX_user_id_status = 'user_id-status';
 
 
     protected static $indexFields = array(
         'id' => array( 'id' ),
         'user_id-course_id' => array( 'user_id', 'course_id' ),
         'user_id' => array( 'user_id' ),
-        'course_id' => array( 'course_id' ));
+        'course_id' => array( 'course_id' ),
+        'user_id-course_id-status' => array( 'user_id', 'course_id', 'status' ),
+        'user_id-status' => array( 'user_id', 'status' ));
 
     public $id;
     public $user_id;
