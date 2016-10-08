@@ -1,7 +1,9 @@
 <?php
 
 require_once dirname(__FILE__) . '/../BaseController.php';
+require_once dirname(__FILE__) . '/../../model/CourseModel.php';
 require_once dirname(__FILE__) . '/../../model/entities/UserCourseEntity.php';
+require_once dirname(__FILE__) . '/../../model/entities/CourseEntity.php';
 require_once dirname(__FILE__) . '/../../../../core/mvc/view/SmartyComponent.php';
 
 /**
@@ -67,9 +69,14 @@ class AdminUserController extends BaseController
         
         $targetUser = $this->dataContext->loadByPrimaryKey(UserEntity::class, $id)->first();
         
+        $userCourses = $this->dataContext
+                ->loadByIndex(UserCourseEntity::class, UserCourseEntity::INDEX_user_id_status, $targetUser->id, 1)
+                ->toArray();
+        
         //$userCourses = $this->dataContext->load(UserCourseEntity::class)->toDictionary('user_id');
         
         $this->assignByRef('targetUser', $targetUser);
+        $this->assignByRef('userCourses', $userCourses);
         
         return $this->smarty->fetchViewToResponse('index', 'admin/user/user');
     }
@@ -89,15 +96,20 @@ class AdminUserController extends BaseController
         $targetUser = $this->dataContext->loadByPrimaryKey(UserEntity::class, $id)->first();
         
         $roleData = array(
-            array('value' => 0, 'text' => 'Zakladni'),
-            array('value' => 1, 'text' => 'Admin')
+            array('value' => 0, 'text' => 'Zakladni', 'selected' => ($targetUser->role == 0)),
+            array('value' => 1, 'text' => 'Admin', 'selected' => ($targetUser->role == 1))
         );
-                
         
-        //$userCourses = $this->dataContext->load(UserCourseEntity::class)->toDictionary('user_id');
+        $courses = $this->dataContext->loadAll(CourseEntity::class)->toArray();
         
+        $userCoursesByIdMap = $this->dataContext
+                ->loadByKey(UserCourseEntity::class, UserCourseEntity::INDEX_user_id, $targetUser->id)
+                ->toDictionary(UserCourseEntity::INDEX_course_id);
+
         $this->assignByRef('targetUser', $targetUser);
         $this->assignByRef('roleData', $roleData);
+        $this->assignByRef('courses', $courses);
+        $this->assignByRef('userCourses', $userCoursesByIdMap);
         
         return $this->smarty->fetchViewToResponse('index', 'admin/user/user-edit');
     }
@@ -126,6 +138,61 @@ class AdminUserController extends BaseController
         $targetUser->email = $email;
         
         $this->dataContext->update($targetUser);
+        
+        
+        $coursesById = $this->dataContext->loadAll(CourseEntity::class)->toDictionary(CourseEntity::INDEX_id);
+        
+        if (isset($_POST['courseIds']) && is_array($_POST['courseIds']))
+        {
+            $submitedCourseIds = $_POST['courseIds'];
+        }
+        else
+        {
+            $submitedCourseIds = array();
+        }
+        
+        // print_r($submitedCourseIds);
+        
+        $courseController = new CourseModel($this->dataContext);
+        
+        $userCoursesByIdMap = $this->dataContext->loadByKey(UserCourseEntity::class, UserCourseEntity::INDEX_user_id, $targetUser->id)->toDictionary(UserCourseEntity::INDEX_course_id);
+        $activeCourseIds = array();
+        
+        foreach ($submitedCourseIds as $courseId)
+        {
+            $activeCourseIds[$courseId] = true;
+            
+            if (isset($userCoursesByIdMap[$courseId]))
+            {
+                $course = $userCoursesByIdMap[$courseId];
+                
+                if ($course->status != 1)
+                {
+                    $course->status = 1;
+                    
+                    $this->dataContext->update($course);
+                }
+            }
+            else   
+            {
+                if ($courseController->joinCourse($targetUser->id, $courseId))
+                {
+                    $this->controller->addMessage("Course joined!");
+                }
+            }
+        }
+        
+        foreach ($userCoursesByIdMap as $key => $course)
+        {
+            if (!isset($activeCourseIds[$courseId]))
+            {
+                $course->status = 0;
+                
+                $this->dataContext->update($course);
+            }
+        }
+        
+        // print_r($userCoursesByIdMap);
         
         return new FRedirectLink('common:admin:AdminUser:default');
     }
