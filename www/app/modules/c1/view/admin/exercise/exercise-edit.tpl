@@ -18,9 +18,9 @@
     Typ: <input type="number" name="type" value={$exercise->type}><br>
     Video: <input type="text" name="video" value={$exercise->video}><br>
     {form_select name="dayId" data=$days}
-    <input type="submit" name="submit" class="btn-green">
+    <input type="submit" name="submit" class="btn success">
 </form>
 
     
-<a href={link a="c1:admin:AdminExercise:show" id=$exercise->id} class="btn-grey">Zrusit</a>
+<a href={link a="c1:admin:AdminExercise:show" id=$exercise->id} class="btn info">Zrusit</a>
     

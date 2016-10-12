@@ -90,7 +90,8 @@ class FEntityGen
             $indexFieldsString[strlen($indexFieldsString) - 1] = ')';
             $indexFieldsString .= ';';
             
-            $fieldsString = "";
+            $fieldNamesString = '';
+            $fieldsString = '';
             $entityArrayString = "    protected static \$dataTypes = array(";
             
             // Parse data fields
@@ -98,8 +99,9 @@ class FEntityGen
             {
                 $entity = $this->generateTableEntity($rowTable);
                 
-                $entityArrayString .= "\n        " . $this->buildTypeDefinitio($rowTable, $entity) . ", ";
+                $entityArrayString .= "\n        " . $this->buildTypeDefinition($rowTable, $entity) . ", ";
                 $fieldsString .= "    public \$" . $rowTable['Field'] . ";\n";
+                $fieldNamesString .= '    const FIELD_' . $rowTable['Field'] . ' = \'' . $rowTable['Field'] . "';\n";
                 
                 if (strpos($rowTable['Field'], '_') !== false)
                 {
@@ -113,11 +115,12 @@ class FEntityGen
             $entityArrayString[strlen($entityArrayString) - 1] = ";";
             
             $body = "<?php\n\nclass " . ucfirst($tableName) . "Entity extends FModelObject\n{\n";
-            $body .= $indexString . "\n\n";
-            $body .= $indexFieldsString . "\n\n";
+            $body .= $indexString . "\n";
+            $body .= $fieldNamesString . "\n";
             $body .= $fieldsString . "\n" . $entityArrayString . "\n\n";
+            $body .= $indexFieldsString . "\n\n";
+            $body .= "    public static \$tableName = '$row[0]';\n\n";
             $body .= "    public static function getTableName() { return self::\$tableName; }\n";
-            $body .= "    public static \$tableName = '$row[0]';\n";            
             $body .= "\n}\n?>";
             
             $tableModulePath = $this->getTableModule($tableName);
@@ -129,14 +132,14 @@ class FEntityGen
             }
             else
             {
-                echo "Saving table [$tableName] FAILED! Module path not found [$tableModulePath]\n\n";
+                echo "ERROR: Saving table [$tableName] failed! Module path not found [$tableModulePath]\n\n";
             }
             
             echo $body . "\n\n";
         }
     }
     
-    private function buildTypeDefinitio(&$row, &$array)
+    private function buildTypeDefinition(&$row, &$array)
     {
         return "'" . $row["Field"] . "' => array ($array[0], $array[1], $array[2], $array[3], $array[4])";
     }

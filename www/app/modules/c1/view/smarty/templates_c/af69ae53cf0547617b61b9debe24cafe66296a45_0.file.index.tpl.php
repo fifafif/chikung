@@ -72,11 +72,11 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
     <div>
         <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
             <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:Course:showAllDays"),$_smarty_tpl);?>
- class="btn-green">prejit na kurz</a>
+ class="btn success">prejit na kurz</a>
 
             <?php if ($_smarty_tpl->tpl_vars['user']->value->isAdmin()) {?>
                 <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
- class="btn-grey">administrace kurzu</a>
+ class="btn info">administrace kurzu</a>
             <?php }?>
         <?php }?>
     </div>

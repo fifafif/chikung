@@ -38,7 +38,7 @@ js/libs/nicEditorIcons.gif'}).panelInstance('text-edit-1');
 <h2>Edit day</h2>
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showDay",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
- class="btn-grey">zpatky</a>
+ class="btn info">zpatky</a>
 
 <form action=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:edit",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
  method="post">
@@ -48,6 +48,6 @@ js/libs/nicEditorIcons.gif'}).panelInstance('text-edit-1');
 "><br>
     Popis: <textarea id="text-edit-1" class="span6" rows=20 cols=80 name="description"><?php echo $_smarty_tpl->tpl_vars['day']->value->description;?>
 </textarea><br>
-    <input type="submit" name="submit" class="btn-green">
+    <input type="submit" name="submit" class="btn success">
 </form><?php }
 }

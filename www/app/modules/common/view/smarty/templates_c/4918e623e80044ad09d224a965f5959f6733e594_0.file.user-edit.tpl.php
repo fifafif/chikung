@@ -65,12 +65,12 @@ $_smarty_tpl->tpl_vars['course'] = $__foreach_course_0_saved_item;
     
     <br />
     
-    <input type="submit" name="submit" class="btn-green"><br />
+    <input type="submit" name="submit" class="btn success"><br />
     
 </form>
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"common:admin:AdminUser:show",'id'=>$_smarty_tpl->tpl_vars['targetUser']->value->id),$_smarty_tpl);?>
- class="btn-grey">Zrusit</a>
+ class="btn info">Zrusit</a>
     
 <?php }
 }

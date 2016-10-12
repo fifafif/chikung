@@ -10,4 +10,4 @@
 
 <hr />
 
-<a href={link a="c1:admin:AdminCourse:default"} class="btn-grey">zpatky</a>
+<a href={link a="c1:admin:AdminCourse:default"} class="btn info">zpatky</a>

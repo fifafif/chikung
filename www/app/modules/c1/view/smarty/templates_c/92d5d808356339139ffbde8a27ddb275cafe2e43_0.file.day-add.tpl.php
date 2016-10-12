@@ -28,9 +28,9 @@ function content_57f4842d13b541_24094891 ($_smarty_tpl) {
     Nazev: <input type="text" name="name"><br>
     Poradi: <input type="number" name="order"><br>
     Popis: <textarea rows=4 cols=80 name="description"></textarea><br>
-    <input type="submit" name="submit" class="btn-green">
+    <input type="submit" name="submit" class="btn success">
 </form>
     
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
- class="btn-grey">zpatky</a><?php }
+ class="btn info">zpatky</a><?php }
 }

@@ -16,7 +16,7 @@
 
 <hr />
 
-<a href={link a="c1:admin:AdminCourse:default"} class="btn-grey">zpatky</a>
-<a href={link a="c1:admin:AdminExercise:showAdd" dayId=$day->id}class="btn-green">pridat cvik</a>
-<a href={link a="c1:admin:AdminDay:showEdit" id=$day->id}class="btn-grey">editovat</a>
-<a href={link a="c1:admin:AdminDay:delete" id=$day->id} onclick="return confirm('Opravdu smazat?');" class="btn-red">smazat</a>
+<a href={link a="c1:admin:AdminCourse:default"} class="btn info">zpatky</a>
+<a href={link a="c1:admin:AdminExercise:showAdd" dayId=$day->id}class="btn success">pridat cvik</a>
+<a href={link a="c1:admin:AdminDay:showEdit" id=$day->id}class="btn info">editovat</a>
+<a href={link a="c1:admin:AdminDay:delete" id=$day->id} onclick="return confirm('Opravdu smazat?');" class="btn danger">smazat</a>

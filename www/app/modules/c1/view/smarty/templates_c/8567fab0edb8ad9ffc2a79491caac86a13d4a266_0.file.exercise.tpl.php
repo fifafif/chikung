@@ -37,5 +37,5 @@ function content_57f7d7cd54d9b9_42875926 ($_smarty_tpl) {
 <hr />
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1::Course:showDay",'id'=>$_smarty_tpl->tpl_vars['exercise']->value->c1day_id),$_smarty_tpl);?>
- class="btn-grey">zpatky</a><?php }
+ class="btn info">zpatky</a><?php }
 }

@@ -18,7 +18,7 @@
     Typ: <input type="number" name="type"><br>
     Video: <input type="text" name="video"><br>
     {form_select name="dayId" data=$days}<br>
-    <input type="submit" name="submit" class="btn-green">
+    <input type="submit" name="submit" class="btn success">
 </form>
 
-<a href={link a="c1:admin:AdminDay:showDay" id=$dayId} class="btn-grey">zpatky</a>
+<a href={link a="c1:admin:AdminDay:showDay" id=$dayId} class="btn info">zpatky</a>

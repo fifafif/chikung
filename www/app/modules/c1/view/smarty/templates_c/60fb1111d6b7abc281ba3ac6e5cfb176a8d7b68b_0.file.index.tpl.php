@@ -80,7 +80,7 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
     <hr />
     <?php if ($_smarty_tpl->tpl_vars['user']->value->isAdmin()) {?>
         <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
- class="btn-grey">administrace kurzu</a>
+ class="btn info">administrace kurzu</a>
     <?php }?>
     
 </body><?php }

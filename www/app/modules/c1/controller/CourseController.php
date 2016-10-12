@@ -23,9 +23,13 @@ class CourseController extends BaseController
         
         $this->includeSmartySimple();
         
-        $days = $this->dataContext->loadAll(C1dayEntity::class)->toArray();
+        $days = $this->dataContext
+                ->loadAll(C1dayEntity::class)
+                ->sort(C1dayEntity::FIELD_order)
+                ->toArray();
         
-        $progressData = $this->dataContext->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id, $this->getUserId())
+        $progressData = $this->dataContext
+                ->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id, $this->getUserId())
                 ->toDictionary(C1userProgressEntity::INDEX_c1day_id);
         
         $dayData = array();
@@ -71,11 +75,48 @@ class CourseController extends BaseController
         
         $id = filter_input(INPUT_GET, 'id');
         
-        $day = $this->dataContext->loadByPrimaryKey(C1dayEntity::class, $id)->first();
-        $this->assignByRef('day', $day);
+        $days = $this->dataContext
+                ->loadAll(C1dayEntity::class)
+                ->toDictionary(C1dayEntity::INDEX_id);
+        
+        if (!isset($days[$id]))
+        {
+            $this->controller->addMessage("Den nenalezen! Den id: $id.");
+            
+            return new FRedirectLink('c1:Course:showAllDays');
+        }
+        
+        $selectedDay = $days[$id];
+        $this->assignByRef('day', $selectedDay);
+        
+        $prevDay = null;
+        $nextDay = null;
+        
+        $day = null;
+        
+        foreach ($days as $day)
+        {
+            if ($day->order < $selectedDay->order
+                && (!isset($prevDay) || $day->order > $prevDay->order))
+            {
+                $prevDay = $day;
+            }
+            
+            if ($day->order > $selectedDay->order
+                && (!isset($nextDay) || $day->order < $nextDay->order))
+            {
+                $nextDay = $day;
+            }
+        }
         
         $exercises = $this->dataContext->loadByKey(C1exerciseEntity::class, C1exerciseEntity::INDEX_c1day_id, $id)->toArray();
         $this->assignByRef('exercises', $exercises);
+        
+        $prevDayId = isset($prevDay) ? $prevDay->id : -1;
+        $nextDayId = isset($nextDay) ? $nextDay->id : -1;
+        
+        $this->assign('prevDayId', $prevDayId);
+        $this->assign('nextDayId', $nextDayId);
         
         $isCompleted = false;
         $userProgress = $this->dataContext->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id_c1day_id, $this->getUserId(), $id)->first();

@@ -6,11 +6,11 @@ class UserCoursePaymentEntity extends FModelObject
     const INDEX_userCourse_id = 'userCourse_id';
     const INDEX_symbol = 'symbol';
 
-
-    protected static $indexFields = array(
-        'id' => array( 'id' ),
-        'userCourse_id' => array( 'userCourse_id' ),
-        'symbol' => array( 'symbol' ));
+    const FIELD_id = 'id';
+    const FIELD_userCourse_id = 'userCourse_id';
+    const FIELD_symbol = 'symbol';
+    const FIELD_created = 'created';
+    const FIELD_status = 'status';
 
     public $id;
     public $userCourse_id;
@@ -26,8 +26,14 @@ class UserCoursePaymentEntity extends FModelObject
         'created' => array (3, false, 1, NULL, false), 
         'status' => array (0, false, 1, NULL, false));
 
-    public static function getTableName() { return self::$tableName; }
+    protected static $indexFields = array(
+        'id' => array( 'id' ),
+        'userCourse_id' => array( 'userCourse_id' ),
+        'symbol' => array( 'symbol' ));
+
     public static $tableName = 'userCoursePayment';
+
+    public static function getTableName() { return self::$tableName; }
 
 }
 ?>

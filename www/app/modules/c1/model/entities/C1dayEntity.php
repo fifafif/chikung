@@ -4,9 +4,10 @@ class C1dayEntity extends FModelObject
 {
     const INDEX_id = 'id';
 
-
-    protected static $indexFields = array(
-        'id' => array( 'id' ));
+    const FIELD_id = 'id';
+    const FIELD_order = 'order';
+    const FIELD_name = 'name';
+    const FIELD_description = 'description';
 
     public $id;
     public $order;
@@ -19,8 +20,12 @@ class C1dayEntity extends FModelObject
         'name' => array (2, false, 1, NULL, false), 
         'description' => array (2, false, 1, NULL, false));
 
-    public static function getTableName() { return self::$tableName; }
+    protected static $indexFields = array(
+        'id' => array( 'id' ));
+
     public static $tableName = 'c1day';
+
+    public static function getTableName() { return self::$tableName; }
 
 }
 ?>

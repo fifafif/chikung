@@ -10,4 +10,4 @@
 
 <hr />
 
-<a href={link a="c1::Course:showDay" id=$exercise->c1day_id} class="btn-grey">zpatky</a>
+<a href={link a="c1::Course:showDay" id=$exercise->c1day_id} class="btn info">zpatky</a>

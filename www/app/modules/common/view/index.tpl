@@ -1,9 +1,10 @@
 <head>
     <title>{$title}</title>
     
-    <link rel="stylesheet" type="text/css" href="{$root}css/fgui.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{$root}css/fgui.css">
     <link rel="stylesheet" type="text/css" href="{$root}css/style.css">
+    
 </head>
 <body>
     <h1>Chikung</h1>
@@ -22,11 +23,11 @@
     
     <div>
         {if $user->isLogged()}
-            <{a href="c1:Course:showAllDays"} class="btn-green">prejit na kurz</a>
+            <{a href="c1:Course:showAllDays"} class="btn info">prejit na kurz</a>
 
             {if $user->isAdmin()}
-                <{a href="c1:admin:AdminCourse:default"} class="btn-grey">administrace kurzu</a>
-                <{a href="common:admin:AdminUser:default"} class="btn-grey">administrace uzivatelu</a>
+                <{a href="c1:admin:AdminCourse:default"} class="btn success">administrace kurzu</a>
+                <{a href="common:admin:AdminUser:default"} class="btn info">administrace uzivatelu</a>
             {/if}
     
             <hr />

@@ -56,8 +56,8 @@ $_smarty_tpl->tpl_vars['day'] = $__foreach_day_0_saved_item;
 <hr />
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showAdd"),$_smarty_tpl);?>
- class="btn-grey">pridat den</a>
+ class="btn info">pridat den</a>
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:showAll"),$_smarty_tpl);?>
- class="btn-grey">zobrazit vsechny cviky</a>
+ class="btn info">zobrazit vsechny cviky</a>
 <?php }
 }

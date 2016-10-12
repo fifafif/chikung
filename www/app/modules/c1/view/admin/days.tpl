@@ -13,5 +13,5 @@
 
 <hr />
 
-<a href={link a="c1:admin:AdminDay:showAdd"} class="btn-grey">pridat den</a>
-<a href={link a="c1:admin:AdminExercise:showAll"} class="btn-grey">zobrazit vsechny cviky</a>
+<a href={link a="c1:admin:AdminDay:showAdd"} class="btn info">pridat den</a>
+<a href={link a="c1:admin:AdminExercise:showAll"} class="btn info">zobrazit vsechny cviky</a>

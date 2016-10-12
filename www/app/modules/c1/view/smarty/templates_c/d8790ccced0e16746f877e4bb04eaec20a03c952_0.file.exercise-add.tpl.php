@@ -46,9 +46,9 @@ js/libs/nicEditorIcons.gif'}).panelInstance('text-edit-1');
     Video: <input type="text" name="video"><br>
     <?php echo SmartyBinder::printFormSelect(array('name'=>"dayId",'data'=>$_smarty_tpl->tpl_vars['days']->value),$_smarty_tpl);?>
 <br>
-    <input type="submit" name="submit" class="btn-green">
+    <input type="submit" name="submit" class="btn success">
 </form>
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showDay",'id'=>$_smarty_tpl->tpl_vars['dayId']->value),$_smarty_tpl);?>
- class="btn-grey">zpatky</a><?php }
+ class="btn info">zpatky</a><?php }
 }

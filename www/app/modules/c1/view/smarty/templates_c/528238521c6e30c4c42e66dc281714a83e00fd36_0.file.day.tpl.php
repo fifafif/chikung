@@ -64,12 +64,12 @@ $_smarty_tpl->tpl_vars['exercise'] = $__foreach_exercise_0_saved_item;
 <hr />
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
- class="btn-grey">zpatky</a>
+ class="btn info">zpatky</a>
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:showAdd",'dayId'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
-class="btn-green">pridat cvik</a>
+class="btn success">pridat cvik</a>
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showEdit",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
-class="btn-grey">editovat</a>
+class="btn info">editovat</a>
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:delete",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
- onclick="return confirm('Opravdu smazat?');" class="btn-red">smazat</a>
+ onclick="return confirm('Opravdu smazat?');" class="btn danger">smazat</a>
 <?php }
 }

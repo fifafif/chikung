@@ -5,10 +5,12 @@ class C1exerciseEntity extends FModelObject
     const INDEX_id = 'id';
     const INDEX_c1day_id = 'c1day_id';
 
-
-    protected static $indexFields = array(
-        'id' => array( 'id' ),
-        'c1day_id' => array( 'c1day_id' ));
+    const FIELD_id = 'id';
+    const FIELD_c1day_id = 'c1day_id';
+    const FIELD_name = 'name';
+    const FIELD_description = 'description';
+    const FIELD_video = 'video';
+    const FIELD_type = 'type';
 
     public $id;
     public $c1day_id;
@@ -26,8 +28,13 @@ class C1exerciseEntity extends FModelObject
         'video' => array (2, false, 1, NULL, false), 
         'type' => array (0, false, 1, NULL, false));
 
-    public static function getTableName() { return self::$tableName; }
+    protected static $indexFields = array(
+        'id' => array( 'id' ),
+        'c1day_id' => array( 'c1day_id' ));
+
     public static $tableName = 'c1exercise';
+
+    public static function getTableName() { return self::$tableName; }
 
 }
 ?>

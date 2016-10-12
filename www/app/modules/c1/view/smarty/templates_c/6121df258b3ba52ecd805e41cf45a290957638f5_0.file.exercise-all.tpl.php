@@ -56,5 +56,5 @@ $_smarty_tpl->tpl_vars['exercise'] = $__foreach_exercise_0_saved_item;
 <hr />
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
- class="btn-grey">zpatky</a><?php }
+ class="btn info">zpatky</a><?php }
 }

@@ -62,7 +62,7 @@ $_smarty_tpl->tpl_vars['course'] = $__foreach_course_0_saved_item;
 <hr />
 
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"common:admin:AdminUser:default"),$_smarty_tpl);?>
- class="btn-grey">zpatky</a>
+ class="btn info">zpatky</a>
 <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"common:admin:AdminUser:showEdit",'id'=>$_smarty_tpl->tpl_vars['targetUser']->value->id),$_smarty_tpl);?>
- class="btn-grey">editovat</a><?php }
+ class="btn info">editovat</a><?php }
 }

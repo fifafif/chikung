@@ -47,23 +47,23 @@ function content_57f7d80224e057_02182975 ($_smarty_tpl) {
 </h3>
 
     <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminDay:showDay",'id'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
- class="btn-grey">zpatky</a>
+ class="btn info">zpatky</a>
     <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:showEdit",'id'=>$_smarty_tpl->tpl_vars['exercise']->value->id,'dayId'=>$_smarty_tpl->tpl_vars['day']->value->id),$_smarty_tpl);?>
- class="btn-grey">editovat</a>
+ class="btn info">editovat</a>
     
 <?php } else { ?>
     
     <h3>Tento cvik neni prirazen ke dnu!</h3>
     
     <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:showAll"),$_smarty_tpl);?>
- class="btn-grey">zpatky</a>
+ class="btn info">zpatky</a>
     <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:showEdit",'id'=>$_smarty_tpl->tpl_vars['exercise']->value->id),$_smarty_tpl);?>
- class="btn-grey">editovat</a>
+ class="btn info">editovat</a>
     
 <?php }?>
 
     <a href=<?php echo SmartyBinder::printSmartyLink(array('a'=>"c1:admin:AdminExercise:delete",'id'=>$_smarty_tpl->tpl_vars['exercise']->value->id),$_smarty_tpl);?>
- class="btn-red">smazat</a>
+ class="btn danger">smazat</a>
 
 <?php }
 }

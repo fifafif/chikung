@@ -19,9 +19,9 @@
     
     <br />
     
-    <input type="submit" name="submit" class="btn-green"><br />
+    <input type="submit" name="submit" class="btn success"><br />
     
 </form>
 
-<a href={link a="common:admin:AdminUser:show" id=$targetUser->id} class="btn-grey">Zrusit</a>
+<a href={link a="common:admin:AdminUser:show" id=$targetUser->id} class="btn info">Zrusit</a>
     

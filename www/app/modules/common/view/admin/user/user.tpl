@@ -17,5 +17,5 @@ Kurzy:
 
 <hr />
 
-<a href={link a="common:admin:AdminUser:default"} class="btn-grey">zpatky</a>
-<a href={link a="common:admin:AdminUser:showEdit" id=$targetUser->id} class="btn-grey">editovat</a>
+<a href={link a="common:admin:AdminUser:default"} class="btn info">zpatky</a>
+<a href={link a="common:admin:AdminUser:showEdit" id=$targetUser->id} class="btn info">editovat</a>

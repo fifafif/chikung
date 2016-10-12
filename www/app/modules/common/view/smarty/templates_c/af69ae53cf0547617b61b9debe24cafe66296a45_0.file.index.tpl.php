@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-10-08 01:00:34
+/* Smarty version 3.1.29, created on 2016-10-08 17:13:01
   from "C:\projects\Chikung\chikung\www\app\modules\common\view\index.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_57f845320f9e02_77186766',
+  'unifunc' => 'content_57f9291d9a9b54_65040415',
   'file_dependency' => 
   array (
     'af69ae53cf0547617b61b9debe24cafe66296a45' => 
     array (
       0 => 'C:\\projects\\Chikung\\chikung\\www\\app\\modules\\common\\view\\index.tpl',
-      1 => 1475888432,
+      1 => 1475946777,
       2 => 'file',
     ),
   ),
@@ -20,18 +20,19 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
     'file:./components/userLogin.tpl' => 1,
   ),
 ),false)) {
-function content_57f845320f9e02_77186766 ($_smarty_tpl) {
+function content_57f9291d9a9b54_65040415 ($_smarty_tpl) {
 ?>
 <head>
     <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
 </title>
     
     <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
-css/fgui.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
 css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
+css/fgui.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['root']->value;?>
 css/style.css">
+    
 </head>
 <body>
     <h1>Chikung</h1>
@@ -71,13 +72,13 @@ $_smarty_tpl->tpl_vars['message'] = $__foreach_message_0_saved_item;
     <div>
         <?php if ($_smarty_tpl->tpl_vars['user']->value->isLogged()) {?>
             <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:Course:showAllDays"),$_smarty_tpl);?>
- class="btn-green">prejit na kurz</a>
+ class="btn info">prejit na kurz</a>
 
             <?php if ($_smarty_tpl->tpl_vars['user']->value->isAdmin()) {?>
                 <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"c1:admin:AdminCourse:default"),$_smarty_tpl);?>
- class="btn-grey">administrace kurzu</a>
+ class="btn success">administrace kurzu</a>
                 <<?php echo SmartyBinder::printSmartyAhref(array('href'=>"common:admin:AdminUser:default"),$_smarty_tpl);?>
- class="btn-grey">administrace uzivatelu</a>
+ class="btn info">administrace uzivatelu</a>
             <?php }?>
     
             <hr />

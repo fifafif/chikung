@@ -29,7 +29,7 @@
     
     <hr />
     {if $user->isAdmin()}
-        <{a href="c1:admin:AdminCourse:default"} class="btn-grey">administrace kurzu</a>
+        <{a href="c1:admin:AdminCourse:default"} class="btn info">administrace kurzu</a>
     {/if}
     
 </body>

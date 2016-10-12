@@ -8,13 +8,13 @@ class UserEntity extends FModelObject
     const INDEX_accessToken = 'accessToken';
     const INDEX_id_username = 'id-username';
 
-
-    protected static $indexFields = array(
-        'id' => array( 'id' ),
-        'email' => array( 'email' ),
-        'username' => array( 'username' ),
-        'accessToken' => array( 'accessToken' ),
-        'id-username' => array( 'id', 'username' ));
+    const FIELD_id = 'id';
+    const FIELD_username = 'username';
+    const FIELD_email = 'email';
+    const FIELD_password = 'password';
+    const FIELD_accessToken = 'accessToken';
+    const FIELD_createDate = 'createDate';
+    const FIELD_role = 'role';
 
     public $id;
     public $username;
@@ -33,8 +33,16 @@ class UserEntity extends FModelObject
         'createDate' => array (3, false, 1, NULL, false), 
         'role' => array (0, false, 1, NULL, false));
 
-    public static function getTableName() { return self::$tableName; }
+    protected static $indexFields = array(
+        'id' => array( 'id' ),
+        'email' => array( 'email' ),
+        'username' => array( 'username' ),
+        'accessToken' => array( 'accessToken' ),
+        'id-username' => array( 'id', 'username' ));
+
     public static $tableName = 'user';
+
+    public static function getTableName() { return self::$tableName; }
 
 }
 ?>
