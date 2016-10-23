@@ -75,7 +75,7 @@ class AdminDayController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $day = $this->dataContext->loadByPrimaryKey(C1dayEntity::class, $id)->first();
         $this->assignByRef('day', $day);
@@ -95,7 +95,7 @@ class AdminDayController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $day = $this->dataContext->loadByPrimaryKey(C1dayEntity::class, $id)->first();
         $this->assignByRef('day', $day);
@@ -113,7 +113,7 @@ class AdminDayController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         if (!isset($_REQUEST['submit']))
         {
@@ -168,7 +168,7 @@ class AdminDayController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $res = $this->dataContext->deleteByPrimaryKey(C1dayEntity::class, $id);
         if ($res)

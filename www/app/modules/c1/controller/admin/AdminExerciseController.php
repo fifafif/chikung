@@ -78,7 +78,7 @@ class AdminExerciseController extends BaseController
                 return array('value' => $model->id, 'text' => $model->name);
             }, $days->toArray());
         
-        $this->assign('dayId', filter_input(INPUT_GET, 'dayId'));
+        $this->assign('dayId', $data['dayId']);
         $this->assignByRef('days', $formDayData);
         
         return $this->fetchViewToResponse('admin/index', 'admin/exercise/exercise-add');
@@ -93,7 +93,7 @@ class AdminExerciseController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $exercise = $this->dataContext->loadByPrimaryKey(C1exerciseEntity::class, $id)->first();
         $this->assignByRef('exercise', $exercise);
@@ -128,7 +128,7 @@ class AdminExerciseController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $exercise = $this->dataContext->loadByPrimaryKey(C1exerciseEntity::class, $id)->first();
         $this->assignByRef('exercise', $exercise);
@@ -158,7 +158,7 @@ class AdminExerciseController extends BaseController
             return new FRedirectLink('c1:admin:AdminCourse:default');
         }
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         if (!isset($id))
         {
@@ -203,7 +203,7 @@ class AdminExerciseController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $res = $this->dataContext->deleteByPrimaryKey(C1exerciseEntity::class, $id);
         if ($res)
@@ -211,7 +211,7 @@ class AdminExerciseController extends BaseController
             $this->controller->addMessage('Cvik smazan');
         }
         
-        $dayId = filter_input(INPUT_GET, 'dayId');
+        $dayId = $data['dayId'];
         
         if (isset($dayId))
         {

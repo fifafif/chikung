@@ -27,8 +27,10 @@ require_once dirname(__FILE__) . '/messages/FMessages.php';
 
 require_once dirname(__FILE__) . '/utils/FDateTools.php';
 require_once dirname(__FILE__) . '/utils/FArray.php';
+require_once dirname(__FILE__) . '/utils/FPerf.php';
 
 require_once dirname(__FILE__) . '/routes/FLink.php';
+require_once dirname(__FILE__) . '/routes/Router.php';
 
 require_once dirname(__FILE__) . '/user/FLogin.php';
 require_once dirname(__FILE__) . '/user/FUser.php';
@@ -62,8 +64,8 @@ class FController
     const REQUEST_FN_SUFFIX = 'Handler';
     
 
-    private function __construct() {
-
+    private function __construct() 
+    {
         $config = new FConfigBase;
         $config->loadSettings();
 
@@ -104,10 +106,12 @@ class FController
 
     public function handleRequest()
     {
-        FDebug::log("=== Begin request ===", FDebugChannel::NET);
+        FPerf::start('request');
+
+        $route = $this->findRoute();
         
         $requestDecoder = new RequestDecoder();
-        $requestDecoder->decodeRequest($_REQUEST);
+        $requestDecoder->decodeRequest($_REQUEST, $route);
         
         $this->request = $requestDecoder->getRequest();
         $this->authData = $requestDecoder->getAuthData();
@@ -117,6 +121,36 @@ class FController
         $this->executeRequestController();
         
         $this->returnResponse();
+        
+        FDebug::log("Request handling time [ms]: " . FPerf::end('request'), FDebugChannel::SYSTEM);
+    }
+    
+    private function findRoute()
+    {
+        if (!FConfigBase::$config['routing'])
+        {
+            return null;
+        }
+        
+        $routeFile = dirname(__FILE__) . '/../config/Routes.php';
+        
+        if (!file_exists($routeFile))
+        {
+            return null;
+        }
+        else
+        {
+            require_once $routeFile;
+            
+            $routes = new Routes();
+            $router = $routes->createRouter();
+            $router->findRoute($_SERVER['REQUEST_URI']);
+            
+            $this->link->setRouter($router);
+            $this->link->setType(FLink::TYPE_NICE);
+            
+            return $router->getFoundRoute();
+        }
     }
     
     private function authorizeUser()
@@ -219,8 +253,6 @@ class FController
         
         // Execute controller with handler function
         $this->response = $controllerClass->$function($this->request->data);
-        
-        FDebug::log("=== End request ===", FDebugChannel::SYSTEM);
     }
 
     public function setLanguage($language = 'cs_CZ') {

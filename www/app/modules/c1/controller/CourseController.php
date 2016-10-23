@@ -73,7 +73,7 @@ class CourseController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $days = $this->dataContext
                 ->loadAll(C1dayEntity::class)
@@ -139,7 +139,7 @@ class CourseController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         $userId = $this->controller->getUser()->id;
         
         $count = $this->dataContext->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id_c1day_id, $userId, $id)->count();
@@ -147,7 +147,7 @@ class CourseController extends BaseController
         {
             $this->controller->addMessage("Does not compute! Already saved!", FMessage::TYPE_WARNING);
             
-            return new FRedirect(FLink::printLinkFromParams('c1:Course:showDay', array('id' => $id)), false);
+            return new FRedirectLink('c1:Course:showDay', array('id' => $id));
         }
         
         $userProgress = new C1userProgressEntity();
@@ -170,7 +170,7 @@ class CourseController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         $userId = $this->controller->getUser()->id;
         
         $userProgress = $this->dataContext->loadByIndex(C1userProgressEntity::class, C1userProgressEntity::INDEX_user_id_c1day_id, $userId, $id)->first();
@@ -198,7 +198,7 @@ class CourseController extends BaseController
         
         $this->includeSmartySimple();
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $exercise = $this->dataContext->loadByPrimaryKey(C1exerciseEntity::class, $id)->first();
         $this->assignByRef('exercise', $exercise);

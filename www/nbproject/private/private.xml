@@ -3,6 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/projects/Chikung/chikung/www/app/config/Routes.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/.htaccess</file>
+            <file>file:/C:/projects/Chikung/chikung/www/index.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/admin/AdminDayController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/routes/FLink.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/modules/c1/controller/admin/AdminExerciseController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/core/FController.php</file>
+            <file>file:/C:/projects/Chikung/chikung/www/app/config/config.php</file>
+        </group>
     </open-files>
 </project-private>

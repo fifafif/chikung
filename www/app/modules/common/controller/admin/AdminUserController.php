@@ -65,7 +65,7 @@ class AdminUserController extends BaseController
         $this->smarty = new SmartyComponent(dirname(__FILE__) . '/../../');
         $this->smarty->assignBasic($this->controller);
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $targetUser = $this->dataContext->loadByPrimaryKey(UserEntity::class, $id)->first();
         
@@ -91,7 +91,7 @@ class AdminUserController extends BaseController
         $this->smarty = new SmartyComponent(dirname(__FILE__) . '/../../');
         $this->smarty->assignBasic($this->controller);
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         
         $targetUser = $this->dataContext->loadByPrimaryKey(UserEntity::class, $id)->first();
         
@@ -121,7 +121,7 @@ class AdminUserController extends BaseController
             return new NotAuthorizedResponse();
         }
         
-        $id = filter_input(INPUT_GET, 'id');
+        $id = $data['id'];
         $role = filter_input(INPUT_POST, 'role');
         $username = filter_input(INPUT_POST, 'username');
         $email = filter_input(INPUT_POST, 'email');

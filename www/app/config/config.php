@@ -38,6 +38,7 @@ db_name = chikung
 db_username = root
 db_password = 
 root = /
+routing = true
 
 [dev:domain=192.168.1.66]
 db_host = localhost
@@ -45,6 +46,7 @@ db_name = 90days
 db_username = root
 db_password = 
 root = /
+routing = true
 
 [dev:domain=dev.chikung.cz]
 db_host = wm112.wedos.net
@@ -52,6 +54,7 @@ db_name = d126808_dev
 db_username = w126808_dev
 db_password = Polydocdec1.
 root = /
+routing = true
 
 ; production configuration
 [prod:domain=live.cz]
@@ -60,3 +63,4 @@ db_name =
 db_username = 
 db_password = 
 root = /
+routing = true

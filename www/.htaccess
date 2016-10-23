@@ -1,50 +1,11 @@
 #PHP_FLAG output_buffering on
 RewriteEngine On
+Options +FollowSymLinks
 
-RewriteCond %{HTTP_HOST} ^localhost/
-RewriteRule (.*) localhost/$1 [R=301,QSA,L]
+# prevents files starting with dot to be viewed by browser
+RewriteRule /\.|^\. - [F]
 
-# =============== FRONT-END ==================
-
-
-RewriteRule ^/*$ /index.php?c=Default&h=default [L,QSA]
-# RewriteRule ^/*admin/*$ /index.php?c=Admin&h=default&g=admin [L,QSA]
-RewriteRule ^/*admin/cviceni/*$ /index.php?c=AdminExercise&h=showAll&g=admin [L,QSA]
-RewriteRule ^/*admin/cviceni-nove-form/*$ /index.php?c=AdminExercise&h=addForm&g=admin [L,QSA]
-RewriteRule ^/*admin/cviceni-nove/*$ /index.php?c=AdminExercise&h=add&g=admin [L,QSA]
-
-RewriteRule ^/*admin/*$ /index.php?m=admin&c=Default&h=default [L,QSA]
-RewriteRule ^/*admin/uzivatele/*$ /index.php?m=admin&c=AdminUser&h=default [L,QSA]
-
-RewriteRule ^/*uzivatel/registrace/*$ /index.php?c=User&h=create [L,QSA]
-RewriteRule ^/*uzivatel/login/*$ /index.php?c=User&h=login [L,QSA]
-
-RewriteRule ^uvodni-stranka/*$ /index.php?p=home [R=301,L,QSA]
-RewriteRule ^kontakt/*$ /index.php?p=home&sp=kontakt [L,QSA]
-RewriteRule ^onas/*$ /index.php?p=article&a=onas [L,QSA]
-RewriteRule ^onas/opravneni/*$ /index.php?p=article&a=opravneni [L,QSA]
-RewriteRule ^nase-sluzby/*$ /index.php?p=article&a=nase-sluzby [L,QSA]
-RewriteRule ^nase-sluzby/prevoz-kolejnic/*$ /index.php?p=article&a=prevoz-kolejnic [L,QSA]
-RewriteRule ^nase-sluzby/svarovani-kolejnic/*$ /index.php?p=article&a=svarovani-kolejnic [L,QSA]
-RewriteRule ^nase-sluzby/regenerovani-kolejnic/*$ /index.php?p=article&a=regenerovani-kolejnic [L,QSA]
-RewriteRule ^nase-sluzby/vozovy-park/*$ /index.php?p=article&a=vozovy-park [L,QSA]
-RewriteRule ^nase-sluzby/vymena-kolejnic/*$ /index.php?p=article&a=vymena-kolejnic [L,QSA]
-RewriteRule ^reference/*(.*)$ /index.php?p=reference$1 [L,QSA]
-RewriteRule ^reference-([0-9]*)/*$ /index.php?p=reference&pf=$1 [L,QSA]
-
-
-# =============== ADMIN ==================
-
-RewriteRule ^admin/*$ /index.php?vg=admin&p=home [L,QSA]
-RewriteRule ^admin/stranky/*$ /index.php?vg=admin&p=articleEdit [L,QSA]
-RewriteRule ^admin/stranka-([0-9]*)/*$ /index.php?vg=admin&p=articleEdit&sp=show&id=$1 [L,QSA]
-RewriteRule ^admin/stranka-editace-([0-9]*)/*$ /index.php?vg=admin&p=articleEdit&sp=edit&id=$1 [L,QSA]
-
-RewriteRule ^admin/web-editace/*$ /index.php?vg=admin&p=websiteEdit [L,QSA]
-
-RewriteRule ^admin/reference/*$ /index.php?vg=admin&p=referenceEdit [L,QSA]
-RewriteRule ^admin/reference-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=show&id=$1 [L,QSA]
-RewriteRule ^admin/reference-editace-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=edit&id=$1 [L,QSA]
-RewriteRule ^admin/reference-smazat-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=delete&id=$1 [L,QSA]
-RewriteRule ^admin/reference-obnovit-([0-9]*)/*$ /index.php?vg=admin&p=referenceEdit&sp=undelete&id=$1 [L,QSA]
-RewriteRule ^admin/reference-pridani/*$ /index.php?vg=admin&p=referenceEdit&sp=add [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule !\.(pdf|js|ico|gif|jpg|png|css|rar|zip|tar\.gz)$ index.php?$1 [QSA,L]
+# RewriteRule ^(.*)$ /index.php?$1 [QSA,L]

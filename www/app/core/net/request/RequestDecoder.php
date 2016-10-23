@@ -25,7 +25,7 @@ class RequestDecoder
     private $request;
     
     
-    public function decodeRequest($data)
+    public function decodeRequest($data, $route = null)
     {
         $type = (isset($data[self::PARAM_TYPE])) ? $data[self::PARAM_TYPE] : self::TYPE_DEFAULT;
         
@@ -51,8 +51,7 @@ class RequestDecoder
             default:
                 
                 // POST or GET
-                
-                $this->decodeFromParams($data);
+                $this->decodeFromParams($data, $route);
                 
                 break;
         }
@@ -74,9 +73,34 @@ class RequestDecoder
         $this->requestAuth = $this->parseAuth($data);
     }
     
-    private function decodeFromParams($data)
+    /*private function decodeFromParams($data)
     {
         $this->request = $this->parseRequest($data);
+        $this->requestAuth = $this->parseAuth($data);
+    }*/
+    
+    private function decodeFromParams($data, $route)
+    {
+        if ($route != null)
+        {
+            $this->request = new Request();
+            $this->request->module = $route->module;
+            $this->request->controller = $route->controller;
+            $this->request->handler = $route->handler;
+            $this->request->gate = $route->gate;
+            $this->request->data = $route->params;
+        }
+        else
+        {
+            $this->request = $this->parseRequest($data);
+            
+            if ($this->request != null)
+            {
+                // TODO: Filter GET!
+                $this->request->data = $_GET;    
+            }
+        }
+        
         $this->requestAuth = $this->parseAuth($data);
     }
     
